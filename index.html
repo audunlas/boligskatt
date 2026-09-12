@@ -63,7 +63,9 @@ section.view.on{display:block}
 .plus b{color:var(--ink)}
 .cta{display:grid;gap:14px;grid-template-columns:1fr 1fr;margin:32px 0 0}
 .cta.en{grid-template-columns:1fr;margin:14px 0 0}
-.cta.forst{margin:36px 0 0}
+.cta.forst{margin:36px 0 40px}
+h3.avsnitt{font-size:20px;margin:0 0 18px}
+.plus{margin-top:16px}
 details.bakgrunn{margin-top:14px;border-radius:9px}
 details.bakgrunn summary{padding:20px 22px;font-size:inherit;color:var(--ink)}
 details.bakgrunn summary::before{content:none}
@@ -222,57 +224,63 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
     norsk politikk de siste årene. Diskusjonen har handlet om formuesskatt, utbytteskatt og
     exitskatt. Etter mitt syn har man imidlertid undervurdert bolig fullstendig, som er
     den klart største formuesposten i norske husholdninger.</p>
-    <p class="lead">Jeg har satt opp seks eksempler og en kalkulator som regner ut hva
-    reglene er verdt i kroner.</p>
+    <p class="lead">Boligbeskatningen er sterkt ulikhetsskapende, fordi den systematisk
+    subsidierer dem som har god råd og dyr bolig. Leietakere, som ofte har minst fra før,
+    får ingenting. Her er seks eksempler som regner ut hva det betyr i kroner.</p>
   </div>
 
   <div class="cta en forst">
     <button data-go="samm">
-      <span class="t">Se eksemplene</span>
-      <span class="d">Seks sammenligninger av mennesker med samme lønn og samme oppsparte
-      penger, der det eneste som skiller dem er boligen.</span>
+      <span class="t">Se de seks eksemplene</span>
+      <span class="d">Mennesker med samme lønn og samme oppsparte penger, der det eneste
+      som skiller dem er boligen.</span>
+    </button>
+  </div>
+
+  <h3 class="avsnitt">Tre effekter som virker samtidig</h3>
+
+  <div class="mech">
+    <div><div class="n">EFFEKT 1</div><h3>Rentene gir fradrag</h3>
+      <p>Renter trekkes fra alminnelig inntekt, som skattlegges flatt med 22 %. Betaler
+      du 200 000 kroner i renter, betaler du 44 000 kroner mindre i skatt — uansett hva
+      du tjener.</p></div>
+    <div><div class="n">EFFEKT 2</div><h3>Gevinsten er skattefri</h3>
+      <p>Verdistigning på egen bolig beskattes ikke. Ikke ved salg, ikke underveis, og
+      uansett hvor stor den blir.</p></div>
+    <div><div class="n">EFFEKT 3</div><h3>Lånet forstørrer gevinsten</h3>
+      <p>Verdistigningen regnes av hele boligen, men det er bare egenkapitalen du har
+      skutt inn selv. 20 % egenkapital og 5 % prisvekst gir 25 % avkastning. Regelverket
+      tillater ned til 10 % egenkapital.</p></div>
+  </div>
+
+  <div class="sum">Du får fradrag for å låne til den, du betaler ikke skatt på det den
+  stiger, og du kan låne 90 % av den.</div>
+
+  <div class="plus">
+    <p><b>Ingen av de tre har et tak.</b> Det er dette som gjør fordelen regressiv: den
+    vokser uten øvre grense med boligverdi og lånestørrelse. I tillegg verdsettes primærbolig
+    langt under markedsverdi i formuesskatten.</p>
+    <p>Legg merke til at boligeierne i eksemplene stort sett tjener mellom 650 000 og
+    900 000 i året og har rundt en million i egenkapital. Dette er ikke folk i økonomisk
+    knipe, og de fleste av eksemplene er beskjedne. Med dyrere boliger og større lån blir
+    utslagene langt mer ekstreme.</p>
+  </div>
+
+  <div class="cta en">
+    <button class="alt" data-go="kalk">
+      <span class="t">Regn på en enkelt bolig</span>
+      <span class="d">Lønn, egenkapital og boligpris inn — hva ett år med boligeie er verdt
+      i kroner.</span>
     </button>
   </div>
 
   <details class="bakgrunn">
     <summary>
-      <span class="t">Bakgrunn og forutsetninger</span>
-      <span class="d">De tre effektene som gjør bolig til noe annet enn all annen sparing,
-      hvem fordelen går til, og hva regnestykkene hviler på.</span>
+      <span class="t">Forutsetninger</span>
+      <span class="d">Hva regnestykkene hviler på, og hvilke valg som er gjort for
+      eksemplene. Kildene ligger nederst på hver side.</span>
     </summary>
     <div class="body">
-      <p class="lead">Denne filen regner på konkrete eksempler og viser hvorfor det er et
-      problem: boligbeskatningen er sterkt ulikhetsskapende, fordi den systematisk
-      subsidierer dem som har god råd og dyr bolig. Leietakere, som ofte har minst fra før,
-      får ingenting. Legg merke til at boligeierne i
-      eksemplene stort sett tjener mellom 650 000 og 900 000 i året og har rundt en million i
-      egenkapital. Dette er ikke folk i økonomisk knipe, og de fleste av eksemplene er beskjedne. Med
-      dyrere boliger og større lån blir utslagene langt mer ekstreme, og ingenting i
-      regelverket setter en øvre grense.</p>
-
-      <div class="mech">
-        <div><div class="n">EFFEKT 1</div><h3>Rentene gir fradrag</h3>
-          <p>Renter trekkes fra alminnelig inntekt, som skattlegges flatt med 22 %. Betaler
-          du 200 000 kroner i renter, betaler du 44 000 kroner mindre i skatt — uansett hva
-          du tjener.</p></div>
-        <div><div class="n">EFFEKT 2</div><h3>Gevinsten er skattefri</h3>
-          <p>Verdistigning på egen bolig beskattes ikke. Ikke ved salg, ikke underveis, og
-          uansett hvor stor den blir.</p></div>
-        <div><div class="n">EFFEKT 3</div><h3>Lånet forstørrer gevinsten</h3>
-          <p>Verdistigningen regnes av hele boligen, men det er bare egenkapitalen du har
-          skutt inn selv. 20 % egenkapital og 5 % prisvekst gir 25 % avkastning. Regelverket
-          tillater ned til 10 % egenkapital.</p></div>
-      </div>
-
-      <div class="sum">Du får fradrag for å låne til den, du betaler ikke skatt på det den
-      stiger, og du kan låne 90 % av den.</div>
-
-      <div class="plus">
-        <p><b>Ingen av de tre har et tak.</b> Det er dette som gjør fordelen regressiv: den
-        vokser uten øvre grense med boligverdi og lånestørrelse. I tillegg verdsettes primærbolig
-        langt under markedsverdi i formuesskatten.</p>
-      </div>
-
       <h3 style="margin:26px 0 12px">Forutsetninger</h3>
       <ul class="forut">
         <li><b>Skattesatsene er for inntektsåret 2026.</b> Beløp innenfor ett år vises som de
@@ -301,14 +309,6 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
       ligger nederst på hver side.</p>
     </div>
   </details>
-
-  <div class="cta en">
-    <button class="alt" data-go="kalk">
-      <span class="t">Regnestykke på en enkelt bolig</span>
-      <span class="d">Lønn, egenkapital og boligpris inn — hva ett år med boligeie er verdt
-      i kroner.</span>
-    </button>
-  </div>
 </div></section>
 
 <!-- ============ KALKULATOR ============ -->
