@@ -61,7 +61,11 @@ section.view.on{display:block}
 .plus p{margin:0 0 .8em;font-size:14.5px;color:var(--muted)}
 .plus p:last-child{margin:0}
 .plus b{color:var(--ink)}
-.cta{display:grid;gap:14px;grid-template-columns:1fr 1fr;margin:44px 0 0}
+.cta{display:grid;gap:14px;grid-template-columns:1fr 1fr;margin:32px 0 0}
+.cta.en{grid-template-columns:1fr;margin:34px 0 0}
+details.bakgrunn{margin-top:34px}
+details.bakgrunn summary{padding:17px 22px;font-size:14.5px}
+details.bakgrunn .body{padding:4px 22px 26px}
 .cta button{font:inherit;text-align:left;padding:20px 22px;border-radius:9px;cursor:pointer;
   border:1px solid var(--line);background:var(--card);color:var(--ink);display:block}
 .cta button:hover{border-color:var(--muted)}
@@ -208,76 +212,87 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
     norsk politikk de siste årene. Diskusjonen har handlet om formuesskatt, utbytteskatt og
     exitskatt. Etter mitt syn har man imidlertid undervurdert bolig fullstendig, som er
     den klart største formuesposten i norske husholdninger.</p>
-    <p class="lead">Denne filen regner på konkrete eksempler og viser hvorfor det er et
-    problem: boligbeskatningen er sterkt ulikhetsskapende, fordi den systematisk
-    subsidierer dem som har god råd og dyr bolig. Leietakere, som ofte har minst fra før,
-    får ingenting. Legg merke til at boligeierne i
-    eksemplene stort sett tjener mellom 650 000 og 900 000 i året og har rundt en million i
-    egenkapital. Dette er ikke folk i økonomisk knipe, og de fleste av eksemplene er beskjedne. Med
-    dyrere boliger og større lån blir utslagene langt mer ekstreme, og ingenting i
-    regelverket setter en øvre grense.</p>
+    <p class="lead">Jeg har satt opp seks eksempler og en kalkulator som regner ut hva
+    reglene er verdt i kroner.</p>
   </div>
 
-  <div class="mech">
-    <div><div class="n">EFFEKT 1</div><h3>Rentene gir fradrag</h3>
-      <p>Renter trekkes fra alminnelig inntekt, som skattlegges flatt med 22 %. Betaler
-      du 200 000 kroner i renter, betaler du 44 000 kroner mindre i skatt — uansett hva
-      du tjener.</p></div>
-    <div><div class="n">EFFEKT 2</div><h3>Gevinsten er skattefri</h3>
-      <p>Verdistigning på egen bolig beskattes ikke. Ikke ved salg, ikke underveis, og
-      uansett hvor stor den blir.</p></div>
-    <div><div class="n">EFFEKT 3</div><h3>Lånet forstørrer gevinsten</h3>
-      <p>Verdistigningen regnes av hele boligen, men det er bare egenkapitalen du har
-      skutt inn selv. 20 % egenkapital og 5 % prisvekst gir 25 % avkastning. Regelverket
-      tillater ned til 10 % egenkapital.</p></div>
-  </div>
-
-  <div class="sum">Du får fradrag for å låne til den, du betaler ikke skatt på det den
-  stiger, og du kan låne 90 % av den.</div>
-
-  <div class="plus">
-    <p><b>Ingen av de tre har et tak.</b> Det er dette som gjør fordelen regressiv: den
-    vokser uten øvre grense med boligverdi og lånestørrelse. I tillegg verdsettes primærbolig
-    langt under markedsverdi i formuesskatten.</p>
-  </div>
-
-  <h3 style="margin:42px 0 12px">Forutsetninger</h3>
-  <ul class="forut">
-    <li><b>Skattesatsene er for inntektsåret 2026.</b> Beløp innenfor ett år vises som de
-    er, siden det er dem skatten treffer. Utvikling over tid vises i dagens kroner, justert
-    for inflasjon, slik at beløp ti år fram i tid er til å kjenne igjen.</li>
-    <li><b>Formuesskatt er regnet med der den har betydning.</b> Primærbolig verdsettes til
-    25 % av markedsverdien, mens gjelden trekkes fra i sin helhet, så en belånt boligeier har
-    sjelden skattbar formue i det hele tatt. Hvert eksempel sier hva som gjelder der.</li>
-  </ul>
-
-  <h3 style="margin:34px 0 12px">Valg gjort for eksemplene</h3>
-  <ul class="forut">
-    <li><b>Rente, boligprisvekst og inflasjon er satt til det lengste snittet som finnes</b>,
-    hentet fra SSB og Norges Bank. Ikke dagens nivå, og ikke tall satt etter skjønn.
-    <i>(Justerbart.)</i></li>
-    <li><b>Der noen leier, betaler alle like mye for å bo.</b> Husleien settes lik
-    boligeierens renter og driftskostnader, så ingen bor billigere enn den andre, og for
-    alle er pengene brukt opp. Nivået treffer markedsleie godt, målt mot SSBs
-    leiemarkedsundersøkelse. Eier begge, sparer den som bor billigst differansen, så alle
-    legger igjen like mye. <i>(Justerbart.)</i></li>
-    <li><b>Boliglånet er avdragsfritt i alle eksemplene.</b> Avdrag er sparing, ikke en
-    boutgift — betaler du avdrag, flytter du penger fra lommeboka til egenkapitalen. Med
-    avdrag ville sammenligningen målt sparerate i stedet for skatteregler.</li>
-  </ul>
-  <p style="font-size:14px;color:var(--faint);margin-top:16px">Forutsetningene og kildene
-  ligger nederst på hver side.</p>
-
-  <div class="cta">
+  <div class="cta en">
     <button data-go="samm">
-      <span class="t">Sammenligning av ulike personer</span>
-      <span class="d">Fem eksempler på hva de samme reglene gir ulike mennesker — med samme
-      lønn, samme oppsparte penger og samme boutgift.</span>
+      <span class="t">Se eksemplene</span>
+      <span class="d">Seks sammenligninger av mennesker med samme lønn og samme oppsparte
+      penger, der det eneste som skiller dem er boligen.</span>
     </button>
+  </div>
+
+  <details class="bakgrunn">
+    <summary>Bakgrunn og forutsetninger</summary>
+    <div class="body">
+      <p class="lead">Denne filen regner på konkrete eksempler og viser hvorfor det er et
+      problem: boligbeskatningen er sterkt ulikhetsskapende, fordi den systematisk
+      subsidierer dem som har god råd og dyr bolig. Leietakere, som ofte har minst fra før,
+      får ingenting. Legg merke til at boligeierne i
+      eksemplene stort sett tjener mellom 650 000 og 900 000 i året og har rundt en million i
+      egenkapital. Dette er ikke folk i økonomisk knipe, og de fleste av eksemplene er beskjedne. Med
+      dyrere boliger og større lån blir utslagene langt mer ekstreme, og ingenting i
+      regelverket setter en øvre grense.</p>
+
+      <div class="mech">
+        <div><div class="n">EFFEKT 1</div><h3>Rentene gir fradrag</h3>
+          <p>Renter trekkes fra alminnelig inntekt, som skattlegges flatt med 22 %. Betaler
+          du 200 000 kroner i renter, betaler du 44 000 kroner mindre i skatt — uansett hva
+          du tjener.</p></div>
+        <div><div class="n">EFFEKT 2</div><h3>Gevinsten er skattefri</h3>
+          <p>Verdistigning på egen bolig beskattes ikke. Ikke ved salg, ikke underveis, og
+          uansett hvor stor den blir.</p></div>
+        <div><div class="n">EFFEKT 3</div><h3>Lånet forstørrer gevinsten</h3>
+          <p>Verdistigningen regnes av hele boligen, men det er bare egenkapitalen du har
+          skutt inn selv. 20 % egenkapital og 5 % prisvekst gir 25 % avkastning. Regelverket
+          tillater ned til 10 % egenkapital.</p></div>
+      </div>
+
+      <div class="sum">Du får fradrag for å låne til den, du betaler ikke skatt på det den
+      stiger, og du kan låne 90 % av den.</div>
+
+      <div class="plus">
+        <p><b>Ingen av de tre har et tak.</b> Det er dette som gjør fordelen regressiv: den
+        vokser uten øvre grense med boligverdi og lånestørrelse. I tillegg verdsettes primærbolig
+        langt under markedsverdi i formuesskatten.</p>
+      </div>
+
+      <h3 style="margin:26px 0 12px">Forutsetninger</h3>
+      <ul class="forut">
+        <li><b>Skattesatsene er for inntektsåret 2026.</b> Beløp innenfor ett år vises som de
+        er, siden det er dem skatten treffer. Utvikling over tid vises i dagens kroner, justert
+        for inflasjon, slik at beløp ti år fram i tid er til å kjenne igjen.</li>
+        <li><b>Formuesskatt er regnet med der den har betydning.</b> Primærbolig verdsettes til
+        25 % av markedsverdien, mens gjelden trekkes fra i sin helhet, så en belånt boligeier har
+        sjelden skattbar formue i det hele tatt. Hvert eksempel sier hva som gjelder der.</li>
+      </ul>
+
+      <h3 style="margin:30px 0 12px">Valg gjort for eksemplene</h3>
+      <ul class="forut">
+        <li><b>Rente, boligprisvekst og inflasjon er satt til det lengste snittet som finnes</b>,
+        hentet fra SSB og Norges Bank. Ikke dagens nivå, og ikke tall satt etter skjønn.
+        <i>(Justerbart.)</i></li>
+        <li><b>Der noen leier, betaler alle like mye for å bo.</b> Husleien settes lik
+        boligeierens renter og driftskostnader, så ingen bor billigere enn den andre, og for
+        alle er pengene brukt opp. Nivået treffer markedsleie godt, målt mot SSBs
+        leiemarkedsundersøkelse. Eier begge, sparer den som bor billigst differansen, så alle
+        legger igjen like mye. <i>(Justerbart.)</i></li>
+        <li><b>Boliglånet er avdragsfritt i alle eksemplene.</b> Avdrag er sparing, ikke en
+        boutgift — betaler du avdrag, flytter du penger fra lommeboka til egenkapitalen. Med
+        avdrag ville sammenligningen målt sparerate i stedet for skatteregler.</li>
+      </ul>
+      <p style="font-size:14px;color:var(--faint);margin-top:16px">Forutsetningene og kildene
+      ligger nederst på hver side.</p>
+    </div>
+  </details>
+
+  <div class="cta en">
     <button class="alt" data-go="kalk">
       <span class="t">Regnestykke på en enkelt bolig</span>
-      <span class="d">Lønn, egenkapital og boligpris inn — hva ett år med boligeie er
-      verdt i kroner.</span>
+      <span class="d">Lønn, egenkapital og boligpris inn — hva ett år med boligeie er verdt
+      i kroner.</span>
     </button>
   </div>
 </div></section>
@@ -954,7 +969,7 @@ const SCEN = [
     "<p>Ingenting her er et smutthull eller en tilpasning. Det er de samme tre reglene som "+
     "gjelder for boligen til 4,3 millioner i eksempel 1 — men siden verken fradraget eller "+
     "skattefritaket har et tak, vokser begge i takt med prisen på boligen.</p>"+
-    formuesskattNote(r,lesFolk());
+    formuesskattNote(r,lesFolk(),true);
   }
 },
 {
@@ -972,24 +987,22 @@ const SCEN = [
     "Oslo til "+krM(r[0].p[0].verdi)+", den andre på et mindre sted til "+krM(r[0].p[1].verdi)+
     " Mange kjøper bolig sammen med en partner og trenger da lån for bare halve prisen, altså "+
     "er dette en realistisk pris mange steder i distriktene. Den "+
-    "som bor billigst, sparer differansen i boutgift i banken, så begge legger igjen like "+
-    "mye hvert år. Boligprisveksten er satt lik for begge; i praksis har Oslo vokst raskere "+
+    "som bor billigst, sparer differansen i boutgift i banken. Boligprisveksten er satt lik for begge; i praksis har Oslo vokst raskere "+
     "enn landet for øvrig, så forskjellen er om noe underdrevet.",
   tekst(r){
     const n=r.length-1, d=deflater(n), a=r[n].p[0].formue/d, b=r[n].p[1].formue/d;
     const fa=sumFradrag(r,0), fb=sumFradrag(r,1);
     const sa=skattTilOgMed(r,0,n), sb=skattTilOgMed(r,1,n);
-    const gang = fb>0 ? Math.round(fa/fb) : 0;
     return "<h3>Den som betaler mest for å bo, får mest fra staten</h3>"+
-    "<p>Begge startet med "+kr(+$("a_ek").value)+", tjener "+kr(r[0].p[0].lonn)+" og legger "+
-    "igjen like mye hvert år. Over "+n+" år har Oslo-kjøperen fått <b>"+krM(fa)+
-    "</b> i rentefradrag, den andre <b>"+krM(fb)+"</b>"+(gang>1 ? " — "+gang+" ganger så mye" : "")+
-    ". Oslo-kjøperen har samtidig betalt <b>"+krM(sb-sa)+" mindre i skatt</b> i alt, og sitter "+
-    "igjen med "+krM(a)+" mot "+krM(b)+"</p>"+
-    "<p>Skjevheten er systematisk. Den som vil bo der jobbene er, må betale mer for en "+
-    "tilsvarende bolig — og skattesystemet belønner nettopp det, fordi både rentefradraget "+
-    "og det skattefrie gevinstfritaket vokser med prisen. Det eneste som skiller disse to er "+
-    "hvor de bor.</p>"+
+    "<p>Begge startet med "+kr(+$("a_ek").value)+" og tjener "+kr(r[0].p[0].lonn)+". Over "+n+
+    " år har Oslo-kjøperen fått <b>"+krM(fa)+"</b> i rentefradrag, den på landet tilnærmet "+
+    "ingenting. Oslo-kjøperen har samtidig betalt <b>"+krM(sb-sa)+" mindre i skatt</b> i alt, "+
+    "og sitter igjen med "+krM(a)+" mot "+krM(b)+"</p>"+
+    "<p><b>Skattesystemet belønner systematisk dem som bor i storbyene.</b> Der prisene er "+
+    "høyest, er også fradraget og den skattefrie gevinsten størst, fordi begge følger prisen "+
+    "og ikke behovet. Den som må ut med fem millioner for å bo i Oslo, får staten til å dekke "+
+    "en langt større del av regningen enn den som betaler én million for en tilsvarende bolig "+
+    "et annet sted. Det eneste som skiller disse to er hvor de bor.</p>"+
     formuesskattNote(r,lesFolk());
   }
 },
@@ -1072,7 +1085,7 @@ function fskattAar(r,k,t,folk){
   const andel = folk[k].spar==="fond" ? 0.80 : 1.00;
   return formuesskatt(lignetBolig(p.verdi) - p.gjeld + brutto*andel);
 }
-function formuesskattNote(r, folk){
+function formuesskattNote(r, folk, slutning){
   const n=r.length-1;
   let sum=0, forste=null;
   for(let t=0;t<n;t++) for(let k=0;k<folk.length;k++){
@@ -1086,9 +1099,9 @@ function formuesskattNote(r, folk){
   return "<p><b>Formuesskatten er nesten fraværende.</b> Den utløses først fra år "+forste+
     ", når boligen har steget nok til at ligningsverdien passerer gjelden og bunnfradraget, "+
     "og utgjør <b>"+krM(sum)+"</b> til sammen over "+n+" år. Beløpet er ikke regnet med her, "+
-    "og kunne dessuten vært fjernet ved å låne opp litt mer på boligen. At en bolig til "+
-    krM(eierVerdi)+" praktisk talt ikke utløser formuesskatt, viser at skatten ikke virker "+
-    "som en generell skatt på boligformue.</p>";
+    "og kunne dessuten vært fjernet ved å låne opp litt mer på boligen."+(slutning
+      ? " At en bolig til "+krM(eierVerdi)+" praktisk talt ikke utløser formuesskatt, viser "+
+        "at skatten ikke virker som en generell skatt på boligformue." : "")+"</p>";
 }
 
 /* Hvilken årlig avkastning måtte fondspareren hatt for å ende likt med boligeieren? */
