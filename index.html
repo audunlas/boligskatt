@@ -962,29 +962,33 @@ const SCEN = [
   navn:["Kjøper i Oslo","Kjøper på landet"],
   graf:"linje", graf2:"skattlinje", stats:"tabell",
   kolonner:["formue","skatt","gevinst","fradrag"],
-  folk:[{lonn:850000, ek:1000000, mode:"eier", bolig:5000000, spar:"fond"},
-        {lonn:850000, ek:1000000, mode:"eier", bolig:1000000, spar:"fond"}],
+  folk:[{lonn:850000, ek:1000000, mode:"eier", bolig:5000000, spar:"bank"},
+        {lonn:850000, ek:1000000, mode:"eier", bolig:1000000, spar:"bank"}],
   tittel:"Formue over tid", under:"Boligverdi minus gjeld, i dagens kroner.",
   tittel2:"Samlet skatt over tid", under2:"Skatt på lønn. Den ene betaler mindre, fordi rentefradraget er større.",
-  intro:r=>"To personer med nøyaktig samme lønn og samme egenkapital. Den ene kjøper i Oslo "+
-    "til "+krM(r[0].p[0].verdi)+", den andre på et mindre sted til "+krM(r[0].p[1].verdi)+
-    " Mange kjøper bolig sammen med en partner og trenger da lån for bare halve prisen. "+
-    "Den som bor billigst, sparer differansen i boutgift i aksjefond, så begge legger igjen "+
-    "like mye hvert år. Boligprisveksten er satt lik for begge her; i praksis har Oslo vokst raskere enn landet "+
-    "for øvrig, så forskjellen er om noe underdrevet.",
+  intro:r=>"Man tenker lett at boligmarkedet favoriserer dem som bor utenfor de store "+
+    "byene: billigere bolig, mindre gjeld, ingen formuesskatt. Skattereglene virker motsatt "+
+    "vei. Her har to personer nøyaktig samme lønn og samme egenkapital. Den ene kjøper i "+
+    "Oslo til "+krM(r[0].p[0].verdi)+", den andre på et mindre sted til "+krM(r[0].p[1].verdi)+
+    " Mange kjøper bolig sammen med en partner og trenger da lån for bare halve prisen. Den "+
+    "som bor billigst, sparer differansen i boutgift i banken, så begge legger igjen like "+
+    "mye hvert år. Boligprisveksten er satt lik for begge; i praksis har Oslo vokst raskere "+
+    "enn landet for øvrig, så forskjellen er om noe underdrevet.",
   tekst(r){
     const n=r.length-1, d=deflater(n), a=r[n].p[0].formue/d, b=r[n].p[1].formue/d;
     const fa=sumFradrag(r,0), fb=sumFradrag(r,1);
     const sa=skattTilOgMed(r,0,n), sb=skattTilOgMed(r,1,n);
-    return "<h3>Samme lønn, samme egenkapital — og "+krM(fa-fb)+" mer fra staten</h3>"+
+    const gang = fb>0 ? Math.round(fa/fb) : 0;
+    return "<h3>Den som betaler mest for å bo, får mest fra staten</h3>"+
     "<p>Begge startet med "+kr(+$("a_ek").value)+", tjener "+kr(r[0].p[0].lonn)+" og legger "+
     "igjen like mye hvert år. Over "+n+" år har Oslo-kjøperen fått <b>"+krM(fa)+
-    "</b> i rentefradrag, den andre <b>"+krM(fb)+"</b>. Oslo-kjøperen har samtidig betalt <b>"+
-    krM(sb-sa)+" mindre i skatt</b> i alt, og sitter igjen med "+krM(a)+" mot "+krM(b)+"</p>"+
-    "<p>Det er verdt å merke seg hva som <i>ikke</i> skiller dem: ikke inntekt, ikke oppsparte "+
-    "penger, ikke sparevilje. Bare hvor dyr bolig de kjøpte. Fordi subsidien følger "+
-    "boligverdien og lånets størrelse, og ikke behovet, går nesten alt av den til den som "+
-    "kjøper dyrest.</p>"+
+    "</b> i rentefradrag, den andre <b>"+krM(fb)+"</b>"+(gang>1 ? " — "+gang+" ganger så mye" : "")+
+    ". Oslo-kjøperen har samtidig betalt <b>"+krM(sb-sa)+" mindre i skatt</b> i alt, og sitter "+
+    "igjen med "+krM(a)+" mot "+krM(b)+"</p>"+
+    "<p>Skjevheten er systematisk. Den som vil bo der jobbene er, må betale mer for en "+
+    "tilsvarende bolig — og skattesystemet belønner nettopp det, fordi både rentefradraget "+
+    "og det skattefrie gevinstfritaket vokser med prisen. Det eneste som skiller disse to er "+
+    "hvor de bor.</p>"+
     formuesskattNote(r,lesFolk());
   }
 },
