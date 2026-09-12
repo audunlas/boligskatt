@@ -529,7 +529,7 @@ function formuesskatt(nettoLignet){
        : (F.grense-F.bunn)*F.sats + (nettoLignet-F.grense)*F.satsHoy;
 }
 /* ===== FORUTSETNINGER. Empiriske 20-årstall, se kildetabellen ===== */
-const STD = {g:6.5, rl:3.8, rbank:2.0, rfond:7.9, kpi:2.6, aar:10,
+const STD = {g:6.5, rl:3.8, rbank:2.8, rfond:7.9, kpi:2.6, aar:10,
              eierkost:1.0, leiepct:3.8, dok:2.5, skjerm:3.6};
 let A = Object.assign({},STD);
 
@@ -1346,7 +1346,7 @@ const AVANSERT=[["eierkost","Eierkostnader","% av verdi",0.1],["leiepct","Marked
 const KILDER=[
   ["Boligprisvekst","6,5 %","SSB, prisindeks for brukte boliger, hele landet. Hele serien, 1992K2–2026K2"],
   ["Boliglånsrente","3,8 %","Gjennomsnittlig flytende boliglånsrente, årssnitt 2006–2025"],
-  ["Bankrente","2,0 %","Høyrentekonto. Slike kontoer følger styringsrenten, som har hatt et årsgjennomsnitt på 2,04 % i 2006–2025 (Norges Bank). SSBs innskuddsrente for samme periode er 2,01 % (tabell 08175). At de beste kontoene betaler nær 5 % i dag skyldes at renten er høy nå — i tolv av de tjue årene lå styringsrenten under 1,6 %"],
+  ["Bankrente","2,8 %","Høyrentekonto, anslått. De beste kontoene ligger i dag om lag 0,7 prosentpoeng under boliglånsrenten, og det er lagt til grunn her, altså om lag ett prosentpoeng under boliglånssnittet på 3,8 %. Til sammenligning er SSBs snitt for alle bankinnskudd 2,01 % (tabell 08175) og styringsrenten 2,04 % (Norges Bank) i samme periode — men de tallene inkluderer brukskontoer uten rente, og undervurderer det en aktiv sparer kan få. Det finnes ingen egen 20-årsserie for høyrentekontoer"],
   ["Avkastning aksjefond","7,9 %","Verdensindeksen har gitt 5,2 % realt over 125 år (UBS Global Investment Returns Yearbook 2025, 1900–2024; Dimson, Marsh og Staunton). Med inflasjonen over blir det 7,9 % nominelt. Siste tjue år har vært klart høyere, dels på grunn av en engangs kronesvekkelse, og er ikke en forventning framover"],
   ["Inflasjon","2,6 %","SSB, konsumprisindeksen, årssnitt 2006–2025"],
   ["Eierkostnader","1,0 %","Vedlikehold, forsikring, kommunale avgifter og felleskostnader. Anslag"],
