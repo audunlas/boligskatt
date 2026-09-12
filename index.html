@@ -63,8 +63,12 @@ section.view.on{display:block}
 .plus b{color:var(--ink)}
 .cta{display:grid;gap:14px;grid-template-columns:1fr 1fr;margin:32px 0 0}
 .cta.en{grid-template-columns:1fr;margin:14px 0 0}
-.cta.forst{margin:36px 0 40px}
-h3.avsnitt{font-size:20px;margin:0 0 18px}
+.cta.forst{margin:36px 0 0}
+.videre{font-size:14.5px;color:var(--muted);margin:16px 0 0}
+button.lenke{font:inherit;background:none;border:0;color:var(--bolig);cursor:pointer;
+  padding:0;text-decoration:underline;text-underline-offset:3px}
+button.lenke:hover{color:var(--ink)}
+h3.avsnitt{font-size:20px;margin:48px 0 18px}
 .plus{margin-top:16px}
 details.bakgrunn{margin-top:14px;border-radius:9px}
 details.bakgrunn summary{padding:20px 22px;font-size:inherit;color:var(--ink)}
@@ -226,11 +230,11 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
     den klart største formuesposten i norske husholdninger.</p>
     <p class="lead">Boligbeskatningen er sterkt ulikhetsskapende, fordi den systematisk
     subsidierer dem som har god råd og dyr bolig. Leietakere, som ofte har minst fra før,
-    får ingenting. Legg merke til at boligeierne i eksemplene stort sett tjener mellom
-    650 000 og 900 000 i året og har rundt en million i egenkapital. Dette er ikke folk i
-    økonomisk knipe, og de fleste av eksemplene er beskjedne — med dyrere boliger og større
-    lån blir utslagene langt mer ekstreme. Her er seks eksempler som regner ut hva det betyr
-    i kroner.</p>
+    får ingenting.</p>
+    <p class="lead">I eksemplene under tjener boligeierne stort sett mellom 650 000 og
+    900 000 i året og har rundt en million i egenkapital. Dette er ikke folk i økonomisk
+    knipe, og de fleste av eksemplene er beskjedne — med dyrere boliger og større lån blir
+    utslagene langt mer ekstreme.</p>
   </div>
 
   <div class="cta en forst">
@@ -240,6 +244,9 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
       som skiller dem er boligen.</span>
     </button>
   </div>
+
+  <p class="videre">Vil du heller regne på en enkelt bolig?
+  <button class="lenke" data-go="kalk">Åpne kalkulatoren →</button></p>
 
   <h3 class="avsnitt">Tre effekter som virker samtidig</h3>
 
@@ -264,14 +271,6 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
     <p><b>Ingen av de tre har et tak.</b> Det er dette som gjør fordelen regressiv: den
     vokser uten øvre grense med boligverdi og lånestørrelse. I tillegg verdsettes primærbolig
     langt under markedsverdi i formuesskatten.</p>
-  </div>
-
-  <div class="cta en">
-    <button class="alt" data-go="kalk">
-      <span class="t">Regn på en enkelt bolig</span>
-      <span class="d">Lønn, egenkapital og boligpris inn — hva ett år med boligeie er verdt
-      i kroner.</span>
-    </button>
   </div>
 
   <details class="bakgrunn">
