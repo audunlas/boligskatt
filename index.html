@@ -894,33 +894,6 @@ const SCEN = [
   }
 },
 {
-  knapp:"Lik skatt", h2:"Ulik inntekt, samme skatteregning",
-  navn:["Eier, tjener mest","Leier, tjener minst"],
-  graf:"skatt", stats:"bokser",
-  folk:[{lonn:728700, ek:1200000, mode:"eier",  bolig:4300000, spar:"bank"},
-        {lonn:650000, ek:1200000, mode:"leier", bolig:4300000, spar:"bank"}],
-  tittel:"Lønn og skatt det første året",
-  under:"Søylene er lønn. Den grå enden er skatten — like lang for begge, selv om lønningene ikke er det. Boligens verdistigning er ikke med.",
-  intro:r=>"Her er lønningene satt opp med vilje slik at de to ender med nøyaktig samme "+
-    "skatteregning. Boligeieren tjener "+kr(r[0].p[0].lonn-r[0].p[1].lonn)+" mer i året enn "+
-    "leietakeren, men fordi renter på boliglån trekkes fra i alminnelig inntekt, spises hele "+
-    "forskjellen opp før skatten regnes ut.",
-  tekst(r){
-    const a=r[0].p[0], b=r[0].p[1], diff=b.skatt-a.skatt, vst=a.verdi*A.g/100;
-    const lik=Math.abs(diff)<0.02*b.skatt;
-    return "<h3>"+kr(a.lonn-b.lonn)+" mer i lønn, "+(lik?"samme skatteregning":
-      kr(Math.abs(diff))+(diff>0?" mindre":" mer")+" i skatt")+"</h3>"+
-    "<p>Boligeieren tjener <b>"+kr(a.lonn)+"</b> og leietakeren <b>"+kr(b.lonn)+"</b>. "+
-    (lik ? "Begge betaler omtrent <b>"+kr(b.skatt)+"</b> i skatt — rentefradraget spiser opp "+
-      "hele inntektsforskjellen." : "Boligeieren betaler <b>"+kr(a.skatt)+"</b>, leietakeren <b>"+
-      kr(b.skatt)+"</b>.")+"</p>"+
-    "<p><b>Verdistigningen kommer i tillegg.</b> Samme år steg boligen med <b>"+kr(vst)+
-    "</b>, og heller ikke det beskattes. Skattesystemet behandler altså de to likt på "+
-    "inntekten, samtidig som det lar den ene bygge formue skattefritt. I eksempel 1 står "+
-    "formuesutviklingen og skatteregningene side om side.</p>"+formuesskattNote(r,lesFolk());
-  }
-},
-{
   knapp:"Arbeid eller eierskap", h2:"Ett år med arbeid, ett år med eierskap",
   navn:["Eier med typisk lån","Leietaker"],
   graf:"arbeid", stats:"bokser",
@@ -982,33 +955,30 @@ const SCEN = [
   }
 },
 {
-  knapp:"By og distrikt", h2:"Samme lønn, samme egenkapital, ulikt sted",
-  navn:["Kjøper i Oslo","Kjøper i distriktet"],
-  graf:"linje", graf2:"skattlinje", stats:"tabell",
-  kolonner:["formue","skatt","gevinst","fradrag"],
-  folk:[{lonn:850000, ek:1000000, mode:"eier", bolig:5000000, spar:"bank"},
-        {lonn:850000, ek:1000000, mode:"eier", bolig:1000000, spar:"bank"}],
-  tittel:"Formue over tid", under:"Boligverdi minus gjeld, i dagens kroner.",
-  tittel2:"Samlet skatt over tid", under2:"Skatt på lønn. Den ene betaler mindre, fordi rentefradraget er større.",
-  intro:r=>"Man tenker lett at boligmarkedet favoriserer dem som bor utenfor de store "+
-    "byene: billigere bolig, mindre gjeld, ingen formuesskatt. Skattereglene virker motsatt "+
-    "vei. Her har to personer nøyaktig samme lønn og samme egenkapital. Den ene kjøper i "+
-    "Oslo til "+krM(r[0].p[0].verdi)+", den andre i distriktet til "+krM(r[0].p[1].verdi)+
-    " Mange kjøper bolig sammen med en partner og trenger da lån for bare halve prisen, altså "+
-    "er dette en realistisk pris mange steder i distriktene. Den "+
-    "som bor billigst, sparer differansen i boutgift i banken. Boligprisveksten er satt lik for begge; i praksis har Oslo vokst raskere "+
-    "enn distriktene, så forskjellen er om noe underdrevet.",
+  knapp:"Lik skatt", h2:"Ulik inntekt, samme skatteregning",
+  navn:["Eier, tjener mest","Leier, tjener minst"],
+  graf:"skatt", stats:"bokser",
+  folk:[{lonn:728700, ek:1200000, mode:"eier",  bolig:4300000, spar:"bank"},
+        {lonn:650000, ek:1200000, mode:"leier", bolig:4300000, spar:"bank"}],
+  tittel:"Lønn og skatt det første året",
+  under:"Søylene er lønn. Den grå enden er skatten — like lang for begge, selv om lønningene ikke er det. Boligens verdistigning er ikke med.",
+  intro:r=>"Her er lønningene satt opp med vilje slik at de to ender med nøyaktig samme "+
+    "skatteregning. Boligeieren tjener "+kr(r[0].p[0].lonn-r[0].p[1].lonn)+" mer i året enn "+
+    "leietakeren, men fordi renter på boliglån trekkes fra i alminnelig inntekt, spises hele "+
+    "forskjellen opp før skatten regnes ut.",
   tekst(r){
-    const n=r.length-1, d=deflater(n), a=r[n].p[0].formue/d, b=r[n].p[1].formue/d;
-    const fa=sumFradrag(r,0), fb=sumFradrag(r,1);
-    return "<h3>Den som betaler mest for å bo, får mest fra staten</h3>"+
-    "<p>Begge startet med "+kr(+$("a_ek").value)+" og tjener "+kr(r[0].p[0].lonn)+". Likevel "+
-    "har Oslo-kjøperen over "+n+" år fått <b>"+krM(fa)+"</b> i rentefradrag og en betydelig "+
-    "større skattefri avkastning på boligen. Etter "+n+" år sitter Oslo-kjøperen igjen med "+
-    krM(a)+" mot "+krM(b)+"</p>"+
-    "<p><b>Skattesystemet belønner systematisk dem som bor i storbyene.</b> Der prisene er "+
-    "høyest, er også fradraget og den skattefrie gevinsten størst.</p>"+
-    formuesskattNote(r,lesFolk());
+    const a=r[0].p[0], b=r[0].p[1], diff=b.skatt-a.skatt, vst=a.verdi*A.g/100;
+    const lik=Math.abs(diff)<0.02*b.skatt;
+    return "<h3>"+kr(a.lonn-b.lonn)+" mer i lønn, "+(lik?"samme skatteregning":
+      kr(Math.abs(diff))+(diff>0?" mindre":" mer")+" i skatt")+"</h3>"+
+    "<p>Boligeieren tjener <b>"+kr(a.lonn)+"</b> og leietakeren <b>"+kr(b.lonn)+"</b>. "+
+    (lik ? "Begge betaler omtrent <b>"+kr(b.skatt)+"</b> i skatt — rentefradraget spiser opp "+
+      "hele inntektsforskjellen." : "Boligeieren betaler <b>"+kr(a.skatt)+"</b>, leietakeren <b>"+
+      kr(b.skatt)+"</b>.")+"</p>"+
+    "<p><b>Verdistigningen kommer i tillegg.</b> Samme år steg boligen med <b>"+kr(vst)+
+    "</b>, og heller ikke det beskattes. Skattesystemet behandler altså de to likt på "+
+    "inntekten, samtidig som det lar den ene bygge formue skattefritt. I eksempel 1 står "+
+    "formuesutviklingen og skatteregningene side om side.</p>"+formuesskattNote(r,lesFolk());
   }
 },
 {
@@ -1058,6 +1028,36 @@ const SCEN = [
     krM(ar[n].bKum)+"</b> Formuesskatten på boligen mer enn dobler seg underveis, fra "+
     kr(ar[0].aFormuesskatt)+" til "+kr(ar[n-1].aFormuesskatt)+" i året, og endrer likevel "+
     "ikke bildet.</p>";
+  }
+},
+{
+  knapp:"By og distrikt", h2:"Samme lønn, samme egenkapital, ulikt sted",
+  navn:["Kjøper i Oslo","Kjøper i distriktet"],
+  graf:"linje", graf2:"skattlinje", stats:"tabell",
+  kolonner:["formue","skatt","gevinst","fradrag"],
+  folk:[{lonn:850000, ek:1000000, mode:"eier", bolig:5000000, spar:"bank"},
+        {lonn:850000, ek:1000000, mode:"eier", bolig:1000000, spar:"bank"}],
+  tittel:"Formue over tid", under:"Boligverdi minus gjeld, i dagens kroner.",
+  tittel2:"Samlet skatt over tid", under2:"Skatt på lønn. Den ene betaler mindre, fordi rentefradraget er større.",
+  intro:r=>"Man tenker lett at boligmarkedet favoriserer dem som bor utenfor de store "+
+    "byene: billigere bolig, mindre gjeld, ingen formuesskatt. Skattereglene virker motsatt "+
+    "vei. Her har to personer nøyaktig samme lønn og samme egenkapital. Den ene kjøper i "+
+    "Oslo til "+krM(r[0].p[0].verdi)+", den andre i distriktet til "+krM(r[0].p[1].verdi)+
+    " Mange kjøper bolig sammen med en partner og trenger da lån for bare halve prisen, altså "+
+    "er dette en realistisk pris mange steder i distriktene. Den "+
+    "som bor billigst, sparer differansen i boutgift i banken. Boligprisveksten er satt lik for begge; i praksis har Oslo vokst raskere "+
+    "enn distriktene, så forskjellen er om noe underdrevet.",
+  tekst(r){
+    const n=r.length-1, d=deflater(n), a=r[n].p[0].formue/d, b=r[n].p[1].formue/d;
+    const fa=sumFradrag(r,0), fb=sumFradrag(r,1);
+    return "<h3>Den som betaler mest for å bo, får mest fra staten</h3>"+
+    "<p>Begge startet med "+kr(+$("a_ek").value)+" og tjener "+kr(r[0].p[0].lonn)+". Likevel "+
+    "har Oslo-kjøperen over "+n+" år fått <b>"+krM(fa)+"</b> i rentefradrag og en betydelig "+
+    "større skattefri avkastning på boligen. Etter "+n+" år sitter Oslo-kjøperen igjen med "+
+    krM(a)+" mot "+krM(b)+"</p>"+
+    "<p><b>Skattesystemet belønner systematisk dem som bor i storbyene.</b> Der prisene er "+
+    "høyest, er også fradraget og den skattefrie gevinsten størst.</p>"+
+    formuesskattNote(r,lesFolk());
   }
 }];
 let aktiv=0, antall=3;
@@ -1429,7 +1429,7 @@ function byggForutsetninger(vert){
       '<li><b>Eiendomsskatt er ikke med.</b> Der den finnes trekker den i boligeierens '+
       'disfavør, og det er den eneste utelatelsen som går i eierens favør.</li>'+
       '<li><b>Forenklingene trekker samme vei:</b> avdragsfritt lån, spart skatt som '+
-      'ikke legges til formuen, og lønnsforskjellen i eksempel 2 som ingen sparer. Alle gjør '+
+      'ikke legges til formuen, og lønnsforskjellen i eksempel 4 som ingen sparer. Alle gjør '+
       'forskjellen mindre enn den ville vært.</li>'+
       '</ul>'+
     '</div></details>';
