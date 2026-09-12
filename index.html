@@ -1006,12 +1006,12 @@ const SCEN = [
   tekst(r){
     const n=r.length-1, d=deflater(n), a=r[n].p[0].formue/d, b=r[n].p[1].formue/d;
     const fa=sumFradrag(r,0), fb=sumFradrag(r,1);
-    const sa=skattTilOgMed(r,0,n), sb=skattTilOgMed(r,1,n);
+    const ga=realGevinst(r,0,n), gb=realGevinst(r,1,n);
     return "<h3>Den som betaler mest for å bo, får mest fra staten</h3>"+
     "<p>Begge startet med "+kr(+$("a_ek").value)+" og tjener "+kr(r[0].p[0].lonn)+". Likevel "+
     "har Oslo-kjøperen over "+n+" år fått <b>"+krM(fa)+"</b> i rentefradrag, mens kjøperen i "+
-    "distriktet knapt har fått noe. Oslo-kjøperen har også betalt <b>"+krM(sb-sa)+
-    " mindre i skatt</b>, og sitter igjen med "+krM(a)+" mot "+krM(b)+"</p>"+
+    "distriktet knapt har fått noe. Og boligen har steget <b>"+krM(ga)+"</b> skattefritt, mot "+
+    krM(gb)+" Etter "+n+" år sitter Oslo-kjøperen igjen med "+krM(a)+" mot "+krM(b)+"</p>"+
     "<p><b>Skattesystemet belønner systematisk dem som bor i storbyene.</b> Der prisene er "+
     "høyest, er også fradraget og den skattefrie gevinsten størst, fordi begge følger prisen "+
     "og ikke behovet. Den som må ut med fem millioner for å bo i Oslo, får staten til å dekke "+
