@@ -237,7 +237,7 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
   <details class="bakgrunn">
     <summary>
       <span class="t">Bakgrunn og forutsetninger</span>
-      <span class="d">De tre reglene som gjør bolig til noe annet enn all annen sparing,
+      <span class="d">De tre effektene som gjør bolig til noe annet enn all annen sparing,
       hvem fordelen går til, og hva regnestykkene hviler på.</span>
     </summary>
     <div class="body">
@@ -980,7 +980,7 @@ const SCEN = [
     "ellers ville blitt betalt. Vi snakker altså om en person som har tjent <b>"+krM(vekst)+
     " helt skattefritt</b> på ti år, og i tillegg fått <b>"+krM(frd)+" i subsidiert skattekutt</b>."+
     "</p>"+
-    "<p>Ingenting her er et smutthull eller en tilpasning. Det er de samme tre reglene som "+
+    "<p>Ingenting her er et smutthull eller en tilpasning. Det er de samme tre effektene som "+
     "gjelder for boligen til 4,3 millioner i eksempel 1 — men siden verken fradraget eller "+
     "skattefritaket har et tak, vokser begge i takt med prisen på boligen.</p>"+
     formuesskattNote(r,lesFolk(),true);
@@ -1006,12 +1006,11 @@ const SCEN = [
   tekst(r){
     const n=r.length-1, d=deflater(n), a=r[n].p[0].formue/d, b=r[n].p[1].formue/d;
     const fa=sumFradrag(r,0), fb=sumFradrag(r,1);
-    const ga=realGevinst(r,0,n), gb=realGevinst(r,1,n);
     return "<h3>Den som betaler mest for å bo, får mest fra staten</h3>"+
     "<p>Begge startet med "+kr(+$("a_ek").value)+" og tjener "+kr(r[0].p[0].lonn)+". Likevel "+
-    "har Oslo-kjøperen over "+n+" år fått <b>"+krM(fa)+"</b> i rentefradrag, mens kjøperen i "+
-    "distriktet knapt har fått noe. Og boligen har steget <b>"+krM(ga)+"</b> skattefritt, mot "+
-    krM(gb)+" Etter "+n+" år sitter Oslo-kjøperen igjen med "+krM(a)+" mot "+krM(b)+"</p>"+
+    "har Oslo-kjøperen over "+n+" år fått <b>"+krM(fa)+"</b> i rentefradrag og en betydelig "+
+    "større skattefri avkastning på boligen. Etter "+n+" år sitter Oslo-kjøperen igjen med "+
+    krM(a)+" mot "+krM(b)+"</p>"+
     "<p><b>Skattesystemet belønner systematisk dem som bor i storbyene.</b> Der prisene er "+
     "høyest, er også fradraget og den skattefrie gevinsten størst, fordi begge følger prisen "+
     "og ikke behovet. Den som må ut med fem millioner for å bo i Oslo, får staten til å dekke "+
