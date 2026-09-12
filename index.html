@@ -62,14 +62,24 @@ section.view.on{display:block}
 .plus p:last-child{margin:0}
 .plus b{color:var(--ink)}
 .cta{display:grid;gap:14px;grid-template-columns:1fr 1fr;margin:32px 0 0}
-.cta.en{grid-template-columns:1fr;margin:34px 0 0}
-details.bakgrunn{margin-top:34px}
-details.bakgrunn summary{padding:17px 22px;font-size:14.5px}
-details.bakgrunn .body{padding:4px 22px 26px}
+.cta.en{grid-template-columns:1fr;margin:14px 0 0}
+.cta.forst{margin:36px 0 0}
+details.bakgrunn{margin-top:14px;border-radius:9px}
+details.bakgrunn summary{padding:20px 22px;font-size:inherit;color:var(--ink)}
+details.bakgrunn summary::before{content:none}
+details.bakgrunn[open] summary{border-bottom:1px solid var(--line2)}
+details.bakgrunn:hover{border-color:var(--muted)}
+details.bakgrunn .t{display:block;font-family:"Iowan Old Style",Palatino,Georgia,serif;
+  font-size:18px;color:var(--ink)}
+details.bakgrunn .t::after{content:" +";color:var(--faint)}
+details.bakgrunn[open] .t::after{content:" –"}
+details.bakgrunn .d{display:block;font-size:14px;line-height:1.5;margin-top:7px;
+  color:var(--muted)}
+details.bakgrunn .body{padding:20px 22px 26px}
 .cta button{font:inherit;text-align:left;padding:20px 22px;border-radius:9px;cursor:pointer;
   border:1px solid var(--line);background:var(--card);color:var(--ink);display:block}
 .cta button:hover{border-color:var(--muted)}
-.cta button:first-child{box-shadow:inset 3px 0 0 var(--bolig)}
+.cta button:not(.alt){box-shadow:inset 3px 0 0 var(--bolig)}
 .cta .t{display:block;font-family:"Iowan Old Style",Palatino,Georgia,serif;font-size:18px}
 .cta .t::after{content:" →";color:var(--faint)}
 .cta .d{display:block;font-size:14px;line-height:1.5;margin-top:7px;color:var(--muted)}
@@ -216,7 +226,7 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
     reglene er verdt i kroner.</p>
   </div>
 
-  <div class="cta en">
+  <div class="cta en forst">
     <button data-go="samm">
       <span class="t">Se eksemplene</span>
       <span class="d">Seks sammenligninger av mennesker med samme lønn og samme oppsparte
@@ -225,7 +235,11 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
   </div>
 
   <details class="bakgrunn">
-    <summary>Bakgrunn og forutsetninger</summary>
+    <summary>
+      <span class="t">De tre reglene bak tallene</span>
+      <span class="d">Rentefradrag, skattefritak og lån — hver for seg rimelige, til sammen
+      en subsidie uten tak. Hele argumentet, og forutsetningene regnestykkene hviler på.</span>
+    </summary>
     <div class="body">
       <p class="lead">Denne filen regner på konkrete eksempler og viser hvorfor det er et
       problem: boligbeskatningen er sterkt ulikhetsskapende, fordi den systematisk
