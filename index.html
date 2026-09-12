@@ -560,6 +560,7 @@ let A = Object.assign({},STD);
 const nb  = n => Math.round(n).toLocaleString("nb-NO").replace(/ /g," ");
 const kr  = n => nb(n)+" kr";
 const krM = n => n>=1e6 ? (n/1e6).toFixed(1).replace(".",",")+" mill." : nb(Math.round(n/1000)*1000)+" kr";
+const pkt = s => s.endsWith(".") ? "" : ".";   /* krM slutter selv på punktum for mill. */
 const pst = (n,d=1) => n.toFixed(d).replace(".",",")+" %";
 const $   = id => document.getElementById(id);
 
@@ -870,7 +871,7 @@ const SCEN = [
     "startkapitalen står.",
   tekst(r){
     const n=r.length-1, d=deflater(n), f=r[n].p.map(x=>x.formue/d), beste=Math.max(f[1],f[2]);
-    const ek=+$("b_ek").value, be=breakeven(0,2);
+    const be=breakeven(0,2);
     return "<h3>"+(f[0]>beste ? "Boligen slår begge — "+krM(f[0]-beste)+" foran det nærmeste "+
       "alternativet" : "Boligen taper mot sparing med disse tallene")+"</h3>"+
     "<p>Alle tre betaler <b>"+kr(r[0].p[0].bo)+"</b> i året for å bo. Etter "+n+" år har "+
@@ -883,9 +884,7 @@ const SCEN = [
     "året, hvert år i "+n+" år." : "")+"</p>"+
     "<p>Bankspareren er ikke et stråmannseksempel. De aller fleste som sparer til bolig har "+
     "pengene på konto, ikke i aksjer — nettopp fordi egenkapitalen skal brukes om noen få år "+
-    "og ikke tåler å svinge. Den trygge plasseringen gir "+pst(A.rbank)+" i året, "+
-    pst(A.rbank*0.78)+" etter skatt — under inflasjonen på "+pst(A.kpi)+", altså et tap i "+
-    "kjøpekraft. "+kr(ek)+" er etter "+n+" år blitt til "+kr(f[1])+" i dagens kroner.</p>"+
+    "og ikke tåler å svinge.</p>"+
     "<p>Gearingen avtar underveis: boligen stiger mens gjelden står stille, så avkastningen "+
     "på egenkapitalen faller fra "+pst(r[0].p[0].verdi*A.g/100/(r[0].p[0].verdi-r[0].p[0].gjeld)*100)+
     " det første året til "+pst(r[n].p[0].verdi*A.g/100/(r[n].p[0].verdi-r[n].p[0].gjeld)*100)+
@@ -977,8 +976,8 @@ const SCEN = [
       kr(b.skatt)+"</b>.")+"</p>"+
     "<p><b>Verdistigningen kommer i tillegg.</b> Samme år steg boligen med <b>"+kr(vst)+
     "</b>, og heller ikke det beskattes. Skattesystemet behandler altså de to likt på "+
-    "inntekten, samtidig som det lar den ene bygge formue skattefritt. I eksempel 1 står "+
-    "formuesutviklingen og skatteregningene side om side.</p>"+formuesskattNote(r,lesFolk());
+    "inntekten, samtidig som det lar den ene bygge formue skattefritt.</p>"+
+    formuesskattNote(r,lesFolk());
   }
 },
 {
@@ -1015,17 +1014,17 @@ const SCEN = [
     "<p>Leietakeren tjener dobbelt så mye som arvingen og betaler <b>"+kr(skB)+
     "</b> i skatt. Arvingen betaler <b>"+kr(a.skatt)+"</b> i inntektsskatt og <b>"+kr(fa)+
     "</b> i formuesskatt, til sammen <b>"+kr(skA)+"</b>. Samtidig stiger boligen med <b>"+
-    kr(vekst)+"</b>, uten at det utløser en krone. Arvingen sitter igjen med "+kr(fikkA)+
-    " mot leietakerens "+kr(fikkB)+".</p>"+
+    kr(vekst)+"</b>, uten at det utløser en krone skatt. Arvingen sitter igjen med "+
+    kr(fikkA)+" i årlig fortjeneste mot leietakerens "+kr(fikkB)+".</p>"+
     "<p>Formuesskatten er tatt med her, og den er likevel ikke nok til å snu bildet. "+
     "Grunnen er verdsettelsesrabatten: en bolig til "+krM(a.verdi)+" får en ligningsverdi på "+
-    krM(lignetBolig(a.verdi))+", altså under halve markedsverdien. I tillegg bor arvingen i "+
-    "en bolig det ville kostet rundt "+kr(a.verdi*A.leiepct/100)+" i året å leie — den "+
-    "fordelen er ikke regnet med.</p>"+
+    krM(lignetBolig(a.verdi))+", altså under halve markedsverdien.</p>"+
+    "<p>Et tilleggspoeng: arvingen bor i en bolig det ville kostet rundt "+
+    kr(a.verdi*A.leiepct/100)+" i året å leie — den fordelen er ikke regnet med.</p>"+
     "<p><b>Over "+n+" år blir avstanden større.</b> Arvingens formue vokser med <b>"+
-    krM(ar[n].aVekst)+"</b>, leietakerens sparing med <b>"+krM(ar[n].bVekst)+"</b>. "+
+    krM(ar[n].aVekst)+"</b>, leietakerens sparing med <b>"+krM(ar[n].bVekst)+"</b>"+pkt(krM(ar[n].bVekst))+" "+
     "I skatt har arvingen betalt <b>"+krM(ar[n].aKum)+"</b> og leietakeren <b>"+
-    krM(ar[n].bKum)+"</b> Formuesskatten på boligen mer enn dobler seg underveis, fra "+
+    krM(ar[n].bKum)+"</b>"+pkt(krM(ar[n].bKum))+" Formuesskatten på boligen mer enn dobler seg underveis, fra "+
     kr(ar[0].aFormuesskatt)+" til "+kr(ar[n-1].aFormuesskatt)+" i året, og endrer likevel "+
     "ikke bildet.</p>";
   }
@@ -1054,7 +1053,7 @@ const SCEN = [
     "<p>Begge startet med "+kr(+$("a_ek").value)+" og tjener "+kr(r[0].p[0].lonn)+". Likevel "+
     "har Oslo-kjøperen over "+n+" år fått <b>"+krM(fa)+"</b> i rentefradrag og en betydelig "+
     "større skattefri avkastning på boligen. Etter "+n+" år sitter Oslo-kjøperen igjen med "+
-    krM(a)+" mot "+krM(b)+"</p>"+
+    krM(a)+" mot "+krM(b)+pkt(krM(b))+"</p>"+
     "<p><b>Skattesystemet belønner systematisk dem som bor i storbyene.</b> Der prisene er "+
     "høyest, er også fradraget og den skattefrie gevinsten størst.</p>"+
     formuesskattNote(r,lesFolk());
@@ -1101,8 +1100,12 @@ function formuesskattNote(r, folk, slutning){
   const F=SKATT.formue;
   const eierVerdi = folk.some(p=>p.mode==="eier") ? r[0].p[folk.findIndex(p=>p.mode==="eier")].verdi : 0;
   if(sum<2000) return "<p><b>Merk at ingen av disse betaler formuesskatt.</b></p>";
+  const ant=n-forste, TALL=["","ett","to","tre","fire","fem","seks","sju","åtte","ni","ti"];
+  const naar = forste===0 ? "fordelt over alle "+n+" årene"
+             : ant===1 ? "og påløper bare det siste året"
+             : "og påløper først de "+(TALL[ant]||ant)+" siste årene";
   return "<p><b>Formuesskatten er nesten fraværende.</b> Den utgjør <b>"+krM(sum)+
-    "</b> til sammen over "+n+" år, og er ikke regnet med her. Beløpet kunne dessuten vært "+
+    "</b> til sammen, "+naar+". Beløpet er ikke regnet med her, og kunne dessuten vært "+
     "fjernet ved å låne opp litt mer på boligen."+(slutning
       ? " At en bolig til "+krM(eierVerdi)+" praktisk talt ikke utløser formuesskatt, viser "+
         "at skatten ikke virker som en generell skatt på boligformue." : "")+"</p>";
