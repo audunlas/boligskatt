@@ -987,8 +987,8 @@ const SCEN = [
   }
 },
 {
-  knapp:"By og land", h2:"Samme lønn, samme egenkapital, ulik by",
-  navn:["Kjøper i Oslo","Kjøper på landet"],
+  knapp:"By og distrikt", h2:"Samme lønn, samme egenkapital, ulikt sted",
+  navn:["Kjøper i Oslo","Kjøper i distriktet"],
   graf:"linje", graf2:"skattlinje", stats:"tabell",
   kolonner:["formue","skatt","gevinst","fradrag"],
   folk:[{lonn:850000, ek:1000000, mode:"eier", bolig:5000000, spar:"bank"},
@@ -998,18 +998,18 @@ const SCEN = [
   intro:r=>"Man tenker lett at boligmarkedet favoriserer dem som bor utenfor de store "+
     "byene: billigere bolig, mindre gjeld, ingen formuesskatt. Skattereglene virker motsatt "+
     "vei. Her har to personer nøyaktig samme lønn og samme egenkapital. Den ene kjøper i "+
-    "Oslo til "+krM(r[0].p[0].verdi)+", den andre på et mindre sted til "+krM(r[0].p[1].verdi)+
+    "Oslo til "+krM(r[0].p[0].verdi)+", den andre i distriktet til "+krM(r[0].p[1].verdi)+
     " Mange kjøper bolig sammen med en partner og trenger da lån for bare halve prisen, altså "+
     "er dette en realistisk pris mange steder i distriktene. Den "+
     "som bor billigst, sparer differansen i boutgift i banken. Boligprisveksten er satt lik for begge; i praksis har Oslo vokst raskere "+
-    "enn landet for øvrig, så forskjellen er om noe underdrevet.",
+    "enn distriktene, så forskjellen er om noe underdrevet.",
   tekst(r){
     const n=r.length-1, d=deflater(n), a=r[n].p[0].formue/d, b=r[n].p[1].formue/d;
     const fa=sumFradrag(r,0), fb=sumFradrag(r,1);
     const sa=skattTilOgMed(r,0,n), sb=skattTilOgMed(r,1,n);
     return "<h3>Den som betaler mest for å bo, får mest fra staten</h3>"+
     "<p>Begge startet med "+kr(+$("a_ek").value)+" og tjener "+kr(r[0].p[0].lonn)+". Over "+n+
-    " år har Oslo-kjøperen fått <b>"+krM(fa)+"</b> i rentefradrag, den på landet tilnærmet "+
+    " år har Oslo-kjøperen fått <b>"+krM(fa)+"</b> i rentefradrag, den i distriktet tilnærmet "+
     "ingenting. Oslo-kjøperen har samtidig betalt <b>"+krM(sb-sa)+" mindre i skatt</b> i alt, "+
     "og sitter igjen med "+krM(a)+" mot "+krM(b)+"</p>"+
     "<p><b>Skattesystemet belønner systematisk dem som bor i storbyene.</b> Der prisene er "+
