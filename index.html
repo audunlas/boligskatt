@@ -1008,10 +1008,10 @@ const SCEN = [
     const fa=sumFradrag(r,0), fb=sumFradrag(r,1);
     const sa=skattTilOgMed(r,0,n), sb=skattTilOgMed(r,1,n);
     return "<h3>Den som betaler mest for å bo, får mest fra staten</h3>"+
-    "<p>Begge startet med "+kr(+$("a_ek").value)+" og tjener "+kr(r[0].p[0].lonn)+". Over "+n+
-    " år har Oslo-kjøperen fått <b>"+krM(fa)+"</b> i rentefradrag, den i distriktet tilnærmet "+
-    "ingenting. Oslo-kjøperen har samtidig betalt <b>"+krM(sb-sa)+" mindre i skatt</b> i alt, "+
-    "og sitter igjen med "+krM(a)+" mot "+krM(b)+"</p>"+
+    "<p>Begge startet med "+kr(+$("a_ek").value)+" og tjener "+kr(r[0].p[0].lonn)+". Likevel "+
+    "har Oslo-kjøperen over "+n+" år fått <b>"+krM(fa)+"</b> i rentefradrag, mens kjøperen i "+
+    "distriktet knapt har fått noe. Oslo-kjøperen har også betalt <b>"+krM(sb-sa)+
+    " mindre i skatt</b>, og sitter igjen med "+krM(a)+" mot "+krM(b)+"</p>"+
     "<p><b>Skattesystemet belønner systematisk dem som bor i storbyene.</b> Der prisene er "+
     "høyest, er også fradraget og den skattefrie gevinsten størst, fordi begge følger prisen "+
     "og ikke behovet. Den som må ut med fem millioner for å bo i Oslo, får staten til å dekke "+
@@ -1110,10 +1110,9 @@ function formuesskattNote(r, folk, slutning){
   const F=SKATT.formue;
   const eierVerdi = folk.some(p=>p.mode==="eier") ? r[0].p[folk.findIndex(p=>p.mode==="eier")].verdi : 0;
   if(sum<2000) return "<p><b>Merk at ingen av disse betaler formuesskatt.</b></p>";
-  return "<p><b>Formuesskatten er nesten fraværende.</b> Den utløses først fra år "+forste+
-    ", når boligen har steget nok til at ligningsverdien passerer gjelden og bunnfradraget, "+
-    "og utgjør <b>"+krM(sum)+"</b> til sammen over "+n+" år. Beløpet er ikke regnet med her, "+
-    "og kunne dessuten vært fjernet ved å låne opp litt mer på boligen."+(slutning
+  return "<p><b>Formuesskatten er nesten fraværende.</b> Den utgjør <b>"+krM(sum)+
+    "</b> til sammen over "+n+" år, og er ikke regnet med her. Beløpet kunne dessuten vært "+
+    "fjernet ved å låne opp litt mer på boligen."+(slutning
       ? " At en bolig til "+krM(eierVerdi)+" praktisk talt ikke utløser formuesskatt, viser "+
         "at skatten ikke virker som en generell skatt på boligformue." : "")+"</p>";
 }
