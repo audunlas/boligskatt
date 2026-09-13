@@ -582,7 +582,7 @@ function skattLonn(lonn, renter){
    eierens rente- og driftskostnader, slik at begge betaler nøyaktig det samme for å bo.
    Da er forskjellen ved slutten bare forskjell i hvor startkapitalen sto.
    Alt regnes nominelt, fordi skatten er nominell. Visning skjer i faste 2026-kroner. */
-function simuler(folk){
+function simuler(folk, sparFradrag){
   const g=A.g/100, rl=A.rl/100, ko=A.eierkost/100, dok=A.dok/100, lp=A.leiepct/100,
         rb=A.rbank/100, rf=A.rfond/100, sk=A.skjerm/100, aar=Math.round(A.aar);
 
@@ -600,6 +600,10 @@ function simuler(folk){
     const dyrest = Math.max(...st.map(o => o.p.mode==="eier"
       ? o.laan*rl + o.verdi*ko
       : (eierkost!=null ? eierkost : o.p.bolig*lp*Math.pow(1+A.kpi/100,t))));
+    /* Der flagget er satt, spares også skatten rentefradraget gir. Uten det ville
+       den ene fått boutgiftsdifferansen sin spart og den andre ikke. */
+    const frdAv = o => skattLonn(o.p.lonn,0) -
+                       skattLonn(o.p.lonn, o.p.mode==="eier" ? o.laan*rl : 0);
     const rad={t, p:[]};
 
     st.forEach(o=>{
@@ -620,7 +624,7 @@ function simuler(folk){
         if(o.p.spar==="fond"){ o.skjerm+=(o.basis+o.skjerm)*sk; o.spar*=(1+rf); }
         else o.spar*=(1+rb*(1-SKATT.alm));
         /* Den som bor billigst sparer differansen, så begge legger igjen like mye. */
-        const inn = dyrest - bo;
+        const inn = (dyrest - bo) + (sparFradrag ? frdAv(o) : 0);
         if(inn>0){ o.spar += inn; o.basis += inn; }
       }
     });
@@ -1036,12 +1040,13 @@ const SCEN = [
 },
 {
   knapp:"By og distrikt", h2:"Samme lønn, samme egenkapital, ulikt sted",
+  sparFradrag:true,
   navn:["Kjøper i Oslo","Kjøper i distriktet"],
   graf:"linje", graf2:"skattlinje", stats:"tabell",
   kolonner:["formue","skatt","gevinst","fradrag"],
   folk:[{lonn:850000, ek:1000000, mode:"eier", bolig:5000000, spar:"bank"},
         {lonn:850000, ek:1000000, mode:"eier", bolig:1000000, spar:"bank"}],
-  tittel:"Formue over tid", under:"Boligverdi minus gjeld, i dagens kroner.",
+  tittel:"Formue over tid", under:"Boligverdi minus gjeld, pluss sparepenger, i dagens kroner.",
   tittel2:"Samlet skatt over tid", under2:"Skatt på lønn. Den ene betaler mindre, fordi rentefradraget er større.",
   intro:r=>"Man tenker lett at boligmarkedet favoriserer dem som bor utenfor de store "+
     "byene: billigere bolig, mindre gjeld, ingen formuesskatt. Skattereglene virker motsatt "+
@@ -1174,7 +1179,7 @@ function generiskTekst(r){
 }
 
 function tegn(){
-  const s=SCEN[aktiv], folk=lesFolk(), r=simuler(folk);
+  const s=SCEN[aktiv], folk=lesFolk(), r=simuler(folk, s.sparFradrag);
   const n=r.length-1, d=deflater(n);
   const eget = !samsvar(s, folk);
   const navn = k => eget ? "Person "+"ABC"[k] : (s.navn[k] || "Person "+"ABC"[k]);
@@ -1438,7 +1443,8 @@ function byggForutsetninger(vert){
       '<li><b>Eiendomsskatt er ikke med.</b> Der den finnes trekker den i boligeierens '+
       'disfavør, og det er den eneste utelatelsen som går i eierens favør.</li>'+
       '<li><b>Forenklingene trekker samme vei:</b> avdragsfritt lån, spart skatt som '+
-      'ikke legges til formuen, og lønnsforskjellen i eksempel 4 som ingen sparer. Alle gjør '+
+      'ikke legges til formuen (unntatt i eksempel 6), og lønnsforskjellen i eksempel 4 som '+
+      'ingen sparer. Alle gjør '+
       'forskjellen mindre enn den ville vært.</li>'+
       '</ul>'+
     '</div></details>';
