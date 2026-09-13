@@ -69,6 +69,11 @@ button.lenke{font:inherit;background:none;border:0;color:var(--bolig);cursor:poi
   padding:0;text-decoration:underline;text-underline-offset:3px}
 button.lenke:hover{color:var(--ink)}
 h3.avsnitt{font-size:20px;margin:48px 0 18px}
+.seksjon{border-top:1px solid var(--line);margin-top:44px;padding-top:30px}
+.seksjon .kicker{margin-bottom:12px}
+.seksjon h3.avsnitt{margin:0 0 12px}
+.seksjon p{font-size:15.5px;color:var(--muted);margin:0;max-width:620px}
+.seksjon+.mech{margin-top:26px}
 .plus{margin-top:16px}
 details.bakgrunn{margin-top:14px;border-radius:9px}
 details.bakgrunn summary{padding:20px 22px;font-size:inherit;color:var(--ink)}
@@ -248,7 +253,12 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
   <p class="videre">Vil du heller regne på en enkelt bolig?
   <button class="lenke" data-go="kalk">Åpne kalkulatoren →</button></p>
 
-  <h3 class="avsnitt">Tre effekter som virker samtidig</h3>
+  <div class="seksjon">
+    <div class="kicker">Mekanismen</div>
+    <h3 class="avsnitt">Tre effekter som virker samtidig</h3>
+    <p>Alle eksemplene bygger på de samme tre skattereglene. Hver av dem er velkjent — det
+    er kombinasjonen som gjør utslagene store.</p>
+  </div>
 
   <div class="mech">
     <div><div class="n">EFFEKT 1</div><h3>Rentene gir fradrag</h3>
