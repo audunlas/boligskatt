@@ -1042,6 +1042,7 @@ const SCEN = [
   knapp:"By og distrikt", h2:"Samme lønn, samme egenkapital, ulikt sted",
   sparFradrag:true,
   navn:["Kjøper i Oslo","Kjøper i distriktet"],
+  formuesnavn:["Oslo-kjøperen","distriktskjøperen"],
   graf:"linje", graf2:"skattlinje", stats:"tabell",
   kolonner:["formue","skatt","gevinst","fradrag"],
   folk:[{lonn:850000, ek:1000000, mode:"eier", bolig:5000000, spar:"bank"},
@@ -1102,11 +1103,16 @@ function fskattAar(r,k,t,folk){
 function formuesskattNote(r, folk, slutning){
   const n=r.length-1;
   let sum=0, forste=null;
+  const perPerson=folk.map(()=>0);
   for(let t=0;t<n;t++) for(let k=0;k<folk.length;k++){
     const f=fskattAar(r,k,t,folk);
     if(f>0 && forste===null) forste=t;
+    perPerson[k]+=f/deflater(t);
     sum+=f/deflater(t);
   }
+  /* Betaler bare én av flere, er det som regel et poeng i seg selv hvem det er. */
+  const betaler=perPerson.map((v,k)=>v>1 ? k : -1).filter(k=>k>=0);
+  const alene = folk.length>1 && betaler.length===1 ? betaler[0] : null;
   const F=SKATT.formue;
   const eierVerdi = folk.some(p=>p.mode==="eier") ? r[0].p[folk.findIndex(p=>p.mode==="eier")].verdi : 0;
   if(sum<2000) return "<p><b>Merk at ingen av disse betaler formuesskatt.</b></p>";
@@ -1114,6 +1120,15 @@ function formuesskattNote(r, folk, slutning){
   const naar = forste===0 ? "fordelt over alle "+n+" årene"
              : ant===1 ? "og påløper bare det siste året"
              : "og påløper først de "+(TALL[ant]||ant)+" siste årene";
+  if(alene!==null){
+    const andre=folk.map((_,k)=>k).filter(k=>k!==alene)[0];
+    const nv=SCEN[aktiv].formuesnavn||(SCEN[aktiv].navn||[]).map(x=>x.toLowerCase());
+    return "<p><b>Formuesskatten er nesten fraværende.</b> Den utgjør <b>"+krM(sum)+
+      "</b> til sammen, "+naar+". Det er ikke regnet med her. Hele beløpet faller på "+
+      (nv[alene]||"den ene")+", og skyldes sparepengene i banken, ikke boligen. "+
+      (nv[andre]||"den andre").replace(/^./,c=>c.toUpperCase())+
+      " betaler ingenting, fordi gjelden er større enn boligens ligningsverdi.</p>";
+  }
   return "<p><b>Formuesskatten er nesten fraværende.</b> Den utgjør <b>"+krM(sum)+
     "</b> til sammen, "+naar+". Beløpet er ikke regnet med her, og kunne dessuten vært "+
     "fjernet ved å låne opp litt mer på boligen."+(slutning
