@@ -1189,8 +1189,9 @@ function generiskTekst(r){
     r[0].p.map((_,k)=>krM(sumSkatt(r,k))).join(", ")+" i samme periode."+
     (f[best]!==f[verst] ? " Person "+"ABC"[best]+" kommer best ut, med "+
      krM(f[best]-f[verst])+" til den svakeste." : "")+"</p>"+
-    "<p>Prøv å sette boligprisveksten lik lånerenten under Forutsetninger. Da koster lånet "+
-    "nøyaktig like mye som boligen stiger, og det som står igjen er skattereglene alene.</p>";
+    "<p>Prøv å sette boligprisveksten lik inflasjonen under Forutsetninger. Da har boligen "+
+    "null realavkastning, og eierens formuesvekst er nøyaktig det inflasjonen har spist av "+
+    "gjelden — gearingen alene, uten prisstigning.</p>";
 }
 
 function tegn(){
