@@ -55,12 +55,9 @@ section.view.on{display:block}
   margin-bottom:10px;letter-spacing:.04em}
 .mech h3{margin-bottom:8px;font-size:16.5px}
 .mech p{font-size:14.5px;color:var(--muted);margin:0}
-.sum{font-family:"Iowan Old Style",Palatino,Georgia,serif;font-size:20px;line-height:1.45;
-  border-left:2px solid var(--bolig);padding:2px 0 2px 20px;margin:34px 0;max-width:640px}
-.plus{background:var(--card);border:1px solid var(--line);border-radius:9px;padding:20px 22px}
-.plus p{margin:0 0 .8em;font-size:14.5px;color:var(--muted)}
-.plus p:last-child{margin:0}
-.plus b{color:var(--ink)}
+.etterord{max-width:620px}
+.etterord p{margin:0 0 .9em;font-size:15.5px;color:var(--muted)}
+.etterord p:last-child{margin:0}
 .cta{display:grid;gap:14px;grid-template-columns:1fr 1fr;margin:32px 0 0}
 .cta.en{grid-template-columns:1fr;margin:14px 0 0}
 .cta.forst{margin:36px 0 0}
@@ -73,7 +70,7 @@ h3.avsnitt{font-size:20px;margin:48px 0 18px}
 .seksjon h3.avsnitt{font-size:27px;margin:0 0 12px}
 .seksjon p{font-size:15.5px;color:var(--muted);margin:0;max-width:620px}
 .seksjon+.mech{margin-top:26px}
-.plus{margin-top:16px}
+.etterord{margin:30px 0 26px}
 details.bakgrunn{margin-top:14px;border-radius:9px}
 details.bakgrunn summary{padding:20px 22px;font-size:inherit;color:var(--ink)}
 details.bakgrunn summary::before{content:none}
@@ -142,6 +139,15 @@ svg{display:block;width:100%;height:auto;overflow:visible}
 .forbruk .suf{position:absolute;right:9px;top:50%;transform:translateY(-50%);
   font-size:12px;color:var(--faint);pointer-events:none}
 .forbruk .fn{font-size:12.5px;color:var(--faint);margin-top:10px}
+.tiltakvarsel{display:none;border-left:2px solid var(--bolig);background:var(--card);
+  border-radius:0 9px 9px 0;padding:14px 18px;margin:0 0 26px;font-size:14px;color:var(--muted)}
+.tiltakvarsel.pa{display:block}
+.tiltakvarsel b{color:var(--ink)}
+.tiltakvarsel ul{margin:8px 0 0;padding-left:20px}
+.tiltakvarsel li{margin-bottom:4px}
+.tiltakfelt label.av{display:flex;align-items:center;gap:7px;margin-bottom:5px}
+.tiltakfelt input[type=checkbox]{width:auto;margin:0;accent-color:var(--bolig)}
+.tiltakfelt .merknad{font-size:12.5px;color:var(--faint);margin:0 0 16px;max-width:620px}
 .tabsrad{border-bottom:1px solid var(--line);margin-bottom:26px;padding-bottom:16px}
 .tabsrad .merk{font-size:12.5px;letter-spacing:.09em;text-transform:uppercase;
   color:var(--faint);margin-bottom:10px}
@@ -226,26 +232,22 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
 <!-- ============ FORSIDEN ============ -->
 <section class="view on" id="v-hjem"><div class="wrap">
   <div class="hero">
-    <div class="kicker">Hva denne filen viser</div>
-    <h1>Skattefordelene ved å eie bolig</h1>
-    <p class="lead">Ulikhet og skatt har vært blant de mest omdiskuterte spørsmålene i
-    norsk politikk de siste årene. Diskusjonen har handlet om formuesskatt, utbytteskatt og
-    exitskatt. Etter mitt syn har man imidlertid undervurdert bolig fullstendig, som er
-    den klart største formuesposten i norske husholdninger.</p>
-    <p class="lead">Poenget mitt er at boligbeskatningen er sterkt ulikhetsskapende, fordi
-    den systematisk subsidierer dem som har god råd og dyr bolig. Leietakere, som ofte har
-    minst fra før, får ingenting.</p>
-    <p class="lead">I eksemplene under tjener boligeierne stort sett mellom 650 000 og
-    900 000 i året og har rundt en million i egenkapital. Dette er ikke folk i økonomisk
-    knipe. Og de fleste av eksemplene er beskjedne — med dyrere boliger og større lån blir
-    utslagene langt mer ekstreme.</p>
+    <h1>Skattekalkulator for bolig</h1>
+    <p class="lead">Skattesystemet behandler bolig veldig annerledes enn annen formue. Bolig
+    gir rentefradrag, verdistigning på boligen er skattefri og primærbolig verdsettes langt
+    under markedsverdi i formuesskatten.</p>
+    <p class="lead">Denne kalkulatoren viser gjennom seks eksempler hvordan reglene kan slå
+    ut i ulike situasjoner. Alle tallene i alle eksemplene er helt justerbare, slik at man
+    enkelt kan sjekke hva eksemplene tåler. Du kan også se hvordan ulike endringer i
+    skattesystemet for bolig ville endret på eksemplene ved å justere under «Tiltak —
+    endre reglene og se hva som skjer».</p>
+    <p class="lead">Beregningene bruker satsene for inntektsåret 2026, og forutsetningene
+    er hentet fra SSB og Norges Bank. Alle kilder står oppført.</p>
   </div>
 
   <div class="cta en forst">
     <button data-go="samm">
       <span class="t">Se de seks eksemplene</span>
-      <span class="d">Mennesker med samme lønn og samme oppsparte penger, der det eneste
-      som skiller dem er boligen.</span>
     </button>
   </div>
 
@@ -254,31 +256,30 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
 
   <div class="seksjon">
     <h3 class="avsnitt">Mekanismen</h3>
-    <p><b>Tre effekter som virker samtidig.</b> Alle eksemplene bygger på de samme tre
-    skattereglene. Hver av dem er velkjent — det er kombinasjonen som gjør utslagene store.</p>
+    <p><b>Tre effekter som virker samtidig.</b> Alle eksemplene bygger på disse tre
+    effektene.</p>
   </div>
 
   <div class="mech">
     <div><div class="n">EFFEKT 1</div><h3>Rentene gir fradrag</h3>
       <p>Renter trekkes fra alminnelig inntekt, som skattlegges flatt med 22 %. Betaler
-      du 200 000 kroner i renter, betaler du 44 000 kroner mindre i skatt — uansett hva
-      du tjener.</p></div>
+      du 200 000 kroner i renter, betaler du 44 000 kroner mindre i skatt.</p></div>
     <div><div class="n">EFFEKT 2</div><h3>Gevinsten er skattefri</h3>
       <p>Verdistigning på egen bolig beskattes ikke. Ikke ved salg, ikke underveis, og
       uansett hvor stor den blir.</p></div>
     <div><div class="n">EFFEKT 3</div><h3>Lånet forstørrer gevinsten</h3>
-      <p>Verdistigningen regnes av hele boligen, men det er bare egenkapitalen du har
-      skutt inn selv. 20 % egenkapital og 5 % prisvekst gir 25 % avkastning. Regelverket
-      tillater ned til 10 % egenkapital.</p></div>
+      <p>Man investerer bare egenkapitalen, men får verdistigning på hele boligen. 20 %
+      egenkapital og 5 % årlig prisvekst gir 25 % årlig avkastning.</p></div>
   </div>
 
-  <div class="sum">Du får fradrag for å låne til den, du betaler ikke skatt på det den
-  stiger, og du kan låne 90 % av den.</div>
-
-  <div class="plus">
-    <p><b>Ingen av de tre har et tak.</b> Det er dette som gjør fordelen regressiv: den
-    vokser uten øvre grense med boligverdi og lånestørrelse. I tillegg verdsettes primærbolig
-    langt under markedsverdi i formuesskatten.</p>
+  <div class="etterord">
+    <p>Legg merke til at ingen av de tre effektene har et tak. Altså får man bare
+    større fordeler jo dyrere bolig man eier, og jo større lån man har mulighet til å ta
+    opp. Dette gjør skattesystemet rundt bolig regressivt.</p>
+    <p>Formuesskatten løser ikke problemet. Primærbolig verdsettes langt under markedsverdi
+    for formuesskatten, og i tillegg trekkes all gjeld fra formuen. Slik er formuesskatten i
+    praksis en veldig lite treffende skatt på bolig. Dette er tydelig i alle seks
+    eksemplene.</p>
   </div>
 
   <details class="bakgrunn">
@@ -289,22 +290,21 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
     </summary>
     <div class="body">
       <ul class="forut">
-        <li><b>Skattesatsene er for inntektsåret 2026.</b> Beløp innenfor ett år vises som de
+        <li>Skattesatsene er for inntektsåret 2026. Beløp innenfor ett år vises som de
         er, siden det er dem skatten treffer. Utvikling over tid vises i dagens kroner, justert
         for inflasjon, slik at beløp ti år fram i tid er til å kjenne igjen.</li>
       </ul>
 
       <h3 style="margin:30px 0 12px">Valg gjort for eksemplene</h3>
       <ul class="forut">
-        <li><b>Rente, boligprisvekst og inflasjon er satt til det lengste snittet som finnes</b>,
-        hentet fra SSB og Norges Bank. Ikke dagens nivå, og ikke tall satt etter skjønn.
-        <i>(Justerbart i eksemplene.)</i></li>
-        <li><b>Der noen leier, betaler alle like mye for å bo.</b> Husleien settes lik
+        <li>Rente, boligprisvekst og inflasjon er satt til det lengste snittet som finnes,
+        hentet fra SSB og Norges Bank. <i>(Justerbart i eksemplene.)</i></li>
+        <li>Der noen leier, betaler alle like mye for å bo. Husleien settes lik
         boligeierens renter og driftskostnader, så ingen bor billigere enn den andre. Nivået
         treffer markedsleie godt, målt mot SSBs leiemarkedsundersøkelse. Det er gjort som en
         forenkling — i virkeligheten settes husleien i markedet, uavhengig av hva lånet til
         den enkelte eieren koster. <i>(Justerbart i eksemplene.)</i></li>
-        <li><b>Boliglånet er avdragsfritt i alle eksemplene.</b> Avdrag er sparing, ikke en
+        <li>Boliglånet er avdragsfritt i alle eksemplene. Avdrag er sparing, ikke en
         boutgift, og er derfor utelatt slik som annen sparing. Disse eksemplene vil se på
         hvordan ren formue utvikler seg.</li>
       </ul>
@@ -353,7 +353,7 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
         <div class="cs">Samme bolig og samme prisvekst. Kurven viser skattefri avkastning
         på egenkapitalen det første året. Gearingen avtar etter hvert: boligen stiger, mens
         gjelden står stille i kroner, så egenkapitalen utgjør en større og større del.</div>
-        <svg id="k_svg" viewBox="0 0 720 290" preserveAspectRatio="xMidYMid meet"></svg>
+        <svg id="k_svg" viewBox="0 0 720 310" preserveAspectRatio="xMidYMid meet"></svg>
       </div>
 
     </div>
@@ -373,6 +373,8 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
     <p id="s_intro"></p>
   </div>
 
+  <div class="tiltakvarsel" id="s_tiltak"></div>
+
   <div class="people" id="s_folk">
     <div class="person" id="a_kort">
       <div class="tag"><i style="background:var(--bolig)"></i><span id="a_navn"></span></div>
@@ -387,7 +389,8 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
         <input type="number" id="a_bolig" step="100000"><span class="suf">kr</span></div></div>
       <div class="field" id="a_sf"><label>Sparepengene står i</label>
         <select id="a_spar"><option value="bank">Bank — 22 % skatt løpende</option>
-        <option value="fond">Aksjefond — 37,84 % ved salg</option></select></div>
+        <option value="fond">Aksjefond — 37,84 % ved salg</option>
+        <option value="selskap">Eget selskap — 37,84 % ved salg</option></select></div>
       <div class="ro" id="a_ro"></div>
     </div>
     <div class="person" id="b_kort">
@@ -403,7 +406,8 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
         <input type="number" id="b_bolig" step="100000"><span class="suf">kr</span></div></div>
       <div class="field" id="b_sf"><label>Sparepengene står i</label>
         <select id="b_spar"><option value="bank">Bank — 22 % skatt løpende</option>
-        <option value="fond">Aksjefond — 37,84 % ved salg</option></select></div>
+        <option value="fond">Aksjefond — 37,84 % ved salg</option>
+        <option value="selskap">Eget selskap — 37,84 % ved salg</option></select></div>
       <div class="ro" id="b_ro"></div>
     </div>
     <div class="person" id="c_kort">
@@ -419,7 +423,8 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
         <input type="number" id="c_bolig" step="100000"><span class="suf">kr</span></div></div>
       <div class="field" id="c_sf"><label>Sparepengene står i</label>
         <select id="c_spar"><option value="bank">Bank — 22 % skatt løpende</option>
-        <option value="fond">Aksjefond — 37,84 % ved salg</option></select></div>
+        <option value="fond">Aksjefond — 37,84 % ved salg</option>
+        <option value="selskap">Eget selskap — 37,84 % ved salg</option></select></div>
       <div class="ro" id="c_ro"></div>
     </div>
   </div>
@@ -558,15 +563,42 @@ function formuesskatt(nettoLignet){
        : (F.grense-F.bunn)*F.sats + (nettoLignet-F.grense)*F.satsHoy;
 }
 /* ===== FORUTSETNINGER. Empiriske 20-årstall, se kildetabellen ===== */
-const STD = {g:6.5, rl:3.8, rbank:2.8, rfond:7.9, kpi:2.6, aar:10,
+const STD = {g:6.5, rl:3.8, rbank:2.8, rfond:7.9, rsel:10.0, kpi:2.6, aar:10,
              eierkost:1.0, leiepct:3.8, dok:2.5, skjerm:3.6};
 let A = Object.assign({},STD);
+
+/* ===== TILTAK: endringer i regelverket man kan slå på for å se hva de gjør =====
+   Alt er av som standard, altså dagens regler. tak===null betyr ubegrenset rentefradrag;
+   tak===0 fjerner fradraget helt. De tre satsene er null når tiltaket er av. */
+const TILTAK_AV = {tak:null, avk:0, verdi:0, salg:0};
+let TILTAK = Object.assign({},TILTAK_AV);
+const tiltakPa = () => TILTAK.tak!==null || TILTAK.avk>0 || TILTAK.verdi>0 || TILTAK.salg>0;
+/* Kjører en beregning som om ingen tiltak var slått på, til sammenligning. */
+function utenTiltak(fn){
+  const paa=TILTAK; TILTAK=Object.assign({},TILTAK_AV);
+  try { return fn(); } finally { TILTAK=paa; }
+}
+/* Renter som faktisk gir fradrag, etter et eventuelt tak. Taket står på fradraget selv:
+   et tak på 20 000 betyr at man maksimalt får 20 000 tilbake i året. Siden renter trekkes
+   fra alminnelig inntekt til flat sats, svarer det til renter på tak/0,22.
+   tak===0 fjerner fradraget helt. */
+const fradragsrenter = r => TILTAK.tak===null ? r : Math.min(r, TILTAK.tak/SKATT.alm);
 
 const nb  = n => Math.round(n).toLocaleString("nb-NO").replace(/ /g," ");
 const kr  = n => nb(n)+" kr";
 const krM = n => n>=1e6 ? (n/1e6).toFixed(1).replace(".",",")+" mill." : nb(Math.round(n/1000)*1000)+" kr";
 const pkt = s => s.endsWith(".") ? "" : ".";   /* krM slutter selv på punktum for mill. */
-const pst = (n,d=1) => n.toFixed(d).replace(".",",")+" %";
+/* Forholdstall der nevneren kan bli null eller negativ fordi leseren har skrevet inn egne
+   tall. Uten vernet sto det «Infinity ganger inntekten» og «NaN % av verdien» på siden. */
+const forhold = (a,b) => b>0 ? a/b : 0;
+/* Runde beløp i overskrifter, der et eksakt kronetall bare blir støy. */
+const rundt = n => n>=100000 ? nb(Math.round(n/10000)*10000)+" kr" : kr(n);
+/* Millioner skrevet ut i prosa: «1,1 million», «2,4 millioner». */
+const millord = n => n<1e6 ? kr(Math.round(n/1000)*1000)
+  : (n/1e6).toFixed(1).replace(".",",")+(n<2e6 ? " million" : " millioner");
+const pst = (n,d=1) => n.toFixed(d).replace(".",",").replace("-","−")+" %";
+/* Satser brukeren selv har skrevet inn: viser bare de desimalene som faktisk står der. */
+const pstFri = n => String(Math.round(n*100)/100).replace(".",",").replace("-","−")+" %";
 const $   = id => document.getElementById(id);
 
 const trinnskatt = l => SKATT.trinn.reduce((s,[lo,hi,r])=> l>lo ? s+(Math.min(l,hi)-lo)*r : s, 0);
@@ -584,12 +616,12 @@ function skattLonn(lonn, renter){
    Alt regnes nominelt, fordi skatten er nominell. Visning skjer i faste 2026-kroner. */
 function simuler(folk, sparFradrag){
   const g=A.g/100, rl=A.rl/100, ko=A.eierkost/100, dok=A.dok/100, lp=A.leiepct/100,
-        rb=A.rbank/100, rf=A.rfond/100, sk=A.skjerm/100, aar=Math.round(A.aar);
+        rb=A.rbank/100, rf=A.rfond/100, rs=A.rsel/100, sk=A.skjerm/100, aar=Math.round(A.aar);
 
   const st = folk.map(p => p.mode==="eier"
     ? {p, verdi:p.bolig, laan:Math.max(0, p.bolig*(1+dok)-p.ek),
-          spar:Math.max(0, p.ek-p.bolig*(1+dok)), basis:0, skjerm:0}
-    : {p, verdi:0, laan:0, spar:p.ek, basis:p.ek, skjerm:0});
+          spar:Math.max(0, p.ek-p.bolig*(1+dok)), basis:0, skjerm:0, tbet:0}
+    : {p, verdi:0, laan:0, spar:p.ek, basis:p.ek, skjerm:0, tbet:0});
   const rader=[];
 
   for(let t=0; t<=aar; t++){
@@ -602,8 +634,16 @@ function simuler(folk, sparFradrag){
       : (eierkost!=null ? eierkost : o.p.bolig*lp*Math.pow(1+A.kpi/100,t))));
     /* Der flagget er satt, spares også skatten rentefradraget gir. Uten det ville
        den ene fått boutgiftsdifferansen sin spart og den andre ikke. */
-    const frdAv = o => skattLonn(o.p.lonn,0) -
-                       skattLonn(o.p.lonn, o.p.mode==="eier" ? o.laan*rl : 0);
+    /* Lønnen følger inflasjonen, og skatten regnes med dagens satser på realinntekten.
+       Da holder realinntekt og realskatt seg i ro gjennom perioden, i stedet for at begge
+       krymper. Å inflatere lønnen uten å justere trinn og fradrag ville gitt kald
+       progresjon, altså en skatteøkning modellen ikke skal ha. Rentene er nominelt faste,
+       så realverdien av rentefradraget faller — det er riktig, og det er gjelden som
+       eroderer. */
+    const infl = deflater(t);
+    const frdAv = o => (skattLonn(o.p.lonn,0) -
+                        skattLonn(o.p.lonn, o.p.mode==="eier"
+                          ? fradragsrenter(o.laan*rl)/infl : 0))*infl;
     const rad={t, p:[]};
 
     st.forEach(o=>{
@@ -612,16 +652,39 @@ function simuler(folk, sparFradrag){
                : (eierkost!=null ? eierkost : o.p.bolig*lp*Math.pow(1+A.kpi/100,t));
       /* Sparing behandles likt for alle: en boligeier kan ha penger igjen etter kjøpet. */
       let latent=0;
-      if(o.p.spar==="fond")
+      if(o.p.spar==="fond" || o.p.spar==="selskap")
         latent = Math.max(0, Math.max(0,o.spar-o.basis)-o.skjerm)*SKATT.aksje;
       const sparskatt = o.p.spar==="bank" ? o.spar*rb*SKATT.alm : 0;
-      rad.p.push({ formue:(o.verdi-o.laan)+o.spar-latent, verdi:o.verdi, gjeld:o.laan,
-                   spar:o.spar-latent, renter, bo, lonn:o.p.lonn, latent, sparskatt,
-                   skatt:skattLonn(o.p.lonn, renter),
-                   fradrag:skattLonn(o.p.lonn,0)-skattLonn(o.p.lonn,renter) });
+      /* Tiltakene: løpende skatt på verdistigning og på boligverdi betales hvert år og
+         trekkes fra formuen. Gevinstskatten er latent, på samme måte som for aksjefond:
+         den vises hvert år som det regningen ville blitt ved salg akkurat da. */
+      const vekst = o.p.mode==="eier" ? o.verdi*g : 0;
+      const tLopende = vekst*TILTAK.avk/100 + o.verdi*TILTAK.verdi/100;
+      const latentBolig = o.p.mode==="eier"
+        ? Math.max(0, o.verdi-o.p.bolig)*TILTAK.salg/100 : 0;
+      /* Formuesskatten er en del av modellen: den betales hvert år og trekkes fra
+         formuen. Grunnlaget er det samme som ellers på siden — primærbolig til redusert
+         verdi, all gjeld fradragsberettiget, bankinnskudd til full verdi og fond eller
+         aksjer i eget selskap til 80 %. Grunnlaget deflateres før satsene brukes, på
+         samme måte som lønnen: bunnfradraget og verdsettelsesgrensen er 2026-beløp, og
+         å måle nominell formue mot dem ville gitt en innstramming modellen ikke skal ha. */
+      const fskatt = formuesskatt(lignetBolig(o.verdi/infl)
+                       + (o.spar*(o.p.spar==="bank" ? 1 : 0.80) - o.laan)/infl)*infl;
+      const fr = fradragsrenter(renter);
+      const skattAar = skattLonn(o.p.lonn, fr/infl)*infl;
+      rad.p.push({ formue:(o.verdi-o.laan)+o.spar-latent-latentBolig-o.tbet,
+                   verdi:o.verdi, gjeld:o.laan,
+                   spar:o.spar-latent, renter, bo, lonn:o.p.lonn*infl, latent, sparskatt,
+                   latentBolig, tiltak:tLopende, fskatt,
+                   skatt:skattAar,
+                   fradrag:skattLonn(o.p.lonn,0)*infl - skattAar });
       if(t<aar){
+        o.tbet += tLopende + fskatt;
         if(o.p.mode==="eier") o.verdi*=(1+g);
-        if(o.p.spar==="fond"){ o.skjerm+=(o.basis+o.skjerm)*sk; o.spar*=(1+rf); }
+        if(o.p.spar==="fond" || o.p.spar==="selskap"){
+          o.skjerm+=(o.basis+o.skjerm)*sk;
+          o.spar*=(1 + (o.p.spar==="fond" ? rf : rs));
+        }
         else o.spar*=(1+rb*(1-SKATT.alm));
         /* Den som bor billigst sparer differansen, så begge legger igjen like mye. */
         const inn = (dyrest - bo) + (sparFradrag ? frdAv(o) : 0);
@@ -639,31 +702,51 @@ const deflater = t => Math.pow(1+A.kpi/100, t);
    og sparer resten i aksjefond. Boutgifter ligger inne i forbruket for begge. Arvingens
    sparing er dermed null hvert år, og regnestykket kan ikke gå i minus. */
 function simulerArv(folk){
-  const g=A.g/100, rf=A.rfond/100, sk=A.skjerm/100, aar=Math.round(A.aar);
+  const g=A.g/100, rf=A.rfond/100, sk=A.skjerm/100, rl=A.rl/100, aar=Math.round(A.aar);
   const pa=folk[0], pb=folk[1];
   const fbA=+$("f_a").value||0, fbB=+$("f_b").value||0;
   let verdi=pa.bolig, spar=0, basis=0, skjerm=0, kumA=0, kumB=0;
-  let sparA=0, basisA=0, skjermA=0;
+  let sparA=0, basisA=0, skjermA=0, gjeldA=0, gjeldB=0;
   const rader=[];
   for(let t=0; t<=aar; t++){
+    /* Dekker ikke lønnen både skatten og forbruket, tas resten opp som et vanlig lån.
+       Rentene er fradragsberettiget som alle andre gjeldsrenter, og de går gjennom samme
+       tak som i de øvrige eksemplene. Gjelden trekkes fra i formuesskattegrunnlaget.
+       Lånet står avdragsfritt, som resten av modellen — den som går i underskudd hvert år
+       har uansett ikke rom for avdrag. */
+    const renterA=gjeldA*rl, renterB=gjeldB*rl;
+    const infl=deflater(t);
     const latA=Math.max(0, Math.max(0,sparA-basisA)-skjermA)*SKATT.aksje;
-    const fA=formuesskatt(lignetBolig(verdi)+Math.max(0,sparA)*0.80);
+    /* Grunnlaget deflateres før satsene brukes, som for lønnsskatten: bunnfradraget og
+       verdsettelsesgrensen er 2026-beløp. */
+    const fA=formuesskatt(lignetBolig(verdi/infl)
+               +(Math.max(0,sparA)*0.80-gjeldA)/infl)*infl;
     const latent=Math.max(0, Math.max(0,spar-basis)-skjerm)*SKATT.aksje;
-    const fB=formuesskatt(Math.max(0,spar)*0.80);
-    const iA=skattLonn(pa.lonn,0), iB=skattLonn(pb.lonn,0);
+    const fB=formuesskatt((Math.max(0,spar)*0.80-gjeldB)/infl)*infl;
+    const iA=skattLonn(pa.lonn, fradragsrenter(renterA)/infl)*infl,
+          iB=skattLonn(pb.lonn, fradragsrenter(renterB)/infl)*infl;
+    /* Tiltakene treffer boligen arvingen eier. Den løpende skatten betales av lønnen,
+       slik formuesskatten gjør, og gevinstskatten ligger latent fram til et salg. */
+    const tA = verdi*g*TILTAK.avk/100 + verdi*TILTAK.verdi/100;
+    const latBolig = Math.max(0, verdi-pa.bolig)*TILTAK.salg/100;
     rader.push({t, aInntektsskatt:iA, bInntektsskatt:iB,
                 aFormuesskatt:fA, bFormuesskatt:fB, verdi,
-                aVekst: verdi/deflater(t) - pa.bolig + (sparA-latA)/deflater(t),
-                bVekst: (spar-latent)/deflater(t),
-                aKum: kumA + latA/deflater(t), bKum: kumB + latent/deflater(t),
+                aGjeld:gjeldA, bGjeld:gjeldB, aRenter:renterA, bRenter:renterB,
+                aVekst: verdi/deflater(t) - pa.bolig + (sparA-latA-latBolig-gjeldA)/deflater(t),
+                bVekst: (spar-latent-gjeldB)/deflater(t),
+                aKum: kumA + (latA+latBolig)/deflater(t), bKum: kumB + latent/deflater(t),
                 aSaldo: sparA, bSaldo: spar});
     if(t<aar){
-      kumA += (iA+fA)/deflater(t);
+      kumA += (iA+fA+tA)/deflater(t);
       kumB += (iB+fB)/deflater(t);
       skjermA += (basisA+skjermA)*sk; skjerm += (basis+skjerm)*sk;
-      const ovA = pa.lonn-iA-fA-fbA, ovB = pb.lonn-iB-fB-fbB;
-      sparA = sparA*(1+rf)+ovA; basisA += ovA;
-      spar  = spar*(1+rf)+ovB;  basis  += ovB;
+      /* Lønn og forbruk følger inflasjonen, så det reelle overskuddet holder seg i ro.
+         Overskudd spares, underskudd lånes. */
+      const ovA = (pa.lonn-fbA)*infl-iA-fA-tA-renterA, ovB = (pb.lonn-fbB)*infl-iB-fB-renterB;
+      sparA = sparA*(1+rf)+Math.max(0,ovA); basisA += Math.max(0,ovA);
+      spar  = spar*(1+rf)+Math.max(0,ovB);  basis  += Math.max(0,ovB);
+      if(ovA<0) gjeldA += -ovA;
+      if(ovB<0) gjeldB += -ovB;
       verdi *= (1+g);
     }
   }
@@ -686,16 +769,32 @@ function el(tag,at,tx){
   if(tx!=null) e.textContent=tx;
   return e;
 }
-function linjegraf(svg, serier, ymaks, xmaks){
-  svg.innerHTML="";
-  const W=720,H=340,L=70,R=126,T=16,B=36;
-  const px=i=>L+(i/xmaks)*(W-L-R), py=v=>H-B-(v/ymaks)*(H-B-T);
+/* Toppen av en y-akse. Er alle tallene null eller negative — det kan skje med et tiltak
+   som spiser hele formuen — finnes det ingen skala å regne ut. Da tegnes en tom, men
+   riktig, akse i stedet for at stegberegningen under havner i null. */
+const aksetopp = m => (isFinite(m) && m>0) ? m : 1;
+/* Avstanden mellom aksestrekene. Med et grunnlag på null ga Math.log10 minus uendelig,
+   steget ble null, og løkken som tegner strekene gikk evig og låste nettleseren. */
+function aksetrinn(ymaks){
   const base=Math.pow(10,Math.floor(Math.log10(ymaks/4)));
   let d=base*10; [1,2,2.5,5,10].some(m=>{ if(base*m>=ymaks/5){d=base*m;return true;} });
-  for(let v=0; v<=ymaks+1; v+=d){
+  return (isFinite(d) && d>0) ? d : ymaks/4;
+}
+function linjegraf(svg, serier, ymaks, xmaks, merke){
+  svg.innerHTML="";
+  const W=720,H=340,L=70,R=148,T=16,B=36;
+  ymaks=aksetopp(ymaks);
+  /* Går en serie i minus — negativ boligprisvekst, eller et tiltak som spiser formuen —
+     må aksen strekke seg under null, ellers tegnes kurven utenfor tegneflaten. Står alt
+     over null blir bunnen null, og aksen er som før. */
+  const ymin=Math.min(0, ...serier.flatMap(x=>x.data.filter(v=>v!=null)));
+  const px=i=>L+(i/xmaks)*(W-L-R), py=v=>H-B-((v-ymin)/(ymaks-ymin))*(H-B-T);
+  const d=aksetrinn(ymaks-ymin);
+  for(let v=Math.ceil(ymin/d)*d; v<=ymaks+1; v+=d){
     svg.appendChild(el("line",{x1:L,x2:W-R,y1:py(v),y2:py(v),stroke:v?"#F0ECE4":"#E4DFD6"}));
     svg.appendChild(el("text",{x:L-10,y:py(v)+4,"text-anchor":"end","font-size":11,fill:"#98928A"},
-      v>=1e6?(v/1e6).toFixed(v%1e6?1:0).replace(".",",")+" mill.":nb(v)));
+      Math.abs(v)>=1e6?(v/1e6).toFixed(v%1e6?1:0).replace(".",",").replace("-","−")+
+        " mill.":nb(v)));
   }
   for(let t=0;t<=xmaks;t+=5)
     svg.appendChild(el("text",{x:px(t),y:H-13,"text-anchor":"middle","font-size":11,fill:"#98928A"},
@@ -709,20 +808,44 @@ function linjegraf(svg, serier, ymaks, xmaks){
       "font-weight":600}, krM(sis)));
     svg.appendChild(el("text",{x:px(xmaks)+10,y:py(sis)+13,"font-size":11,fill:"#98928A"}, s.navn));
   });
+  /* Over lange horisonter er mellomveien like interessant som sluttpunktet. Verdiene
+     får hvit kontur, slik at de er lesbare også der de havner oppå en linje. */
+  (merke==null ? [] : [].concat(merke)).forEach(mk=>{
+    if(!(mk>0 && mk<xmaks)) return;
+    svg.appendChild(el("line",{x1:px(mk),x2:px(mk),y1:T,y2:H-B,
+      stroke:"#C9C2B8","stroke-dasharray":"3 3"}));
+    const pkt=serier.filter(s=>s.data[mk]!=null)
+      .map(s=>({farge:s.farge, v:s.data[mk], y:py(s.data[mk])}))
+      .sort((a,b)=>a.y-b.y);
+    /* Ligger to punkter tett, skyves etikettene fra hverandre. Prikken står på verdien. */
+    let forrige=-1e9;
+    pkt.forEach(o=>{ o.ty=Math.max(o.y-8, forrige+18); forrige=o.ty; });
+    pkt.forEach(o=>{
+      svg.appendChild(el("circle",{cx:px(mk),cy:o.y,r:3.2,fill:o.farge}));
+      svg.appendChild(el("text",{x:px(mk)+8,y:o.ty,"font-size":11.5,fill:o.farge,
+        "font-weight":600,stroke:"#FBFAF7","stroke-width":3.5,"paint-order":"stroke"},
+        krM(o.v)));
+    });
+  });
 }
 function arealgraf(svg, band, xmaks){
   svg.innerHTML="";
-  const W=720,H=340,L=74,R=126,T=16,B=36;
+  const W=720,H=340,L=74,R=148,T=16,B=36;
   const stabler=[]; let acc=new Array(band[0].data.length).fill(0);
   band.forEach(b=>{ acc=acc.map((v,i)=>v+b.data[i]); stabler.push(acc.slice()); });
-  const topp=stabler[stabler.length-1], ymaks=Math.max(...topp)*1.14;
-  const px=i=>L+(i/xmaks)*(W-L-R), py=v=>H-B-(v/ymaks)*(H-B-T);
-  const base=Math.pow(10,Math.floor(Math.log10(ymaks/4)));
-  let dd=base*10; [1,2,2.5,5,10].some(m=>{ if(base*m>=ymaks/5){dd=base*m;return true;} });
-  for(let v=0; v<=ymaks+1; v+=dd){
+  const topp=stabler[stabler.length-1];
+  /* Toppen må leses av alle stablene, ikke bare den øverste: er et av båndene negativt,
+     kan et bånd under rekke høyere enn summen. */
+  const alle=stabler.flat();
+  const hoy=Math.max(0, ...alle), ymin=Math.min(0, ...alle);
+  const ymaks=hoy>ymin ? hoy+(hoy-ymin)*0.14 : ymin+1;
+  const px=i=>L+(i/xmaks)*(W-L-R), py=v=>H-B-((v-ymin)/(ymaks-ymin))*(H-B-T);
+  const dd=aksetrinn(ymaks-ymin);
+  for(let v=Math.ceil(ymin/dd)*dd; v<=ymaks+1; v+=dd){
     svg.appendChild(el("line",{x1:L,x2:W-R,y1:py(v),y2:py(v),stroke:v?"#F0ECE4":"#E4DFD6"}));
     svg.appendChild(el("text",{x:L-10,y:py(v)+4,"text-anchor":"end","font-size":11,fill:"#98928A"},
-      v>=1e6?(v/1e6).toFixed(v%1e6?1:0).replace(".",",")+" mill.":nb(v)));
+      Math.abs(v)>=1e6?(v/1e6).toFixed(v%1e6?1:0).replace(".",",").replace("-","−")+
+        " mill.":nb(v)));
   }
   for(let t=0;t<=xmaks;t+=5)
     svg.appendChild(el("text",{x:px(t),y:H-13,"text-anchor":"middle","font-size":11,fill:"#98928A"},
@@ -742,8 +865,8 @@ function arealgraf(svg, band, xmaks){
 /* Stablede søyler: hvert ledd i raden tegnes etter hverandre, med sin egen farge. */
 function stabelsoyler(svg, rader){
   svg.innerHTML="";
-  const W=720,H=340,L=176,R=46,T=30,B=20;
-  const maks=Math.max(...rader.map(r=>r.deler.reduce((a,d)=>a+d.v,0)))*1.04;
+  const W=720,H=340,L=190,R=96,T=30,B=20;
+  const maks=aksetopp(Math.max(...rader.map(r=>r.deler.reduce((a,d)=>a+d.v,0)))*1.04);
   const bw=(H-T-B)/rader.length, bh=Math.min(56,bw*0.5);
   const w=v=>(v/maks)*(W-L-R);
   rader.forEach((r,i)=>{
@@ -766,27 +889,51 @@ function stabelsoyler(svg, rader){
       "font-weight":600}, kr(r.deler.reduce((a,d)=>a+d.v,0))));
   });
 }
-/* Stolper: farget del først, den grå skattedelen alltid ytterst til høyre. */
-function stolpegraf(svg, rader){
+/* Stolper: farget del først, den grå skattedelen alltid ytterst til høyre.
+   opt.venstre og opt.hoyre setter margene, opt.bh søylehøyden, opt.eksakt skriver hele
+   kronebeløp, og opt.total setter summen ytterst med skatten på linjen under.
+   rad.gruppe er et navn som spenner over rad.gruppeN rader, slik at flere søyler kan
+   høre til samme person. */
+function stolpegraf(svg, rader, opt){
+  const o=opt||{};
   svg.innerHTML="";
-  const W=720,H=340,L=170,R=40,T=30,B=20;
-  const maks=Math.max(...rader.map(r=>r.netto+r.skatt))*1.04;
+  const W=720,H=340,L=o.venstre||170,R=o.hoyre||136,T=30,B=20;
+  const bel=v=>o.eksakt?kr(v):krM(v);
+  const maks=aksetopp(Math.max(...rader.map(r=>r.netto+r.skatt))*1.04);
   const luft=rader.filter(r=>r.gap).length*16;
-  const bw=(H-T-B-luft)/rader.length, bh=Math.min(54,bw*0.62);
+  const bw=(H-T-B-luft)/rader.length, bh=Math.min(o.bh||54,bw*0.62);
   const w=v=>(v/maks)*(W-L-R);
-  let yy=T;
+  /* Radene plasseres først, slik at et gruppenavn kan sentreres over flere av dem. */
+  const ys=[]; let yy=T;
+  rader.forEach(r=>{ if(r.gap) yy+=16; ys.push(yy+(bw-bh)/2); yy+=bw; });
   rader.forEach((r,i)=>{
-    if(r.gap) yy+=16;
-    const y=yy+(bw-bh)/2; yy+=bw;
+    const y=ys[i];
+    if(r.gruppe){
+      const sis=ys[Math.min(rader.length-1, i+(r.gruppeN||1)-1)];
+      svg.appendChild(el("text",{x:L-108,y:(y+sis)/2+bh/2+4,"text-anchor":"end",
+        "font-size":13.5,fill:"#1B1A17","font-weight":600}, r.gruppe));
+    }
     if(r.navn) svg.appendChild(el("text",{x:L-16,y:y+bh/2+(r.under?-3:4),"text-anchor":"end",
       "font-size":13.5,fill:"#1B1A17","font-weight":600}, r.navn));
     if(r.under) svg.appendChild(el("text",{x:L-16,y:y+bh/2+(r.navn?14:4),"text-anchor":"end",
-      "font-size":11.5,fill:"#98928A"}, r.under));
+      "font-size":12,fill:"#6E6960"}, r.under));
     const wn=w(r.netto), ws=w(r.skatt);
     if(wn>0.5) svg.appendChild(el("rect",{x:L,y,width:wn,height:bh,rx:3,fill:r.farge}));
     if(ws>0.5) svg.appendChild(el("rect",{x:L+wn,y,width:ws,height:bh,rx:3,fill:"#C9C2B8"}));
-    const cx=L+w(r.netto+r.skatt)+10;
-    if(r.skatt>0)
+    /* En søyle på null tegnes som en strek, så raden ikke ser ut til å mangle. */
+    if(wn<=0.5 && ws<=0.5)
+      svg.appendChild(el("rect",{x:L,y,width:3,height:bh,rx:1.5,fill:r.farge,
+        "fill-opacity":0.45}));
+    const cx=L+Math.max(3,w(r.netto+r.skatt))+12;
+    if(o.total){
+      svg.appendChild(el("text",{x:cx,y:y+bh/2+(r.linje2===false?4:-2),"font-size":13.5,
+        fill:"#1B1A17","font-weight":600}, bel(r.netto+r.skatt)));
+      if(r.linje2!==false)
+        svg.appendChild(el("text",{x:cx,y:y+bh/2+15,"font-size":11.5,
+          fill:r.skatt>0?"#6E6960":"#A8482C","font-weight":r.skatt>0?400:600},
+          (r.skatt>0?bel(r.skatt):"0 kr")+" i skatt"));
+    }
+    else if(r.skatt>0)
       svg.appendChild(el("text",{x:cx,y:y+bh/2+4,"font-size":12.5,fill:"#6E6960"},
         kr(r.skatt)+" i skatt"));
     else
@@ -794,7 +941,6 @@ function stolpegraf(svg, rader){
         "font-weight":600},"0 kr i skatt"));
   });
 }
-
 /* ===================== KALKULATOR ===================== */
 function kalk(){
   const pris=+$("k_bolig").value||0, ekv=+$("k_ek").value||0;
@@ -835,7 +981,7 @@ function kalk(){
   $("k_rnt").textContent=kr(renter);
 
   const svg=$("k_svg"); svg.innerHTML="";
-  const W=720,H=290,L=54,R=24,T=18,B=34;
+  const W=720,H=310,L=54,R=24,T=18,B=54;
   const MIN=10;   // utlånsforskriftens minstekrav til egenkapital
   const px=a=>L+((a-MIN)/(100-MIN))*(W-L-R), ymaks=A.g/(MIN/100)*1.08,
         py=v=>H-B-(v/ymaks)*(H-B-T);
@@ -844,8 +990,10 @@ function kalk(){
     svg.appendChild(el("text",{x:L-9,y:py(v)+4,"text-anchor":"end","font-size":11,fill:"#98928A"},v+" %"));
   }
   [10,25,50,75,100].forEach(a=>svg.appendChild(el("text",{x:px(a),
-    y:H-13,"text-anchor":a===10?"start":"middle","font-size":11,fill:"#98928A"},
-    a+(a===10?" % egenkapital (minstekravet)":" %"))));
+    y:H-36,"text-anchor":a===10?"start":a===100?"end":"middle","font-size":11,
+    fill:"#98928A"}, a+" %")));
+  svg.appendChild(el("text",{x:(L+W-R)/2,y:H-13,"text-anchor":"middle","font-size":11.5,
+    fill:"#98928A"},"Hvor stor del av boligen som er egenkapital. Minstekravet er 10 %."));
   svg.appendChild(el("line",{x1:L,x2:W-R,y1:py(A.g),y2:py(A.g),stroke:"#98928A","stroke-dasharray":"3 3"}));
   svg.appendChild(el("text",{x:W-R,y:py(A.g)-7,"text-anchor":"end","font-size":11,fill:"#98928A"},
     "Boligprisvekst "+pst(A.g)));
@@ -865,14 +1013,16 @@ const FARGE=["#A8482C","#2E5B72","#715C8C"];
 const SCEN = [
 {
   knapp:"Hvor pengene står", h2:"Samme sum, tre plasseringer",
+  aar:30,
   navn:["Kjøper bolig","Leier, sparer i bank","Leier, sparer i fond"],
-  graf:"linje", graf2:"skattlinje", stats:"tabell", kolonner:["formue","skatt","fradrag"],
-  folk:[{lonn:650000, ek:1200000, mode:"eier",  bolig:4300000, spar:"bank"},
-        {lonn:650000, ek:1200000, mode:"leier", bolig:4300000, spar:"bank"},
-        {lonn:650000, ek:1200000, mode:"leier", bolig:4300000, spar:"fond"}],
-  tittel:"Formue over tid", under:"Boligverdi minus gjeld, eller sparepenger etter skatt.",
+  formuesnavn:["boligkjøperen","bankspareren","fondsspareren"],
+  graf:"linje", graf2:"skattlinje", stats:"ingen",
+  folk:[{lonn:750000, ek:1200000, mode:"eier",  bolig:4300000, spar:"bank"},
+        {lonn:750000, ek:1200000, mode:"leier", bolig:4300000, spar:"bank"},
+        {lonn:750000, ek:1200000, mode:"leier", bolig:4300000, spar:"fond"}],
+  tittel:"Formue over tid", under:"Boligverdi minus gjeld, eller sparepenger etter skatt. Alt i dagens kroner.",
   tittel2:"Samlet skatt over tid",
-  under2:"Skatt på lønn, pluss skatt på sparingen. For fondet er den latente gevinstskatten regnet med, altså hva regningen ville blitt ved salg.",
+  under2:"Alt de har betalt fra i dag og fram til hvert år, i dagens kroner. Skatt på lønn, pluss skatt på sparingen. For fondet er den latente gevinstskatten regnet med, altså hva regningen ville blitt ved salg.",
   intro:r=>"Tre personer med samme lønn og samme "+kr(r[0].p[1].spar)+" å starte med. Den "+
     "første kjøper en bolig til "+krM(r[0].p[0].verdi)+", de to andre leier — én med pengene "+
     "i banken, én i et globalt indeksfond. Alle betaler "+kr(r[0].p[0].bo)+" i året for å "+
@@ -880,49 +1030,50 @@ const SCEN = [
     "startkapitalen står.",
   tekst(r){
     const n=r.length-1, d=deflater(n), f=r[n].p.map(x=>x.formue/d), beste=Math.max(f[1],f[2]);
-    const be=breakeven(0,2);
     return "<h3>"+(f[0]>beste ? "Boligen slår begge — "+krM(f[0]-beste)+" foran det nærmeste "+
       "alternativet" : "Boligen taper mot sparing med disse tallene")+"</h3>"+
-    "<p>Alle tre betaler <b>"+kr(r[0].p[0].bo)+"</b> i året for å bo. Etter "+n+" år har "+
-    "kjøperen <b>"+krM(f[0])+"</b>, bankspareren <b>"+krM(f[1])+"</b> og fondsspareren <b>"+
-    krM(f[2])+"</b>, målt i dagens kroner.</p>"+
-    "<p><b>Fondet gir "+pst(A.rfond)+" i året, boligen "+pst(A.g)+" — og fondet taper "+
-    "likevel.</b> "+
-    "Gevinsten på fondet beskattes med 37,84 %, boligens med null, og boligen er i tillegg "+
-    "lånefinansiert. "+(be ? "For å matche boligen måtte fondet gitt <b>"+pst(be)+"</b> i "+
-    "året, hvert år i "+n+" år." : "")+"</p>"+
+    "<p>Etter "+n+" år har boligkjøperen "+krM(f[0])+", bankspareren "+krM(f[1])+
+    " og fondsspareren "+krM(f[2])+", målt i dagens kroner.</p>"+
+    "<p>Fondet gir "+pst(A.rfond)+" i året, boligen "+pst(A.g)+" — og fondet taper "+
+    "likevel. "+
+    "Gevinsten på fondet beskattes med 37,84 %, boligens med null, og boliginvesteringen er "+
+    "i tillegg lånefinansiert.</p>"+
     "<p>Bankspareren er ikke et stråmannseksempel. De aller fleste som sparer til bolig har "+
-    "pengene på konto, ikke i aksjer — nettopp fordi egenkapitalen skal brukes om noen få år "+
-    "og ikke tåler å svinge.</p>"+
+    "pengene på konto, ikke i aksjer.</p>"+
     "<p>Gearingen avtar underveis: boligen stiger mens gjelden står stille, så avkastningen "+
-    "på egenkapitalen faller fra "+pst(r[0].p[0].verdi*A.g/100/(r[0].p[0].verdi-r[0].p[0].gjeld)*100)+
-    " det første året til "+pst(r[n].p[0].verdi*A.g/100/(r[n].p[0].verdi-r[n].p[0].gjeld)*100)+
+    "på egenkapitalen faller fra "+
+    pst(forhold(r[0].p[0].verdi*A.g/100, r[0].p[0].verdi-r[0].p[0].gjeld)*100)+
+    " det første året til "+
+    pst(forhold(r[n].p[0].verdi*A.g/100, r[n].p[0].verdi-r[n].p[0].gjeld)*100)+
     " i det siste. I virkeligheten kan man låne opp på nytt når boligen har steget og holde "+
     "gearingen oppe — det gjør ikke modellen her.</p>"+formuesskattNote(r,lesFolk());
   }
 },
 {
   knapp:"Arbeid eller eierskap", h2:"Ett år med arbeid, ett år med eierskap",
-  navn:["Eier med typisk lån","Leietaker"],
+  navn:["Boligeier","Leietaker"],
+  formuesnavn:["boligeieren","leietakeren"],
   graf:"arbeid", stats:"bokser",
-  folk:[{lonn:900000, ek:1362500, mode:"eier",  bolig:5450000, spar:"bank"},
+  folk:[{lonn:900000, ek:1350000, mode:"eier",  bolig:5400000, spar:"bank"},
         {lonn:500000, ek:0,       mode:"leier", bolig:3500000, spar:"bank"}],
-  tittel:"Ett år, tre kilder til inntekt",
-  under:"De to øverste søylene er den samme personen — lønn og bolig hver for seg. Farget felt er det som blir igjen, grått er skatt.",
-  intro:r=>"De to her har ingenting med hverandre å gjøre utover at de sammenlignes. Den ene "+
-    "eier en bolig med et typisk høyt lån og tjener "+kr(r[0].p[0].lonn)+". Den andre leier "+
-    "og tjener "+kr(r[0].p[1].lonn)+". Spørsmålet er hva ett enkelt år gir dem hver, og hva de "+
+  tittel:"Hva lønnen og boligen gir hver av dem på ett år",
+  under:"Farget felt er det som blir igjen, grått er skatten. Lønnen er regnet uten rentefradraget — verdien av fradraget ligger i boligsøylen, sammen med verdistigningen.",
+  intro:r=>"Her ser vi på to ulike personer som på hver sin måte er representative for sin "+
+    "del av lønnskalaen. Den ene eier en bolig med et typisk høyt lån og tjener "+
+    kr(r[0].p[0].lonn)+". Den andre leier og tjener "+kr(r[0].p[1].lonn)+". Spørsmålet er "+
+    "hva ett enkelt år gir dem hver, og hva de "+
     "betaler i skatt for det. Leietakeren har én inntektskilde, og den beskattes. Boligeieren "+
     "har to: lønnen, som beskattes, og boligen, som ikke gjør det.",
   tekst(r){
     const o=r[0].p[0], b=r[0].p[1], vst=o.verdi*A.g/100, frd=o.renter*SKATT.alm, sum=vst+frd;
     const netto=b.lonn-b.skatt, naer=Math.abs(sum-netto)<0.1*netto;
-    return "<h3>"+(naer?"Boligen tjener en hel lønn, uten å betale skatt"
-                       :"Boligen tjener "+kr(sum)+", uten å betale skatt")+"</h3>"+
-    "<p>Boligen på "+krM(o.verdi)+" stiger med <b>"+kr(vst)+"</b> det første året, og "+
-    "rentefradraget er verdt <b>"+kr(frd)+"</b> — til sammen <b>"+kr(sum)+"</b>, uten at det "+
-    "utløser en eneste krone i skatt. Leietakeren tjener <b>"+kr(b.lonn)+"</b> og betaler <b>"+
-    kr(b.skatt)+"</b> i skatt for å sitte igjen med omtrent det samme.</p>"+
+    return "<h3>"+(sum<0 ? "Boligen taper "+kr(-sum)+", og tapet gir ingen fradrag"
+                 : naer ? "Boligen tjener en hel lønn, uten å betale skatt"
+                        : "Boligen tjener "+kr(sum)+", uten å betale skatt")+"</h3>"+
+    "<p>Boligen på "+krM(o.verdi)+" stiger med "+kr(vst)+" det første året, og "+
+    "rentefradraget er verdt "+kr(frd)+" — til sammen "+kr(sum)+", uten at det "+
+    "utløser en eneste krone i skatt. Leietakeren tjener "+kr(b.lonn)+" og betaler "+
+    kr(b.skatt)+" i skatt for å sitte igjen med omtrent det samme.</p>"+
     "<p>Eksempelet er ikke et ytterpunkt. Dette er en alminnelig bolig med et lån godt "+
     "innenfor det en bank kan låne ut, og den gir eieren like mye skattefritt hvert år som "+
     "en lønnsmottaker tjener på å gå på jobb et helt år.</p>"+formuesskattNote(r,lesFolk());
@@ -930,63 +1081,39 @@ const SCEN = [
 },
 {
   knapp:"Den dyre boligen", h2:"Når systemet får virke på store tall",
-  navn:["Kjøper til 28 millioner"],
+  navn:["Kjøper til 28 mill."],
+  formuesnavn:["boligkjøperen"],
   graf:"linje", graf2:"gevinstlinje", stats:"ingen",
   folk:[{lonn:5000000, ek:4000000, mode:"eier", bolig:28000000, spar:"bank"}],
   tittel:"Formue over tid", under:"Boligverdi minus gjeld, i dagens kroner.",
   tittel2:"Hva reglene har gitt, samlet over tid",
-  under2:"Lagt oppå hverandre fordi de ikke overlapper: øverst formuen som er bygget opp uten skatt, nederst skatten rentefradraget har tatt bort.",
+  under2:"Samlet fra i dag og fram til hvert år, i dagens kroner. Lagt oppå hverandre fordi de ikke overlapper: øverst formuen som er bygget opp uten skatt, nederst skatten rentefradraget har tatt bort.",
   intro:r=>"Her er det bare én person, som tjener "+kr(r[0].p[0].lonn)+", har "+
     kr(+$("a_ek").value)+" i egenkapital og kjøper en bolig til "+krM(r[0].p[0].verdi)+
-    " Lånet er "+(r[0].p[0].gjeld/r[0].p[0].lonn).toFixed(1).replace(".",",")+" ganger "+
-    "inntekten og "+pst(r[0].p[0].gjeld/r[0].p[0].verdi*100,0)+" av verdien, altså innenfor "+
-    "grensene for lånestørrelse — dette er et lån en bank faktisk ville gitt. Lønnen går "+
-    "til forbruk, så formuen som vises er boligen alene. Eksempelet viser hva de samme "+
-    "reglene gir når de får virke på store tall.",
+    pkt(krM(r[0].p[0].verdi))+" Lånet er "+
+    forhold(r[0].p[0].gjeld,r[0].p[0].lonn).toFixed(1).replace(".",",")+" ganger "+
+    "inntekten og "+pst(forhold(r[0].p[0].gjeld,r[0].p[0].verdi)*100,0)+" av verdien, altså innenfor "+
+    "grensene for lånestørrelse.",
   tekst(r){
     const n=r.length-1, d=deflater(n), o=r[0].p[0];
     const frd=sumFradrag(r,0);
     const vekst=r[n].p[0].formue/d-(o.verdi-o.gjeld);
-    return "<h3>"+krM(vekst)+" i formuesvekst, uten skatt på en krone</h3>"+
-    "<p>Boligen stiger med <b>"+kr(o.verdi*A.g/100)+"</b> allerede det første året, og "+
-    "rentefradraget er verdt <b>"+kr(o.fradrag)+"</b>. Over "+n+" år vokser formuen, målt i "+
+    return "<h3>"+(vekst>=0 ? krM(vekst)+" i formuesvekst, null i skatt"
+                   : "Boligen har falt "+krM(-vekst)+", og tapet gir ingen fradrag")+"</h3>"+
+    "<p>Boligen stiger med "+kr(o.verdi*A.g/100)+" allerede det første året, og "+
+    "rentefradraget er verdt "+kr(o.fradrag)+". Over "+n+" år vokser formuen, målt i "+
     "dagens kroner, fra "+
-    krM(o.verdi-o.gjeld)+" til <b>"+krM(r[n].p[0].formue/d)+"</b>, uten at noe av det "+
-    "utløser skatt, og rentefradraget tar i tillegg bort <b>"+krM(frd)+"</b> i skatt som "+
-    "ellers ville blitt betalt. Vi snakker altså om en person som har tjent <b>"+krM(vekst)+
-    " helt skattefritt</b> på ti år, og i tillegg fått <b>"+krM(frd)+" i subsidiert skattekutt</b>."+
-    "</p>"+
+    krM(o.verdi-o.gjeld)+" til "+krM(r[n].p[0].formue/d)+", uten at noe av det "+
+    "utløser skatt. Og rentefradraget har i tillegg gitt "+krM(frd)+" i skatt som "+
+    "ellers ville blitt betalt. "+(vekst>=0
+      ? "Vi snakker altså om en person som har tjent "+krM(vekst)+" helt skattefritt på "+
+        "ti år, og i tillegg fått "+krM(frd)+" i subsidiert skattekutt."
+      : "Verdifallet gir ingen fradragsrett, men rentefradraget på "+krM(frd)+" står "+
+        "uansett.")+"</p>"+
     "<p>Ingenting her er et smutthull eller en tilpasning. Det er de samme tre effektene som "+
     "gjelder for boligen til 4,3 millioner i eksempel 1 — men siden verken fradraget eller "+
     "skattefritaket har et tak, vokser begge i takt med prisen på boligen.</p>"+
     formuesskattNote(r,lesFolk(),true);
-  }
-},
-{
-  knapp:"Lik skatt", h2:"Ulik inntekt, samme skatteregning",
-  navn:["Eier, tjener mest","Leier, tjener minst"],
-  graf:"skatt", stats:"bokser",
-  folk:[{lonn:728700, ek:1200000, mode:"eier",  bolig:4300000, spar:"bank"},
-        {lonn:650000, ek:1200000, mode:"leier", bolig:4300000, spar:"bank"}],
-  tittel:"Lønn og skatt det første året",
-  under:"Søylene er lønn. Den grå enden er skatten — like lang for begge, selv om lønningene ikke er det. Boligens verdistigning er ikke med.",
-  intro:r=>"Her er lønningene satt opp med vilje slik at de to ender med nøyaktig samme "+
-    "skatteregning. Boligeieren tjener "+kr(r[0].p[0].lonn-r[0].p[1].lonn)+" mer i året enn "+
-    "leietakeren, men fordi renter på boliglån trekkes fra i alminnelig inntekt, spises hele "+
-    "forskjellen opp før skatten regnes ut.",
-  tekst(r){
-    const a=r[0].p[0], b=r[0].p[1], diff=b.skatt-a.skatt, vst=a.verdi*A.g/100;
-    const lik=Math.abs(diff)<0.02*b.skatt;
-    return "<h3>"+kr(a.lonn-b.lonn)+" mer i lønn, "+(lik?"samme skatteregning":
-      kr(Math.abs(diff))+(diff>0?" mindre":" mer")+" i skatt")+"</h3>"+
-    "<p>Boligeieren tjener <b>"+kr(a.lonn)+"</b> og leietakeren <b>"+kr(b.lonn)+"</b>. "+
-    (lik ? "Begge betaler omtrent <b>"+kr(b.skatt)+"</b> i skatt — rentefradraget spiser opp "+
-      "hele inntektsforskjellen." : "Boligeieren betaler <b>"+kr(a.skatt)+"</b>, leietakeren <b>"+
-      kr(b.skatt)+"</b>.")+"</p>"+
-    "<p><b>Verdistigningen kommer i tillegg.</b> Samme år steg boligen med <b>"+kr(vst)+
-    "</b>, og heller ikke det beskattes. Skattesystemet behandler altså de to likt på "+
-    "inntekten, samtidig som det lar den ene bygge formue skattefritt.</p>"+
-    formuesskattNote(r,lesFolk());
   }
 },
 {
@@ -999,7 +1126,7 @@ const SCEN = [
   tittel:"Hva de sitter igjen med i løpet av ett år",
   under:"Lønn etter skatt, og for arvingen også veksten i boligverdien. Verdistigningen beskattes ikke.",
   tittel2:"Hva de betaler i skatt samme år",
-  under2:"Inntektsskatt, og for arvingen også formuesskatt. Her er formuesskatten regnet med — den er holdt utenfor i de andre eksemplene.",
+  under2:"Inntektsskatt, og for arvingen også formuesskatt.",
   tittel3:"Økning i formue over tid",
   under3:"Hvor mye rikere de har blitt siden i dag, i dagens kroner. Ikke samlet formue — bare veksten.",
   tittel4:"Samlet skatt over tid",
@@ -1018,56 +1145,105 @@ const SCEN = [
     const fa=formuesskatt(lignetBolig(a.verdi)-a.gjeld), vekst=a.verdi*A.g/100;
     const skA=a.skatt+fa, skB=b.skatt+formuesskatt(0);
     const fikkA=(a.lonn-skA)+vekst, fikkB=b.lonn-skB;
-    return "<h3>Arvingen betaler "+kr(skB-skA)+" mindre i skatt og får "+
-      (fikkA/fikkB).toFixed(1).replace(".",",")+" ganger så mye</h3>"+
-    "<p>Leietakeren tjener dobbelt så mye som arvingen og betaler <b>"+kr(skB)+
-    "</b> i skatt. Arvingen betaler <b>"+kr(a.skatt)+"</b> i inntektsskatt og <b>"+kr(fa)+
-    "</b> i formuesskatt, til sammen <b>"+kr(skA)+"</b>. Samtidig stiger boligen med <b>"+
-    kr(vekst)+"</b>, uten at det utløser en krone skatt. Arvingen sitter igjen med "+
+    const forh=fikkB>0 ? fikkA/fikkB : 0;
+    return "<h3>Arvingen betaler "+rundt(Math.abs(skB-skA))+
+      (skB>=skA ? " mindre" : " mer")+" i skatt og "+
+      (forh>=1 ? "tjener "+forh.toFixed(1).replace(".",",")+" ganger så mye"
+               : "sitter likevel igjen med mindre")+"</h3>"+
+    "<p>Leietakeren tjener dobbelt så mye som arvingen og betaler "+kr(skB)+
+    " i inntektsskatt. Arvingen betaler "+kr(a.skatt)+" i inntektsskatt og "+kr(fa)+
+    " i formuesskatt, til sammen "+kr(skA)+". Samtidig stiger boligen med "+
+    kr(vekst)+", uten at det utløser en krone skatt. Arvingen sitter igjen med "+
     kr(fikkA)+" i årlig fortjeneste mot leietakerens "+kr(fikkB)+".</p>"+
     "<p>Formuesskatten er tatt med her, og den er likevel ikke nok til å snu bildet. "+
     "Grunnen er verdsettelsesrabatten: en bolig til "+krM(a.verdi)+" får en ligningsverdi på "+
     krM(lignetBolig(a.verdi))+", altså under halve markedsverdien.</p>"+
     "<p>Et tilleggspoeng: arvingen bor i en bolig det ville kostet rundt "+
     kr(a.verdi*A.leiepct/100)+" i året å leie — den fordelen er ikke regnet med.</p>"+
-    "<p><b>Over "+n+" år blir avstanden større.</b> Arvingens formue vokser med <b>"+
-    krM(ar[n].aVekst)+"</b>, leietakerens sparing med <b>"+krM(ar[n].bVekst)+"</b>"+pkt(krM(ar[n].bVekst))+" "+
-    "I skatt har arvingen betalt <b>"+krM(ar[n].aKum)+"</b> og leietakeren <b>"+
-    krM(ar[n].bKum)+"</b>"+pkt(krM(ar[n].bKum))+" Formuesskatten på boligen mer enn dobler seg underveis, fra "+
-    kr(ar[0].aFormuesskatt)+" til "+kr(ar[n-1].aFormuesskatt)+" i året, og endrer likevel "+
-    "ikke bildet.</p>";
+    "<p>Over "+n+" år blir avstanden større. Arvingens formue vokser med "+
+    krM(ar[n].aVekst)+", leietakerens sparing med "+krM(ar[n].bVekst)+pkt(krM(ar[n].bVekst))+" "+
+    "I skatt har arvingen betalt "+krM(ar[n].aKum)+" og leietakeren "+
+    krM(ar[n].bKum)+pkt(krM(ar[n].bKum))+" Formuesskatten på boligen mer enn dobler seg underveis, fra "+
+    kr(ar[0].aFormuesskatt)+" til "+kr(ar[n-1].aFormuesskatt/deflater(n-1))+
+    " i året, og endrer likevel ikke bildet.</p>"+
+    laanAvsnitt(ar,n);
   }
 },
 {
   knapp:"By og distrikt", h2:"Samme lønn, samme egenkapital, ulikt sted",
-  sparFradrag:true,
+  aar:15, sparFradrag:true,
   navn:["Kjøper i Oslo","Kjøper i distriktet"],
   formuesnavn:["Oslo-kjøperen","distriktskjøperen"],
   graf:"linje", graf2:"skattlinje", stats:"tabell",
   kolonner:["formue","skatt","gevinst","fradrag"],
-  folk:[{lonn:850000, ek:1000000, mode:"eier", bolig:5000000, spar:"bank"},
-        {lonn:850000, ek:1000000, mode:"eier", bolig:1000000, spar:"bank"}],
+  folk:[{lonn:900000, ek:1300000, mode:"eier", bolig:5500000, spar:"bank"},
+        {lonn:900000, ek:1300000, mode:"eier", bolig:2500000, spar:"bank"}],
   tittel:"Formue over tid", under:"Boligverdi minus gjeld, pluss sparepenger, i dagens kroner.",
-  tittel2:"Samlet skatt over tid", under2:"Skatt på lønn. Den ene betaler mindre, fordi rentefradraget er større.",
+  tittel2:"Samlet skatt over tid", under2:"Alt de har betalt fra i dag og fram til hvert år, i dagens kroner. Skatt på lønn. Den ene betaler mindre, fordi rentefradraget er større.",
   intro:r=>"Man tenker lett at boligmarkedet favoriserer dem som bor utenfor de store "+
     "byene: billigere bolig, mindre gjeld, ingen formuesskatt. Skattereglene virker motsatt "+
     "vei. Her har to personer nøyaktig samme lønn og samme egenkapital. Den ene kjøper i "+
     "Oslo til "+krM(r[0].p[0].verdi)+", den andre i distriktet til "+krM(r[0].p[1].verdi)+
-    " Mange kjøper bolig sammen med en partner og trenger da lån for bare halve prisen, altså "+
-    "er dette en realistisk pris mange steder i distriktene. Den "+
-    "som bor billigst, sparer differansen i boutgift i banken. Boligprisveksten er satt lik for begge; i praksis har Oslo vokst raskere "+
-    "enn distriktene, så forskjellen er om noe underdrevet.",
+    pkt(krM(r[0].p[1].verdi))+" Dette er en realistisk pris da mange kjøper bolig med partner (den faktiske "+
+    "boligverdien er da egentlig dobbelt så stor som beløpene i dette eksempelet)."+
+    (r[0].p[1].gjeld>0
+      ? " Begge har lån, men Oslo-kjøperens er "+
+        Math.max(1,Math.round(r[0].p[0].gjeld/r[0].p[1].gjeld))+" ganger så stort."
+      : r[0].p[0].gjeld>0 ? " Bare Oslo-kjøperen har lån."
+      : " Ingen av dem har lån med disse tallene.")+" Den som bor billigst, sparer "+
+    "differansen i boutgift i banken. Boligprisveksten er satt lik for begge; i praksis har "+
+    "Oslo vokst raskere enn distriktene, så forskjellen er om noe underdrevet.",
   tekst(r){
     const n=r.length-1, d=deflater(n), a=r[n].p[0].formue/d, b=r[n].p[1].formue/d;
     const fa=sumFradrag(r,0), fb=sumFradrag(r,1);
     return "<h3>Den som betaler mest for å bo, får mest fra staten</h3>"+
     "<p>Begge startet med "+kr(+$("a_ek").value)+" og tjener "+kr(r[0].p[0].lonn)+". Likevel "+
-    "har Oslo-kjøperen over "+n+" år fått <b>"+krM(fa)+"</b> i rentefradrag og en betydelig "+
-    "større skattefri avkastning på boligen. Etter "+n+" år sitter Oslo-kjøperen igjen med "+
-    krM(a)+" mot "+krM(b)+pkt(krM(b))+"</p>"+
-    "<p><b>Skattesystemet belønner systematisk dem som bor i storbyene.</b> Der prisene er "+
+    "har Oslo-kjøperen over "+n+" år fått "+millord(a-b)+" mer i formue, og "+krM(fa)+
+    " mot "+krM(fb)+" i rentefradrag for distriktskjøperen.</p>"+
+    "<p>Skattesystemet belønner systematisk dem som bor i storbyene. Der prisene er "+
     "høyest, er også fradraget og den skattefrie gevinsten størst.</p>"+
     formuesskattNote(r,lesFolk());
+  }
+},
+{
+  knapp:"Gründer eller bolig", h2:"Hvor godt må bedriften gå for å matche boligen?",
+  navn:["Kjøper bolig","Starter bedrift"],
+  graf:"gevinst", stats:"ingen",
+  folk:[{lonn:1000000, ek:1500000, mode:"eier",  bolig:5500000, spar:"bank"},
+        {lonn:1000000, ek:1500000, mode:"leier", bolig:5500000, spar:"selskap"}],
+  tittel:"Verdi hver av dem må skape for å ende likt",
+  under:"",
+  intro:r=>"Samme person med to valg. Lønnen er "+kr(r[0].p[0].lonn)+" og egenkapitalen "+
+    kr(r[0].p[1].spar)+" i begge tilfeller: kjøpe bolig til "+krM(r[0].p[0].verdi)+
+    ", eller legge pengene i et eget, unotert selskap og leie. Begge betaler "+
+    kr(r[0].p[0].bo)+" i året for å bo. Hva en bedrift vil gi i avkastning, er det ingen "+
+    "som vet, så spørsmålet er stilt motsatt: hvor godt må den gjøre det for å komme like "+
+    "godt ut som boligen?",
+  tekst(r){
+    const n=r.length-1, d=deflater(n), folk=lesFolk(), be=breakeven(0,1);
+    const gml=A.rsel; if(be!=null) A.rsel=be;
+    const rb=simuler(folk); A.rsel=gml;
+    const s1=r[0].p[1].formue;
+    const kSe=rb[n].p[1].latent/d;
+    const fBo=fskattSum(rb,0), fSe=fskattSum(rb,1);
+    if(be==null || be<0.1) return "<h3>Bedriften matcher boligen uten verdivekst</h3>"+
+      "<p>Med forutsetningene som står nå, kommer selskapet like godt eller bedre ut "+
+      "uansett hvilken verdivekst det får. Sett boligprisveksten tilbake for å se "+
+      "krysningspunktet.</p>";
+    return "<h3>Bedriften må vokse "+pst(be)+" i året, hvert år i "+n+" år</h3>"+
+    "<p>Det er "+(Math.pow(1+be/100,n)).toFixed(1).replace(".",",")+" ganger pengene: fra "+
+    krM(s1)+" til "+krM(s1*Math.pow(1+be/100,n))+
+    pkt(krM(s1*Math.pow(1+be/100,n)))+" Først da sitter gründeren igjen med det "+
+    "samme som boligkjøperen. Verdensindeksen har gitt "+pst(A.rfond)+" i året over 125 år.</p>"+
+    "<p>Personen betaler bare skatt dersom den velger å starte opp bedrift: "+krM(kSe)+
+    " av selskapets verdiøkning går til staten ved salg, av boligens ingenting.</p>"+
+    "<p>Formuesskatten treffer bare den ene. Over "+n+" år betaler gründeren "+
+    krM(fSe)+", boligkjøperen "+(fBo<2000?"ingenting":krM(fBo))+
+    " — gjelden er større enn boligens ligningsverdi i hele perioden. For et unotert "+
+    "selskap settes formuesverdien til selskapets skattemessige verdi, ofte lavere enn "+
+    "verdien her, så gründerens beløp er et øvre anslag.</p>"+
+    "<p>Skattesystemet i dag gir dermed store insentiver til å investere i dyr "+
+    "primærbolig heller enn å drive gründervirksomhet.</p>";
   }
 }];
 let aktiv=0, antall=3;
@@ -1083,8 +1259,10 @@ const realGevinst=(r,k,t)=>r[t].p[k].verdi/deflater(t) - r[0].p[k].verdi;
    gevinstskatten til, altså hva regningen ville blitt ved salg akkurat da. */
 function skattTilOgMed(r,k,t){
   let sum=0;
-  for(let u=0;u<t;u++) sum += (r[u].p[k].skatt + r[u].p[k].sparskatt)/deflater(u);
-  return sum + r[t].p[k].latent/deflater(t);
+  for(let u=0;u<t;u++)
+    sum += (r[u].p[k].skatt + r[u].p[k].sparskatt + r[u].p[k].tiltak
+            + r[u].p[k].fskatt)/deflater(u);
+  return sum + (r[t].p[k].latent + r[t].p[k].latentBolig)/deflater(t);
 }
 const lesPerson = k => ({
   lonn:+$(k+"_lonn").value||0, ek:+$(k+"_ek").value||0,
@@ -1093,60 +1271,93 @@ const lesPerson = k => ({
 });
 const lesFolk = () => NOKLER.slice(0, antall).map(lesPerson);
 
-/* Formuesskatt er ikke en del av modellen, men regnes ut her for å kunne si presist
-   om den ville betydd noe. Aksjefond verdsettes til 80 %, bankinnskudd til 100 %. */
-function fskattAar(r,k,t,folk){
-  const p=r[t].p[k], brutto=p.spar+p.latent;
-  const andel = folk[k].spar==="fond" ? 0.80 : 1.00;
-  return formuesskatt(lignetBolig(p.verdi) - p.gjeld + brutto*andel);
-}
+/* Formuesskatten regnes i simuler() og ligger her ferdig per år. Den hentes ut igjen
+   for merknaden som sier hvem som faktisk betaler den. */
+const fskattAar = (r,k,t) => r[t].p[k].fskatt;
 function formuesskattNote(r, folk, slutning){
   const n=r.length-1;
-  let sum=0, forste=null;
-  const perPerson=folk.map(()=>0);
+  let sum=0;
+  const per=folk.map(()=>0), fra=folk.map(()=>null);
   for(let t=0;t<n;t++) for(let k=0;k<folk.length;k++){
-    const f=fskattAar(r,k,t,folk);
-    if(f>0 && forste===null) forste=t;
-    perPerson[k]+=f/deflater(t);
+    const f=fskattAar(r,k,t);
+    if(f>0 && fra[k]===null) fra[k]=t;
+    per[k]+=f/deflater(t);
     sum+=f/deflater(t);
   }
-  /* Betaler bare én av flere, er det som regel et poeng i seg selv hvem det er. */
-  const betaler=perPerson.map((v,k)=>v>1 ? k : -1).filter(k=>k>=0);
-  const alene = folk.length>1 && betaler.length===1 ? betaler[0] : null;
-  const F=SKATT.formue;
-  const eierVerdi = folk.some(p=>p.mode==="eier") ? r[0].p[folk.findIndex(p=>p.mode==="eier")].verdi : 0;
-  if(sum<2000) return "<p><b>Merk at ingen av disse betaler formuesskatt.</b></p>";
-  const ant=n-forste, TALL=["","ett","to","tre","fire","fem","seks","sju","åtte","ni","ti"];
-  const naar = forste===0 ? "fordelt over alle "+n+" årene"
-             : ant===1 ? "og påløper bare det siste året"
-             : "og påløper først de "+(TALL[ant]||ant)+" siste årene";
-  if(alene!==null){
-    const andre=folk.map((_,k)=>k).filter(k=>k!==alene)[0];
-    const nv=SCEN[aktiv].formuesnavn||(SCEN[aktiv].navn||[]).map(x=>x.toLowerCase());
-    return "<p><b>Formuesskatten er nesten fraværende.</b> Den utgjør <b>"+krM(sum)+
-      "</b> til sammen, "+naar+". Det er ikke regnet med her. Hele beløpet faller på "+
-      (nv[alene]||"den ene")+", og skyldes sparepengene i banken, ikke boligen. "+
-      (nv[andre]||"den andre").replace(/^./,c=>c.toUpperCase())+
-      " betaler ingenting, fordi gjelden er større enn boligens ligningsverdi.</p>";
-  }
-  return "<p><b>Formuesskatten er nesten fraværende.</b> Den utgjør <b>"+krM(sum)+
-    "</b> til sammen, "+naar+". Beløpet er ikke regnet med her, og kunne dessuten vært "+
-    "fjernet ved å låne opp litt mer på boligen."+(slutning
-      ? " At en bolig til "+krM(eierVerdi)+" praktisk talt ikke utløser formuesskatt, viser "+
+  if(sum<2000) return "<p>Merk at ingen av disse betaler formuesskatt.</p>";
+
+  const nv=SCEN[aktiv].formuesnavn||(SCEN[aktiv].navn||[]).map(x=>x.toLowerCase());
+  const navn=k=>nv[k]||("person "+"ABC"[k]);
+  const stor=k=>navn(k).replace(/^./,c=>c.toUpperCase());
+  const betaler=per.map((v,k)=>({k:k, v:v})).filter(o=>o.v>=1000).sort((a,b)=>b.v-a.v);
+  const gratis=folk.map((_,k)=>k).filter(k=>per[k]<1000);
+  /* Hva grunnlaget i hovedsak består av det siste året det betales for. */
+  const base=k=>{
+    const q=r[n-1].p[k], bolig=Math.max(0, lignetBolig(q.verdi)-q.gjeld);
+    const spar=(q.spar+q.latent)*(folk[k].spar==="bank" ? 1 : 0.80);
+    return bolig>spar ? "boligen" : "sparepengene";
+  };
+  /* Hvorfor det første beløpet kommer når det kommer. */
+  const aarsak=k=>base(k)==="boligen"
+    ? "at lånet har blitt en betydelig mindre del av boligverdien" : base(k);
+  const rekke=l=>l.length<2 ? l[0] : l.slice(0,-1).join(", ")+" og "+l[l.length-1];
+
+  if(betaler.length===1){
+    const k=betaler[0].k;
+    return "<p>"+(folk.length>1
+        ? "Formuesskatten faller bare på "+navn(k)+". Den utgjør "+krM(betaler[0].v)+
+          " over "+n+" år."
+        : stor(k)+" betaler til sammen "+krM(betaler[0].v)+" i formuesskatt over "+n+" år.")+
+      (fra[k]>0 ? " Det første beløpet kommer i år "+fra[k]+", og skyldes "+aarsak(k)+"."
+                : " Den skyldes "+base(k)+".")+
+      (gratis.length===1
+        ? " "+stor(gratis[0])+" betaler ingenting, fordi gjelden er større enn boligens "+
+          "ligningsverdi." : gratis.length>1 ? " De andre betaler ingenting." : "")+
+      (slutning ? " At en bolig til "+krM(r[0].p[k].verdi)+" utløser så lite, viser tydelig "+
         "at skatten ikke virker som en generell skatt på boligformue." : "")+"</p>";
+  }
+
+  const antall=betaler.length===folk.length
+    ? (folk.length===2 ? "begge" : folk.length===3 ? "alle tre" : "alle") : "flere";
+  const liste=rekke(betaler.map(o=>navn(o.k)+" "+krM(o.v)))+
+    (gratis.length ? ", mens "+rekke(gratis.map(navn))+" ikke betaler noe" : "");
+  return "<p>Formuesskatten treffer "+antall+". Over "+n+" år betaler "+liste+
+    pkt(liste)+"</p>";
 }
 
-/* Hvilken årlig avkastning måtte fondspareren hatt for å ende likt med boligeieren? */
-function breakeven(iEier, iFond){
+/* Hvilken årlig avkastning måtte den andre plasseringen hatt for å ende likt med
+   boligeieren? Virker for både aksjefond og eget selskap. */
+function breakeven(iEier, iAnnen){
   const folk=lesFolk();
-  if(!folk[iFond] || folk[iFond].spar!=="fond") return null;
-  const mål=t=>{ const gammel=A.rfond; A.rfond=t;
-    const r=simuler(folk); A.rfond=gammel;
-    return r[r.length-1].p[iFond].formue - r[r.length-1].p[iEier].formue; };
+  const slag = folk[iAnnen] && folk[iAnnen].spar;
+  if(slag!=="fond" && slag!=="selskap") return null;
+  const felt = slag==="fond" ? "rfond" : "rsel";
+  const mål=t=>{ const gammel=A[felt]; A[felt]=t;
+    const r=simuler(folk); A[felt]=gammel;
+    return r[r.length-1].p[iAnnen].formue - r[r.length-1].p[iEier].formue; };
   if(mål(60)<0) return null;
   let lo=0, hi=60;
   for(let i=0;i<60;i++){ const m=(lo+hi)/2; (mål(m)<0) ? lo=m : hi=m; }
   return (lo+hi)/2;
+}
+/* Går lønnen ikke opp med skatten og forbruket, låner personen resten. Avsnittet
+   skrives bare når det faktisk skjer, og sier hvordan lånet er regnet. */
+function laanAvsnitt(ar,n){
+  const t=ar.findIndex(x=>x.aGjeld>1);
+  if(t<1) return "";
+  const g=ar[n].aGjeld/deflater(n);
+  return "<p>Fra år "+t+" dekker ikke lønnen lenger både skatten og forbruket, og arvingen "+
+    "låner resten med sikkerhet i boligen — "+kr(g)+" etter "+n+" år. Lånet er "+
+    "regnet som et vanlig lån: renter på "+pst(A.rl)+", fradrag for rentene, og gjelden "+
+    "trukket fra både formuen og formuesskattegrunnlaget. Det endrer ikke bildet over: "+
+    "lånet er "+pst(ar[n].aGjeld/ar[n].verdi*100,1)+" av boligverdien.</p>";
+}
+/* Samlet formuesskatt i dagens kroner, per person. Brukes der formuesskatten er et
+   poeng i seg selv, og ikke bare en del av skattesummen. */
+function fskattSum(r,k){
+  let sum=0;
+  for(let t=0;t<r.length-1;t++) sum+=fskattAar(r,k,t)/deflater(t);
+  return sum;
 }
 
 function settModus(k,m){
@@ -1165,6 +1376,10 @@ function visKort(){
 function velgScenario(i){
   aktiv=i; antall=SCEN[i].folk.length;
   visKort();
+  /* Tidshorisonten hører til eksempelet på samme måte som lønn og boligpris, og
+     tilbakestilles derfor ved bytte av eksempel. */
+  A.aar = SCEN[i].aar || STD.aar;
+  document.querySelectorAll('[data-ass="aar"]').forEach(o=>o.value=A.aar);
   const fb=SCEN[i].forbruk||[313000,313000];
   $("f_a").value=fb[0]; $("f_b").value=fb[1];
   SCEN[i].folk.forEach((p,n)=>{
@@ -1184,7 +1399,7 @@ function generiskTekst(r){
   const n=r.length-1, d=deflater(n), f=r[n].p.map(x=>x.formue/d);
   const best=f.indexOf(Math.max(...f)), verst=f.indexOf(Math.min(...f));
   return "<h3>Egne verdier</h3>"+
-    "<p>Etter "+n+" år: "+f.map((v,k)=>"person "+"ABC"[k]+" <b>"+krM(v)+"</b>").join(", ")+
+    "<p>Etter "+n+" år: "+f.map((v,k)=>"person "+"ABC"[k]+" "+krM(v)).join(", ")+
     ", målt i dagens kroner. I skatt på lønn har de betalt "+
     r[0].p.map((_,k)=>krM(sumSkatt(r,k))).join(", ")+" i samme periode."+
     (f[best]!==f[verst] ? " Person "+"ABC"[best]+" kommer best ut, med "+
@@ -1194,6 +1409,49 @@ function generiskTekst(r){
     "gjelden — gearingen alene, uten prisstigning.</p>";
 }
 
+/* Hva tiltakene er satt til, i ord. Brukes i varselstripen over eksempelet. */
+function tiltakListe(){
+  const ut=[];
+  if(TILTAK.tak!==null) ut.push(TILTAK.tak<=0
+    ? "<b>Rentefradraget er fjernet.</b>"
+    : "<b>Rentefradraget er begrenset</b> til "+kr(TILTAK.tak)+" tilbake per år.");
+  if(TILTAK.avk>0) ut.push("<b>"+pstFri(TILTAK.avk)+
+    " skatt på boligens verdistigning</b>, hvert år.");
+  if(TILTAK.verdi>0) ut.push("<b>"+pstFri(TILTAK.verdi)+
+    " skatt på boligverdien</b>, hvert år.");
+  if(TILTAK.salg>0) ut.push("<b>"+pstFri(TILTAK.salg)+
+    " skatt på gevinsten ved salg</b>, regnet som om boligen selges det året.");
+  return ut;
+}
+/* Med tiltak på beskriver ikke eksempelteksten lenger reglene som gjelder i beregningen,
+   så den byttes ut med en sammenligning mot dagens regler. */
+function tiltakTekst(r, r0, folk, navn){
+  const n=r.length-1, d=deflater(n);
+  const rad=folk.map((p,k)=>{
+    const f=r[n].p[k].formue/d, f0=r0[n].p[k].formue/d;
+    const sk=skattTilOgMed(r,k,n), sk0=skattTilOgMed(r0,k,n);
+    const tegn=v=>(v>=0?"+ ":"− ")+krM(Math.abs(v));
+    return "<tr><td>"+navn(k)+"</td><td class='num'>"+krM(f0)+"</td><td class='num'>"+
+      krM(f)+"</td><td class='num'>"+tegn(f-f0)+"</td><td class='num'>"+tegn(sk-sk0)+"</td></tr>";
+  }).join("");
+  return "<h3>Slik endrer tiltakene dette eksempelet</h3>"+
+    "<p>Grafene og tallene over er regnet med tiltakene slått på. Her står resultatet ved "+
+    "siden av dagens regler, etter "+n+" år og i dagens kroner.</p>"+
+    "<table class='tab'><tr><th></th><th>Formue, dagens regler</th><th>Formue med tiltak</th>"+
+    "<th>Endring i formue</th><th>Endring i skatt</th></tr>"+rad+"</table>"+
+    (TILTAK.tak!==null ? "<p>Et tak på rentefradraget endrer skatten, men ikke formuen i "+
+      "tabellen: modellen legger ikke spart skatt til formuen, slik forutsetningene sier.</p>" : "")+
+    "<p>Eksempelteksten er skjult så lenge tiltak er på, siden den beskriver dagens regler. "+
+    "Slå av tiltakene under Forutsetninger for å få den tilbake.</p>";
+}
+
+/* Tegnforklaringen vises bare der fargene trenger navn. Linjediagrammene merker hver
+   linje ved enden, så de står uten, og definisjonen står i undertittelen i stedet. */
+function leg(nr, html){
+  const e=$("s_leg"+(nr||""));
+  e.innerHTML = html || "";
+  e.style.display = html ? "" : "none";
+}
 function tegn(){
   const s=SCEN[aktiv], folk=lesFolk(), r=simuler(folk, s.sparFradrag);
   const n=r.length-1, d=deflater(n);
@@ -1201,6 +1459,8 @@ function tegn(){
   const navn = k => eget ? "Person "+"ABC"[k] : (s.navn[k] || "Person "+"ABC"[k]);
   const graf = eget ? "linje" : s.graf;
   const graf2 = eget ? null : s.graf2;
+  /* Lange grafer får merker underveis, slik at veien dit er lesbar og ikke bare sluttpunktet. */
+  const merke = n>=25 ? [10,20] : n>=15 ? [10] : null;
 
   $("s_h2").textContent = eget ? "Dine egne tall" : "Eksempel "+(aktiv+1)+" · "+s.h2;
   $("s_intro").textContent = eget
@@ -1232,49 +1492,76 @@ function tegn(){
   });
 
   $("s_ct").textContent = eget ? "Formue over tid" : s.tittel;
-  $("s_cs").textContent = eget ? "Egne verdier, i dagens kroner." : s.under;
+  $("s_cs").textContent = eget
+    ? "Formue = boligverdi minus gjeld, eller sparepenger etter skatt. Egne verdier, i dagens kroner."
+    : (s.under||"");
+  $("s_cs").style.display = $("s_cs").textContent ? "" : "none";
   $("s_charts").className = "charts" + (graf2 ? " to" : "");
   $("s_kart2").style.display = graf2 ? "" : "none";
 
   /* ---------- hovedgraf ---------- */
-  if(graf==="skatt"){
-    stolpegraf($("s_svg"),[0,1].map(k=>({navn:navn(k), under:kr(r[0].p[k].lonn)+" i lønn",
-      netto:r[0].p[k].lonn-r[0].p[k].skatt, skatt:r[0].p[k].skatt, farge:FARGE[k]})));
-    $("s_leg").innerHTML='<span><i style="background:#C9C2B8"></i>Skatt</span>'+
-      '<span><i style="background:#A8482C"></i>Igjen etter skatt</span>';
-  }
-  else if(graf==="arv"){
+  if(graf==="arv"){
     const a=r[0].p[0], b=r[0].p[1];
     const fa=formuesskatt(lignetBolig(a.verdi)-a.gjeld), vekst=a.verdi*A.g/100;
     stabelsoyler($("s_svg"),[
-      {navn:navn(0), under:kr(a.lonn)+" i lønn, bolig til "+krM(a.verdi),
+      {navn:navn(0), under:kr(a.lonn)+" i lønn",
        deler:[{v:a.lonn-(a.skatt+fa), farge:FARGE[0]},{v:vekst, farge:"#D9906F"}]},
-      {navn:navn(1), under:kr(b.lonn)+" i lønn, leier",
+      {navn:navn(1), under:kr(b.lonn)+" i lønn",
        deler:[{v:b.lonn-b.skatt, farge:FARGE[1]}]}
     ]);
-    $("s_leg").innerHTML='<span><i style="background:#A8482C"></i>Lønn etter skatt</span>'+
+    leg(null,'<span><i style="background:#A8482C"></i>Lønn etter skatt</span>'+
       '<span><i style="background:#D9906F"></i>Verdistigning på boligen, skattefri</span>'+
-      '<span><i style="background:#2E5B72"></i>Leietakerens lønn etter skatt</span>';
+      '<span><i style="background:#2E5B72"></i>Leietakerens lønn etter skatt</span>');
   }
   else if(graf==="arbeid"){
-    const o=r[0].p[0], b=r[0].p[1], gev=o.verdi*A.g/100+o.renter*SKATT.alm;
+    /* Verdien av rentefradraget hentes fra modellen, ikke regnet som 22 % av rentene:
+       med et tak på fradraget er de to ikke det samme. Boligsøylen viser også skatten
+       tiltakene legger på boligen, slik at diagrammet ikke sier null når den finnes. */
+    const o=r[0].p[0], b=r[0].p[1], gev=o.verdi*A.g/100+o.fradrag;
     stolpegraf($("s_svg"),[
-      {navn:navn(0), under:"fra lønnen, "+kr(o.lonn), netto:o.lonn-(o.skatt+o.fradrag),
+      {gruppe:navn(0), gruppeN:2, under:"Lønn", netto:o.lonn-(o.skatt+o.fradrag),
        skatt:o.skatt+o.fradrag, farge:FARGE[0]},
-      {navn:"", under:"fra boligen", netto:gev, skatt:0, farge:FARGE[0]},
-      {navn:navn(1), under:"fra lønnen, "+kr(b.lonn), netto:b.lonn-b.skatt, skatt:b.skatt,
-       farge:FARGE[1], gap:true}
-    ]);
-    $("s_leg").innerHTML='<span><i style="background:#A8482C"></i>'+navn(0)+'</span>'+
+      {under:"Bolig", netto:gev-o.tiltak, skatt:o.tiltak, farge:FARGE[0]},
+      {gruppe:navn(1), gruppeN:2, under:"Lønn", netto:b.lonn-b.skatt, skatt:b.skatt,
+       farge:FARGE[1], gap:true},
+      {under:"Bolig", netto:0, skatt:0, farge:FARGE[1], linje2:false}
+    ], {venstre:252, hoyre:136, total:true, eksakt:true, bh:46});
+    leg(null,'<span><i style="background:#A8482C"></i>'+navn(0)+'</span>'+
       '<span><i style="background:#2E5B72"></i>'+navn(1)+'</span>'+
-      '<span><i style="background:#C9C2B8"></i>Skatt til staten</span>';
+      '<span><i style="background:#C9C2B8"></i>Skatt til staten</span>');
+  }
+  else if(graf==="gevinst"){
+    /* Begge søylene regnes ved den avkastningen som gjør de to likeverdige. Tittelen
+       settes her, fordi den må oppgi tidshorisonten, som er justerbar. */
+    const be=breakeven(0,1), gml=A.rsel;
+    if(be!=null) A.rsel=be;
+    const rb=simuler(folk, s.sparFradrag); A.rsel=gml;
+    const s0=r[0].p[0].formue, s1=r[0].p[1].formue;
+    const bBo=rb[n].p[0].formue/d-s0;
+    const bSe=(rb[n].p[1].spar+rb[n].p[1].latent)/d-s1;
+    const kSe=rb[n].p[1].latent/d;
+    /* Boligens formue er alt netto etter de skattene tiltakene legger på den, så søylen
+       må få dem tilbake som grå ende. Ellers ser et tiltak ut som om boligen skapte
+       mindre verdi, i stedet for at den ble skattlagt. */
+    const kBo=rb.slice(0,-1).reduce((sum,x)=>sum+x.p[0].tiltak/deflater(x.t),0)
+              + rb[n].p[0].latentBolig/d;
+    $("s_ct").textContent="Verdi hver av dem må skape i løpet av "+n+" år for å ende likt";
+    stolpegraf($("s_svg"),[
+      {navn:navn(1), under:"ved "+(be!=null?pst(be):pstFri(A.rsel))+" verdivekst i året",
+       netto:Math.max(0,bSe-kSe), skatt:Math.max(0,kSe), farge:FARGE[1]},
+      {navn:navn(0), under:"ved "+pst(A.g)+" boligprisvekst i året",
+       netto:Math.max(0,bBo), skatt:Math.max(0,kBo), farge:FARGE[0]}
+    ], {hoyre:136, total:true, bh:66});
+    leg(null,'<span><i style="background:'+FARGE[1]+'"></i>'+navn(1)+'</span>'+
+      '<span><i style="background:'+FARGE[0]+'"></i>'+navn(0)+'</span>'+
+      '<span><i style="background:#C9C2B8"></i>'+
+      (kBo>1000 ? "Skatt til staten" : "Skatt på gevinsten")+'</span>');
   }
   else {
     const serier=folk.map((_,k)=>({navn:navn(k),
       data:r.map(x=>x.p[k].formue/deflater(x.t)), farge:FARGE[k]}));
-    linjegraf($("s_svg"), serier, Math.max(...serier.flatMap(x=>x.data))*1.14, n);
-    $("s_leg").innerHTML='<span style="color:#98928A">Formue = boligverdi minus gjeld, '+
-      'eller sparepenger etter skatt. Alt i dagens kroner.</span>';
+    linjegraf($("s_svg"), serier, Math.max(...serier.flatMap(x=>x.data))*1.14, n, merke);
+    leg(null,"");
   }
 
   /* ---------- andre graf ---------- */
@@ -1285,29 +1572,33 @@ function tegn(){
       /* fylles ut nedenfor */
       const a=r[0].p[0], b=r[0].p[1];
       const fa=formuesskatt(lignetBolig(a.verdi)-a.gjeld);
+      /* Er et tiltak slått på, betaler arvingen også skatt på boligen det året. Den må
+         ligge i søylen, ellers viser diagrammet en skatt som ikke stemmer med tiltaket. */
+      const deler=[{v:a.skatt, farge:"#8C8378"},{v:fa, farge:"#C9C2B8"}];
+      if(a.tiltak>0) deler.push({v:a.tiltak, farge:"#6E6960"});
       stabelsoyler($("s_svg2"),[
-        {navn:navn(0), under:"inntektsskatt og formuesskatt",
-         deler:[{v:a.skatt, farge:"#8C8378"},{v:fa, farge:"#C9C2B8"}]},
+        {navn:navn(0), under:a.tiltak>0 ? "inntekts-, formues- og boligskatt"
+                                       : "inntekts- og formuesskatt", deler},
         {navn:navn(1), under:"inntektsskatt", deler:[{v:b.skatt, farge:"#8C8378"}]}
       ]);
-      $("s_leg2").innerHTML='<span><i style="background:#8C8378"></i>Inntektsskatt</span>'+
-        '<span><i style="background:#C9C2B8"></i>Formuesskatt</span>';
+      leg(2,'<span><i style="background:#8C8378"></i>Inntektsskatt</span>'+
+        '<span><i style="background:#C9C2B8"></i>Formuesskatt</span>'+
+        (a.tiltak>0 ? '<span><i style="background:#6E6960"></i>Skatt på boligen</span>' : ''));
     }
     else if(graf2==="skattlinje"){
       serier2=folk.map((_,k)=>({navn:navn(k), data:r.map(x=>skattTilOgMed(r,k,x.t)), farge:FARGE[k]}));
-      $("s_leg2").innerHTML='<span style="color:#98928A">Samlet skatt betalt fra i dag og '+
-        'fram til hvert år, i dagens kroner.</span>';
-      linjegraf($("s_svg2"), serier2, Math.max(...serier2.flatMap(x=>x.data))*1.14, n);
+      leg(2,"");
+      linjegraf($("s_svg2"), serier2, Math.max(...serier2.flatMap(x=>x.data))*1.14, n, merke);
     } else if(graf2==="gevinstlinje"){
       let frd=0; const gser=[], fser=[];
       const start=r[0].p[0].formue;
       r.forEach((x,t)=>{ gser.push(x.p[0].formue/deflater(t)-start);
                          frd += t>0 ? r[t-1].p[0].fradrag/deflater(t-1) : 0; fser.push(frd); });
-      arealgraf($("s_svg2"), [{navn:"Spart skatt på rentefradrag", data:fser, farge:"#C9A23C"},
-                              {navn:"Formuesvekst, aldri beskattet", data:gser, farge:FARGE[0]}], n);
-      $("s_leg2").innerHTML='<span><i style="background:#A8482C"></i>Formuesvekst som aldri '+
+      arealgraf($("s_svg2"), [{navn:"Spart skatt på renter", data:fser, farge:"#C9A23C"},
+                              {navn:"Formuesvekst", data:gser, farge:FARGE[0]}], n);
+      leg(2,'<span><i style="background:#A8482C"></i>Formuesvekst som aldri '+
         'beskattes</span><span><i style="background:#C9A23C"></i>Skatt spart gjennom '+
-        'rentefradraget</span>';
+        'rentefradraget</span>');
     }
   }
 
@@ -1318,26 +1609,27 @@ function tegn(){
   $("s_forbruk").style.display = (!eget && s.forbruk) ? "" : "none";
   if(!eget && s.forbruk){
     $("f_a_navn").textContent=navn(0); $("f_b_navn").textContent=navn(1);
-    const ar=simulerArv(folk);
-    const tom=f=>{ const i=ar.findIndex(x=>f(x)<-1); return i>0 ? i : 0; };
-    const tomA=tom(x=>x.aSaldo), tomB=tom(x=>x.bSaldo);
+    const ar=simulerArv(folk), m=ar.length-1;
+    const laan=f=>{ const i=ar.findIndex(x=>f(x)>1); return i>0 ? i : 0; };
+    const laanA=laan(x=>x.aGjeld), laanB=laan(x=>x.bGjeld);
     const meld=[];
-    if(tomA) meld.push(navn(0)+" bruker mer enn lønnen dekker fra år "+tomA+", og må tære på boligen");
-    if(tomB) meld.push(navn(1)+" bruker mer enn lønnen dekker fra år "+tomB);
+    if(laanA) meld.push(navn(0)+" dekker ikke både skatten og forbruket av lønnen fra år "+
+      laanA+", og låner resten — "+kr(ar[m].aGjeld/deflater(m))+" etter "+m+" år");
+    if(laanB) meld.push(navn(1)+" dekker ikke både skatten og forbruket av lønnen fra år "+
+      laanB+", og låner resten — "+kr(ar[m].bGjeld/deflater(m))+" etter "+m+" år");
     $("s_forbruk_note").innerHTML = meld.length
-      ? meld.join(". ")+". Det endrer ikke bildet over."
+      ? meld.join(". ")+". Lånet er regnet som et vanlig lån, med renter og rentefradrag, "+
+        "og er trukket fra formuen i diagrammene."
       : "Standarden er det arvingen sitter igjen med etter skatt det første året.";
   }
   if(graf3 || graf4){
     const ar=simulerArv(folk), m=ar.length-1;
-    const felles='<span><i style="background:#A8482C"></i>'+navn(0)+'</span>'+
-      '<span><i style="background:#2E5B72"></i>'+navn(1)+'</span>';
     const tegnLinje=(nr,tittel,under,hent)=>{
       $("s_ct"+nr).textContent=tittel; $("s_cs"+nr).textContent=under;
       const se=[{navn:navn(0),data:ar.map(x=>hent(x,0)),farge:FARGE[0]},
                 {navn:navn(1),data:ar.map(x=>hent(x,1)),farge:FARGE[1]}];
       linjegraf($("s_svg"+nr), se, Math.max(...se.flatMap(x=>x.data))*1.14, m);
-      $("s_leg"+nr).innerHTML=felles;
+      leg(nr,"");
     };
     const hentFormue=(x,k)=>k? x.bVekst : x.aVekst;
     const hentSkatt=(x,k)=>k? x.bKum : x.aKum;
@@ -1364,12 +1656,6 @@ function tegn(){
     tabellHtml=lagTabell(["Etter "+n+" år, i dagens kroner"].concat(kol.map(c=>KOL[c][0])),
       folk.map((p,k)=>[prikk(FARGE[k])+navn(k)].concat(kol.map(c=>KOL[c][1](k)))));
   }
-  else if(!eget && graf==="skatt"){
-    const a=r[0].p[0], b=r[0].p[1];
-    tabellHtml=lagTabell(["Det første året","Lønn","Skatt","Igjen etter skatt","Skattefri verdistigning"],
-      [[prikk(FARGE[0])+navn(0), kr(a.lonn), kr(a.skatt), kr(a.lonn-a.skatt), kr(a.verdi*A.g/100)],
-       [prikk(FARGE[1])+navn(1), kr(b.lonn), kr(b.skatt), kr(b.lonn-b.skatt), "—"]]);
-  }
   else if(!eget && graf==="arbeid"){
     const o=r[0].p[0], b=r[0].p[1], gev=o.verdi*A.g/100+o.fradrag;
     tabellHtml=lagTabell(["Det første året","Inntekt","Skatt","Igjen"],
@@ -1385,15 +1671,34 @@ function tegn(){
       box("Formue · "+navn(k),krM(r[n].p[k].formue/d),"etter "+n+" år, dagens kroner",k===0)+
       box("Betalt i skatt · "+navn(k),krM(skattTilOgMed(r,k,n)),"på "+n+" år, dagens kroner")
     ).join("")+'</div>';
-  $("s_note").innerHTML = eget ? generiskTekst(r) : s.tekst(r);
+  const liste=tiltakListe();
+  $("s_tiltak").className = "tiltakvarsel" + (liste.length ? " pa" : "");
+  $("s_tiltak").innerHTML = liste.length
+    ? "Tiltak er slått på, så tallene under viser ikke dagens regler:<ul><li>"+
+      liste.join("</li><li>")+"</li></ul>" : "";
+
+  $("s_note").innerHTML = eget ? generiskTekst(r)
+    : liste.length ? tiltakTekst(r, utenTiltak(()=>simuler(folk, s.sparFradrag)), folk, navn)
+    : s.tekst(r);
 }
 
 /* ===================== FORUTSETNINGER OG KILDER ===================== */
+/* Alt som kan justeres står i én liste. Tidshorisonten sist, fordi den er av et annet
+   slag enn satsene. */
 const FELT=[["g","Boligprisvekst","%/år",0.1],["rl","Boliglånsrente","%/år",0.1],
   ["rbank","Bankrente","%/år",0.1],["rfond","Avkastning aksjefond","%/år",0.1],
-  ["kpi","Inflasjon","%/år",0.1],["aar","Tidshorisont","år",1]];
-const AVANSERT=[["eierkost","Eierkostnader","% av verdi",0.1],["leiepct","Markedsleie","% av verdi",0.1],
-  ["dok","Dokumentavgift","%",0.1],["skjerm","Skjermingsrente","%",0.1]];
+  ["rsel","Eget selskap, ditt anslag","%/år",0.5],
+  ["kpi","Inflasjon","%/år",0.1],
+  ["eierkost","Eierkostnader","% av verdi",0.1],["dok","Dokumentavgift","%",0.1],
+  ["skjerm","Skjermingsrente","%",0.1],
+  ["aar","Tidshorisont","år",1]];
+const TILTAKFELT=[["avk","Skatt på verdistigning","% i året",0.5],
+  ["verdi","Skatt på boligverdien","% i året",0.1],
+  ["salg","Skatt på gevinst ved salg","%",1]];
+/* Markedsleie er ikke justerbar: satsen brukes bare som boutgift for en leietaker i et
+   oppsett der ingen eier, og alle eksemplene har en eier, så leien settes lik eierens
+   rente- og driftskostnader. Knappen gjorde ingenting. A.leiepct lever videre på 3,8 %,
+   og brukes i tilleggspoenget i eksempel 4 om hva arvingens bolig ville kostet å leie. */
 const KILDER=[
   ["Boligprisvekst","6,5 %","SSB, prisindeks for brukte boliger, hele landet. Hele serien, 1992K2–2026K2"],
   ["Boliglånsrente","3,8 %","Gjennomsnittlig flytende boliglånsrente, årssnitt 2006–2025"],
@@ -1401,78 +1706,130 @@ const KILDER=[
   ["Avkastning aksjefond","7,9 %","Verdensindeksen har gitt 5,2 % realt over 125 år (UBS Global Investment Returns Yearbook 2025, 1900–2024; Dimson, Marsh og Staunton). Med inflasjonen over blir det 7,9 % nominelt. Siste tjue år har vært klart høyere, dels på grunn av en engangs kronesvekkelse, og er ikke en forventning framover"],
   ["Inflasjon","2,6 %","SSB, konsumprisindeksen, årssnitt 2006–2025"],
   ["Eierkostnader","1,0 %","Vedlikehold, forsikring, kommunale avgifter og felleskostnader. Anslag"],
-  ["Markedsleie","3,8 %","Brutto leie i prosent av boligverdi, SSBs leiemarkedsundersøkelse"],
   ["Skjermingsrente","3,6 %","Skatteetaten. Fastsettes etterskuddsvis, så nivået for inntektsåret kan bli justert"],
   ["Skattesatser","2026","Skatteetaten / Prop. 1 LS (2025–2026). Alminnelig inntekt 22 %, trygdeavgift 7,6 %, personfradrag 114 540, minstefradrag 46 % opp til 95 700, trinnskatt i fem trinn, aksjeinntekt 37,84 %"]
 ];
-function byggForutsetninger(vert){
+function byggForutsetninger(vert, medTiltak){
   const f=liste=>'<div class="assump">'+liste.map(([k,l,u,st])=>
     '<div class="field"><label>'+l+'</label><div class="u"><input type="number" step="'+st+
     '" data-ass="'+k+'" value="'+A[k]+'"><span class="suf">'+u+'</span></div></div>').join("")+'</div>';
+  /* Tiltakspanelet: satsene står på null, og taket er av, til noen slår dem på. */
+  const tiltak = !medTiltak ? "" :
+    '<details><summary>Tiltak — endre reglene og se hva som skjer</summary>'+
+    '<div class="body tiltakfelt">'+
+      '<p class="merknad">Alt står av, altså dagens regler. En sats på 0 betyr ingen '+
+      'endring. Tiltakene gjelder eksemplene på denne siden, ikke kalkulatoren.</p>'+
+      '<div class="assump">'+
+      '<div class="field"><label class="av"><input type="checkbox" data-tiltak-av>'+
+        'Tak på rentefradraget (maksimalt fradrag)</label><div class="u"><input '+
+        'type="number" step="10000" min="0" data-tiltak="tak" value="0" disabled>'+
+        '<span class="suf">kr tilbake/år</span>'+
+        '</div></div>'+
+      TILTAKFELT.map(([k,l,u,st])=>
+        '<div class="field"><label>'+l+'</label><div class="u"><input type="number" step="'+st+
+        '" min="0" data-tiltak="'+k+'" value="0"><span class="suf">'+u+'</span></div></div>'
+      ).join("")+
+      '</div>'+
+      '<p class="merknad takhint" style="margin:2px 0 16px;display:none"></p>'+
+      '<button class="reset tiltak-nullstill">Slå av alle tiltak</button>'+
+    '</div></details>';
   vert.innerHTML=
-    '<details><summary>Forutsetninger</summary><div class="body">'+f(FELT)+
+    '<details><summary>Forutsetninger (justerbare)</summary><div class="body">'+f(FELT)+
       '<button class="reset">Tilbakestill til de empiriske tallene</button></div></details>'+
-    '<details><summary>Avanserte innstillinger</summary><div class="body">'+f(AVANSERT)+'</div></details>'+
+      tiltak+
     '<details><summary>Kilder, metode og hva jeg ikke hevder</summary><div class="body">'+
       '<table><tr><th>Forutsetning</th><th>Verdi</th><th>Kilde og periode</th></tr>'+
       KILDER.map(r=>'<tr><td>'+r[0]+'</td><td class="num">'+r[1]+'</td><td class="src">'+r[2]+'</td></tr>').join("")+
       '</table>'+
-      '<p><b>Valget av avkastningstall er ikke avgjørende.</b> Boligprisvekst og aksjeavkastning '+
+      '<p>Valget av avkastningstall er ikke avgjørende. Boligprisvekst og aksjeavkastning '+
       'er begge satt til det lengste snittet som finnes: hele SSB-serien fra 1992 for bolig, '+
       'og 125 år med global aksjeavkastning. Konklusjonen henger likevel ikke på dem — skru '+
       'på tallene under Forutsetninger og se hva den tåler.</p>'+
-      '<p><b>Gearingen avtar underveis.</b> Boligen stiger, mens gjelden står på samme '+
+      '<p>Gearingen avtar underveis. Boligen stiger, mens gjelden står på samme '+
       'beløp i kroner. Egenkapitalen utgjør derfor en stadig større del av boligen, og '+
-      'avkastningen på den faller år for år — fra nær 19 % det første året til under det '+
-      'halve etter ti. I virkeligheten kan man motvirke dette ved å låne opp på nytt når '+
+      'avkastningen på den faller år for år — i eksempel 1 fra rundt 25 % det første året '+
+      'til godt under 10 % mot slutten. I virkeligheten kan man delvis motvirke dette ved å '+
+      'låne opp på nytt når '+
       'boligen har steget, og slik holde belåningsgraden oppe. Modellen gjør ikke det, så '+
       'også her er tallene forsiktige.</p>'+
-      '<p><b>Skattefritaket ved salg</b> forutsetter eiertid over ett år og botid minst ett '+
-      'av de to siste årene (skatteloven § 9-3). Alle eksemplene oppfyller det. '+
-      'Dokumentavgiften på 2,5 % gjelder selveierbolig; borettslagsandeler utløser bare et '+
-      'lite tinglysingsgebyr.</p>'+
-      '<p><b>Lånenes størrelse er lovlig, nedbetalingsprofilen er en forenkling.</b> Alle '+
+      '<p>Skattefritaket ved salg forutsetter eiertid over ett år og botid minst ett '+
+      'av de to siste årene (skatteloven § 9-3). Alle eksemplene oppfyller det.</p>'+
+      '<p>Lånenes størrelse er lovlig, nedbetalingsprofilen er en forenkling. Alle '+
       'eksempler holder seg innenfor utlånsforskriftens grenser for hvor stort lånet kan '+
       'være: samlet gjeld inntil fem ganger brutto inntekt, og lån inntil 90 % av '+
       'boligverdien. Endrer du tallene selv, sier både kalkulatoren og personkortene fra '+
       'hvis grensene brytes. Men forskriften krever også avdrag på minst 2,5 % i året når '+
       'lånet overstiger 60 % av boligverdien, og det avdragsfrie lånet i modellen oppfyller '+
       'ikke det kravet. Avdragsfriheten er valgt for å gjøre sammenligningen ren, ikke '+
-      'fordi en bank ville gitt et slikt lån. Den er heller ikke nøytral for skattetallene: '+
-      'en gjeld som står stille gir et større rentefradrag enn et avdragslån ville gitt.</p>'+
-      '<p><b>Slik er sammenligningen holdt ren.</b> Ingen av de to sparer noe ved siden av, og '+
+      'fordi en bank ville gitt et slikt lån.</p>'+
+      '<p>Slik er sammenligningen holdt ren: Ingen av de to sparer noe ved siden av, og '+
       'leien settes lik eierens renter og driftskostnader, slik at begge betaler nøyaktig det '+
       'samme for å bo hvert år. Lånet er avdragsfritt: eieren betaler bare renter, og gjelden '+
       'står på samme beløp hele perioden. Det er nødvendig fordi avdrag ikke er en boutgift, '+
-      'men sparing — betaler du avdrag, flytter du penger fra lommeboka til egenkapitalen. '+
-      'Med et avdragslån ville eieren spart et beløp hvert år som leietakeren ikke fikk spare, '+
-      'og da ville sammenligningen målt sparerate like mye som skatteregler. Forskjellen ved '+
-      'slutten skyldes derfor bare hvor startkapitalen sto plassert.</p>'+
-      '<p style="margin-bottom:8px"><b>Hva jeg ikke hevder.</b></p>'+
+      'men sparing.</p>'+
+      '<p>Rentene er regnet som en utgift og ikke som sparing, og pengene er ikke tatt med '+
+      'videre i regnestykket. Med et vanlig avdragslån ville eieren betalt ned gjelden med '+
+      'en del av det samme beløpet, og formuen vokst raskere enn den gjør her. Også det er '+
+      'en forenkling som trekker i boligeierens disfavør.</p>'+
+      '<p style="margin-bottom:8px">Hva jeg ikke hevder.</p>'+
       '<ul class="caveat">'+
-      '<li><b>Ikke at boligprisene fortsetter å stige som de har gjort.</b> Prisveksten er '+
+      '<li>Ikke at boligprisene fortsetter å stige som de har gjort. Prisveksten er '+
       'en forutsetning, ikke en prognose. Sett den ned og se hva konklusjonen tåler.</li>'+
-      '<li><b>Ikke at bolig alltid lønner seg.</b> Uten gjeld taper en bolig mot et '+
+      '<li>Ikke at bolig alltid lønner seg. Uten gjeld taper en bolig mot et '+
       'indeksfond — fordelen oppstår først når skattefritaket kombineres med lån.</li>'+
-      '<li><b>Verdistigningen er urealisert og usikker</b>, og lønnsmottakeren opptjener '+
+      '<li>Verdistigningen er urealisert og usikker, og lønnsmottakeren opptjener '+
       'pensjonsrettigheter. Ingen av delene er med.</li>'+
-      '<li><b>Eiendomsskatt er ikke med.</b> Der den finnes trekker den i boligeierens '+
+      '<li>Eiendomsskatt er ikke med. Der den finnes trekker den i boligeierens '+
       'disfavør, og det er den eneste utelatelsen som går i eierens favør.</li>'+
-      '<li><b>Forenklingene trekker samme vei:</b> avdragsfritt lån, spart skatt som '+
-      'ikke legges til formuen (unntatt i eksempel 6), og lønnsforskjellen i eksempel 4 som '+
-      'ingen sparer. Alle gjør '+
-      'forskjellen mindre enn den ville vært.</li>'+
       '</ul>'+
     '</div></details>';
   vert.querySelectorAll("[data-ass]").forEach(i=>i.addEventListener("input",()=>{
     const v=parseFloat(i.value); if(isNaN(v)) return;
     A[i.dataset.ass]=v;
     document.querySelectorAll('[data-ass="'+i.dataset.ass+'"]').forEach(o=>{ if(o!==i) o.value=v; });
-    kalk(); tegn();
+    /* Hjelpelinjen under taket regner i boliglånsrenten, så den må med når renten endres. */
+    vistak(); kalk(); tegn();
   }));
+  const avkryss=vert.querySelector("[data-tiltak-av]");
+  const takfelt=vert.querySelector('[data-tiltak="tak"]');
+  /* Taket er et maksbeløp man kan få tilbake. Feltet viser hvor stort lån det svarer
+     til, så det er lett å se om taket er stramt eller slakt. */
+  const vistak=()=>{
+    const hint=vert.querySelector(".takhint");
+    if(!hint) return;
+    const renter = TILTAK.tak/SKATT.alm;
+    hint.textContent = TILTAK.tak===null ? ""
+      : TILTAK.tak<=0 ? "Taket står på 0, så rentefradraget er fjernet helt."
+      : "Maksimalt "+kr(TILTAK.tak)+" tilbake i året. Det er fullt fradrag for renter opp "+
+        "til "+kr(renter)+", altså et lån på "+kr(renter/(A.rl/100))+" ved "+pst(A.rl)+
+        " rente. Renter over det gir ingenting.";
+    hint.style.display = TILTAK.tak===null ? "none" : "";
+  };
+  const lesTiltak=()=>{
+    TILTAK.tak = (avkryss && avkryss.checked) ? Math.max(0, +takfelt.value||0) : null;
+    vistak();
+    vert.querySelectorAll("[data-tiltak]").forEach(i=>{
+      const k=i.dataset.tiltak;
+      if(k!=="tak") TILTAK[k]=Math.max(0, parseFloat(i.value)||0);
+    });
+    kalk(); tegn();
+  };
+  vert.querySelectorAll("[data-tiltak]").forEach(i=>i.addEventListener("input",lesTiltak));
+  if(avkryss) avkryss.addEventListener("change",()=>{
+    takfelt.disabled=!avkryss.checked; lesTiltak();
+  });
+  const nullstill=vert.querySelector(".tiltak-nullstill");
+  if(nullstill) nullstill.addEventListener("click",()=>{
+    TILTAK=Object.assign({},TILTAK_AV);
+    if(avkryss){ avkryss.checked=false; takfelt.disabled=true; takfelt.value=0; }
+    vert.querySelectorAll("[data-tiltak]").forEach(i=>{ if(i!==takfelt) i.value=0; });
+    kalk(); tegn();
+  });
+
   const rs=vert.querySelector(".reset");
   if(rs) rs.addEventListener("click",()=>{
     A=Object.assign({},STD);
+    A.aar = SCEN[aktiv].aar || STD.aar;
     document.querySelectorAll("[data-ass]").forEach(i=>i.value=A[i.dataset.ass]);
     kalk(); tegn();
   });
@@ -1515,7 +1872,7 @@ $("s_tredje").addEventListener("click",()=>{
 });
 
 byggForutsetninger($("k_ass"));
-byggForutsetninger($("s_ass"));
+byggForutsetninger($("s_ass"), true);
 settKalk("vanlig");
 velgScenario(0);
 </script>
