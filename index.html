@@ -479,7 +479,7 @@ td.num{font-variant-numeric:tabular-nums;white-space:nowrap}
   <div class="head">
     <div class="kicker">Kilder</div>
     <h2>Hvor tallene kommer fra</h2>
-    <p>Alle satser, serier og regler filen bygger på, i APA 7. Forutsetningene med
+    <p>Alle satser, serier og regler siden bygger på, i APA 7. Forutsetningene med
     tilhørende verdier står også nederst på kalkulatoren og sammenligningen.</p>
   </div>
 
@@ -1439,8 +1439,9 @@ function tiltakTekst(r, r0, folk, navn){
     "siden av dagens regler, etter "+n+" år og i dagens kroner.</p>"+
     "<table class='tab'><tr><th></th><th>Formue, dagens regler</th><th>Formue med tiltak</th>"+
     "<th>Endring i formue</th><th>Endring i skatt</th></tr>"+rad+"</table>"+
-    (TILTAK.tak!==null ? "<p>Et tak på rentefradraget endrer skatten, men ikke formuen i "+
-      "tabellen: modellen legger ikke spart skatt til formuen, slik forutsetningene sier.</p>" : "")+
+    (TILTAK.tak!==null && !SCEN[aktiv].sparFradrag
+      ? "<p>Et tak på rentefradraget endrer skatten, men ikke formuen i tabellen: modellen "+
+        "legger ikke spart skatt til formuen, slik forutsetningene sier.</p>" : "")+
     "<p>Eksempelteksten er skjult så lenge tiltak er på, siden den beskriver dagens regler. "+
     "Slå av tiltakene under Forutsetninger for å få den tilbake.</p>";
 }
@@ -1792,17 +1793,22 @@ function byggForutsetninger(vert, medTiltak){
   }));
   const avkryss=vert.querySelector("[data-tiltak-av]");
   const takfelt=vert.querySelector('[data-tiltak="tak"]');
-  /* Taket er et maksbeløp man kan få tilbake. Feltet viser hvor stort lån det svarer
-     til, så det er lett å se om taket er stramt eller slakt. */
+  /* Taket er et maksbeløp man kan få tilbake. Feltet regner om til renter, og sier hvor
+     stort det største rentefradraget i eksempelet er — uten det er det umulig å se at et
+     tak over det nivået ikke endrer noe. */
   const vistak=()=>{
     const hint=vert.querySelector(".takhint");
     if(!hint) return;
     const renter = TILTAK.tak/SKATT.alm;
+    const u=utenTiltak(()=>simuler(lesFolk(), SCEN[aktiv].sparFradrag));
+    const storst=Math.max(0, ...u[0].p.map(p=>p.fradrag));
     hint.textContent = TILTAK.tak===null ? ""
       : TILTAK.tak<=0 ? "Taket står på 0, så rentefradraget er fjernet helt."
-      : "Maksimalt "+kr(TILTAK.tak)+" tilbake i året. Det er fullt fradrag for renter opp "+
-        "til "+kr(renter)+", altså et lån på "+kr(renter/(A.rl/100))+" ved "+pst(A.rl)+
-        " rente. Renter over det gir ingenting.";
+      : "Maksimalt "+kr(TILTAK.tak)+" tilbake i året, altså fullt fradrag for renter opp "+
+        "til "+kr(renter)+". Det største rentefradraget i dette eksempelet er "+kr(storst)+
+        " i året"+(TILTAK.tak>=storst
+          ? ", så et tak på "+kr(TILTAK.tak)+" endrer ingenting her."
+          : ".");
     hint.style.display = TILTAK.tak===null ? "none" : "";
   };
   const lesTiltak=()=>{
