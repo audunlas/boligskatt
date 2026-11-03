@@ -1738,7 +1738,7 @@ function byggForutsetninger(vert, medTiltak){
     '<details><summary>Forutsetninger (justerbare)</summary><div class="body">'+f(FELT)+
       '<button class="reset">Tilbakestill til de empiriske tallene</button></div></details>'+
       tiltak+
-    '<details><summary>Kilder, metode og hva jeg ikke hevder</summary><div class="body">'+
+    '<details><summary>Kilder, metode og bemerkninger</summary><div class="body">'+
       '<table><tr><th>Forutsetning</th><th>Verdi</th><th>Kilde og periode</th></tr>'+
       KILDER.map(r=>'<tr><td>'+r[0]+'</td><td class="num">'+r[1]+'</td><td class="src">'+r[2]+'</td></tr>').join("")+
       '</table>'+
@@ -1772,12 +1772,14 @@ function byggForutsetninger(vert, medTiltak){
       'videre i regnestykket. Med et vanlig avdragslån ville eieren betalt ned gjelden med '+
       'en del av det samme beløpet, og formuen vokst raskere enn den gjør her. Også det er '+
       'en forenkling som trekker i boligeierens disfavør.</p>'+
-      '<p style="margin-bottom:8px">Hva jeg ikke hevder.</p>'+
+      '<p style="margin-bottom:8px">Bemerkninger:</p>'+
       '<ul class="caveat">'+
-      '<li>Ikke at boligprisene fortsetter å stige som de har gjort. Prisveksten er '+
-      'en forutsetning, ikke en prognose. Sett den ned og se hva konklusjonen tåler.</li>'+
-      '<li>Ikke at bolig alltid lønner seg. Uten gjeld taper en bolig mot et '+
-      'indeksfond — fordelen oppstår først når skattefritaket kombineres med lån.</li>'+
+      '<li>Det er ikke sikkert at boligprisene fortsetter å stige som de har gjort. '+
+      'Prisveksten er en forutsetning, ikke en prognose. Sett den ned og se hva '+
+      'konklusjonen tåler.</li>'+
+      '<li>Det er ikke garantert at bolig alltid lønner seg. Uten gjeld taper en bolig '+
+      'mot et indeksfond — fordelen oppstår først når skattefritaket kombineres med '+
+      'lån.</li>'+
       '<li>Verdistigningen er urealisert og usikker, og lønnsmottakeren opptjener '+
       'pensjonsrettigheter. Ingen av delene er med.</li>'+
       '<li>Eiendomsskatt er ikke med. Der den finnes trekker den i boligeierens '+
