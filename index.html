@@ -876,14 +876,28 @@ function stabelsoyler(svg, rader){
     svg.appendChild(el("text",{x:L-16,y:y+bh/2+14,"text-anchor":"end","font-size":11.5,
       fill:"#98928A"}, r.under));
     let x=L;
+    /* Et felt som er for trangt for tallet inni seg får det under søylen i stedet. Ellers
+       sto en del av skatten uten beløp, mens de andre delene hadde sitt. */
+    const ute=[];
     r.deler.forEach(d=>{
       const bredde=w(d.v);
       if(bredde>0.5){
         svg.appendChild(el("rect",{x,y,width:bredde,height:bh,rx:3,fill:d.farge}));
         if(bredde>66) svg.appendChild(el("text",{x:x+bredde/2,y:y+bh/2+4,"text-anchor":"middle",
           "font-size":12,fill:"#fff","font-weight":600}, nb(d.v)));
+        else ute.push({midt:x+bredde/2, merke:nb(d.v)});
       }
       x+=bredde;
+    });
+    /* To trange felt ved siden av hverandre ville fått tallene oppå hverandre, så
+       etikettene skyves mot høyre til de har plass. */
+    let forrige=-1e9;
+    ute.forEach((u,j)=>{
+      const halv=u.merke.length*3.3+5;
+      const cx=Math.max(u.midt, forrige+halv);
+      forrige=cx+halv;
+      svg.appendChild(el("text",{x:cx,y:y+bh+15,"text-anchor":"middle","font-size":11.5,
+        fill:"#6E6960"}, u.merke));
     });
     svg.appendChild(el("text",{x:x+10,y:y+bh/2+4,"font-size":12.5,fill:"#6E6960",
       "font-weight":600}, kr(r.deler.reduce((a,d)=>a+d.v,0))));
@@ -1053,7 +1067,7 @@ const SCEN = [
   knapp:"Arbeid eller eierskap", h2:"Ett år med arbeid, ett år med eierskap",
   navn:["Boligeier","Leietaker"],
   formuesnavn:["boligeieren","leietakeren"],
-  graf:"arbeid", stats:"ingen",
+  graf:"arbeid", stats:"ingen", ettAar:true,
   folk:[{lonn:900000, ek:1350000, mode:"eier",  bolig:5400000, spar:"bank"},
         {lonn:500000, ek:0,       mode:"leier", bolig:3500000, spar:"bank"}],
   tittel:"Hva lønnen og boligen gir hver av dem på ett år",
@@ -1221,7 +1235,7 @@ const SCEN = [
   tekst(r){
     const n=r.length-1, d=deflater(n), folk=lesFolk(), be=breakeven(0,1);
     const gml=A.rsel; if(be!=null) A.rsel=be;
-    const rb=simuler(folk); A.rsel=gml;
+    const rb=simuler(folk, SCEN[aktiv].sparFradrag); A.rsel=gml;
     const s1=r[0].p[1].formue;
     const kSe=rb[n].p[1].latent/d;
     const fBo=fskattSum(rb,0), fSe=fskattSum(rb,1);
@@ -1327,9 +1341,15 @@ function breakeven(iEier, iAnnen){
   const slag = folk[iAnnen] && folk[iAnnen].spar;
   if(slag!=="fond" && slag!=="selskap") return null;
   const felt = slag==="fond" ? "rfond" : "rsel";
+  /* Rentefradraget er ikke en del av formuen i modellen, men det er en del av det boligen
+     gir. Der scenarioet ikke alt sparer det i banken, legges summen til her, slik den er og
+     uten rente. Uten det ville et tak på fradraget ikke flyttet krysningspunktet. */
+  const spart = SCEN[aktiv].sparFradrag;
   const mål=t=>{ const gammel=A[felt]; A[felt]=t;
-    const r=simuler(folk); A[felt]=gammel;
-    return r[r.length-1].p[iAnnen].formue - r[r.length-1].p[iEier].formue; };
+    const r=simuler(folk, spart); A[felt]=gammel;
+    const n=r.length-1;
+    return r[n].p[iAnnen].formue - r[n].p[iEier].formue
+           - (spart ? 0 : sumFradrag(r,iEier)*deflater(n)); };
   if(mål(60)<0) return null;
   let lo=0, hi=60;
   for(let i=0;i<60;i++){ const m=(lo+hi)/2; (mål(m)<0) ? lo=m : hi=m; }
@@ -1425,7 +1445,7 @@ function tiltakTekst(r, r0, folk, navn){
   const rad=folk.map((p,k)=>{
     const f=r[n].p[k].formue/d, f0=r0[n].p[k].formue/d;
     const sk=skattTilOgMed(r,k,n), sk0=skattTilOgMed(r0,k,n);
-    const tegn=v=>(v>=0?"+ ":"− ")+krM(Math.abs(v));
+    const tegn=v=>(Math.abs(v)<500?"":v>=0?"+ ":"− ")+krM(Math.abs(v));
     return "<tr><td>"+navn(k)+"</td><td class='num'>"+krM(f0)+"</td><td class='num'>"+
       krM(f)+"</td><td class='num'>"+tegn(f-f0)+"</td><td class='num'>"+tegn(sk-sk0)+"</td></tr>";
   }).join("");
@@ -1437,6 +1457,25 @@ function tiltakTekst(r, r0, folk, navn){
     (TILTAK.tak!==null && !SCEN[aktiv].sparFradrag
       ? "<p>Et tak på rentefradraget endrer skatten, men ikke formuen i tabellen: modellen "+
         "legger ikke spart skatt til formuen, slik forutsetningene sier.</p>" : "")+
+    "<p>Eksempelteksten er skjult så lenge tiltak er på, siden den beskriver dagens regler. "+
+    "Slå av tiltakene under Forutsetninger for å få den tilbake.</p>";
+}
+
+/* Eksempel 2 ser bare på det første året, så der sammenlignes skatten i det året.
+   Formuen etter ti år hører ikke hjemme i et eksempel som aldri ser så langt. */
+function tiltakTekstEttAar(r, r0, folk, navn){
+  const rad=folk.map((p,k)=>{
+    const sk=skattTilOgMed(r,k,1), sk0=skattTilOgMed(r0,k,1);
+    const tegn=(Math.abs(sk-sk0)<0.5?"":sk-sk0>=0?"+ ":"− ")+kr(Math.abs(sk-sk0));
+    return "<tr><td>"+navn(k)+"</td><td class='num'>"+kr(sk0)+"</td><td class='num'>"+
+      kr(sk)+"</td><td class='num'>"+tegn+"</td></tr>";
+  }).join("");
+  return "<h3>Slik endrer tiltakene dette eksempelet</h3>"+
+    "<p>Diagrammet over er regnet med tiltakene slått på. Her står skatten for det første "+
+    "året ved siden av dagens regler. En skatt på gevinst ved salg teller som det et salg "+
+    "etter året ville kostet.</p>"+
+    "<table class='tab'><tr><th></th><th>Skatt, dagens regler</th><th>Skatt med tiltak</th>"+
+    "<th>Endring</th></tr>"+rad+"</table>"+
     "<p>Eksempelteksten er skjult så lenge tiltak er på, siden den beskriver dagens regler. "+
     "Slå av tiltakene under Forutsetninger for å få den tilbake.</p>";
 }
@@ -1533,7 +1572,9 @@ function tegn(){
     if(be!=null) A.rsel=be;
     const rb=simuler(folk, s.sparFradrag); A.rsel=gml;
     const s0=r[0].p[0].formue, s1=r[0].p[1].formue;
-    const bBo=rb[n].p[0].formue/d-s0;
+    /* Samme tillegg som i krysningspunktet: fradraget er en del av det boligen gir. */
+    const frdBo = s.sparFradrag ? 0 : sumFradrag(rb,0);
+    const bBo=rb[n].p[0].formue/d-s0+frdBo;
     const bSe=(rb[n].p[1].spar+rb[n].p[1].latent)/d-s1;
     const kSe=rb[n].p[1].latent/d;
     /* Boligens formue er alt netto etter de skattene tiltakene legger på den, så søylen
@@ -1542,6 +1583,12 @@ function tegn(){
     const kBo=rb.slice(0,-1).reduce((sum,x)=>sum+x.p[0].tiltak/deflater(x.t),0)
               + rb[n].p[0].latentBolig/d;
     $("s_ct").textContent="Verdi hver av dem må skape i løpet av "+n+" år for å ende likt";
+    /* Undertittelen settes etter at den er skjult lenger opp, så den må vises igjen. */
+    if(frdBo>1000){
+      $("s_cs").textContent="Boligens søyle inkluderer rentefradraget, "+krM(frdBo)+
+        " over "+n+" år, lagt til slik det er og uten rente.";
+      $("s_cs").style.display="";
+    }
     stolpegraf($("s_svg"),[
       {navn:navn(1), under:"ved "+(be!=null?pst(be):pstFri(A.rsel))+" verdivekst i året",
        netto:Math.max(0,bSe-kSe), skatt:Math.max(0,kSe), farge:FARGE[1]},
@@ -1577,6 +1624,8 @@ function tegn(){
                                        : "inntekts- og formuesskatt", deler},
         {navn:navn(1), under:"inntektsskatt", deler:[{v:b.skatt, farge:"#8C8378"}]}
       ]);
+      if(a.tiltak>0) $("s_cs2").textContent=s.under2+
+        " Arvingen betaler i tillegg skatt på boligen, fra tiltakene.";
       leg(2,'<span><i style="background:#8C8378"></i>Inntektsskatt</span>'+
         '<span><i style="background:#C9C2B8"></i>Formuesskatt</span>'+
         (a.tiltak>0 ? '<span><i style="background:#6E6960"></i>Skatt på boligen</span>' : ''));
@@ -1651,7 +1700,8 @@ function tegn(){
       liste.join("</li><li>")+"</li></ul>" : "";
 
   $("s_note").innerHTML = eget ? generiskTekst(r)
-    : liste.length ? tiltakTekst(r, utenTiltak(()=>simuler(folk, s.sparFradrag)), folk, navn)
+    : liste.length ? (s.ettAar ? tiltakTekstEttAar : tiltakTekst)(
+        r, utenTiltak(()=>simuler(folk, s.sparFradrag)), folk, navn)
     : s.tekst(r);
 }
 
