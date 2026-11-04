@@ -1053,7 +1053,7 @@ const SCEN = [
   knapp:"Arbeid eller eierskap", h2:"Ett år med arbeid, ett år med eierskap",
   navn:["Boligeier","Leietaker"],
   formuesnavn:["boligeieren","leietakeren"],
-  graf:"arbeid", stats:"bokser",
+  graf:"arbeid", stats:"ingen",
   folk:[{lonn:900000, ek:1350000, mode:"eier",  bolig:5400000, spar:"bank"},
         {lonn:500000, ek:0,       mode:"leier", bolig:3500000, spar:"bank"}],
   tittel:"Hva lønnen og boligen gir hver av dem på ett år",
@@ -1174,8 +1174,7 @@ const SCEN = [
   aar:15, sparFradrag:true,
   navn:["Kjøper i Oslo","Kjøper i distriktet"],
   formuesnavn:["Oslo-kjøperen","distriktskjøperen"],
-  graf:"linje", graf2:"skattlinje", stats:"tabell",
-  kolonner:["formue","skatt","gevinst","fradrag"],
+  graf:"linje", graf2:"skattlinje", stats:"ingen",
   folk:[{lonn:900000, ek:1300000, mode:"eier", bolig:5500000, spar:"bank"},
         {lonn:900000, ek:1300000, mode:"eier", bolig:2500000, spar:"bank"}],
   tittel:"Formue over tid", under:"Boligverdi minus gjeld, pluss sparepenger, i dagens kroner.",
@@ -1251,10 +1250,6 @@ const NOKLER=["a","b","c"];
 
 const sumSkatt=(r,k)=>r.slice(0,-1).reduce((sum,x)=>sum+x.p[k].skatt/deflater(x.t),0);
 const sumFradrag=(r,k)=>r.slice(0,-1).reduce((sum,x)=>sum+x.p[k].fradrag/deflater(x.t),0);
-/* Reell verdiøkning i dagens kroner. Sluttverdien deflateres, startverdien er allerede
-   i dagens kroner — samme metode som formuestallene. Å deflatere den nominelle gevinsten
-   med sluttårets deflator ville blandet kroner fra to ulike år. */
-const realGevinst=(r,k,t)=>r[t].p[k].verdi/deflater(t) - r[0].p[k].verdi;
 /* Samlet skatt til og med år t, i dagens kroner. For aksjefond legges den latente
    gevinstskatten til, altså hva regningen ville blitt ved salg akkurat da. */
 function skattTilOgMed(r,k,t){
@@ -1639,34 +1634,11 @@ function tegn(){
   }
 
   /* ---------- tall ---------- */
-  const prikk=f=>'<i style="background:'+f+'"></i>';
-  const lagTabell=(kol,rader)=>'<table class="tab"><tr>'+kol.map(c=>'<th>'+c+'</th>').join("")+
-    '</tr>'+rader.map(rd=>'<tr>'+rd.map(c=>'<td>'+c+'</td>').join("")+'</tr>').join("")+'</table>';
   const box=(l,v,x,hi)=>'<div class="stat'+(hi?" hi":"")+'"><div class="l">'+l+
     '</div><div class="v">'+v+'</div><div class="s">'+(x||"")+'</div></div>';
-  /* Tall under diagrammet: en ryddig tabell der det er noe diagrammet ikke viser,
-     ellers ingenting. */
-  let tabellHtml=null;
-  if(!eget && s.stats==="ingen"){ $("s_stats").innerHTML=""; }
-  else if(!eget && s.stats==="tabell"){
-    const KOL={formue:["Formue",(k)=>krM(r[n].p[k].formue/d)],
-               skatt:["Betalt i skatt",(k)=>krM(skattTilOgMed(r,k,n))],
-               gevinst:["Skattefri verdistigning",(k)=>folk[k].mode==="eier"?krM(realGevinst(r,k,n)):"—"],
-               fradrag:["Spart skatt på rentefradrag",(k)=>folk[k].mode==="eier"?krM(sumFradrag(r,k)):"—"]};
-    const kol=s.kolonner||["formue","skatt","gevinst","fradrag"];
-    tabellHtml=lagTabell(["Etter "+n+" år, i dagens kroner"].concat(kol.map(c=>KOL[c][0])),
-      folk.map((p,k)=>[prikk(FARGE[k])+navn(k)].concat(kol.map(c=>KOL[c][1](k)))));
-  }
-  else if(!eget && graf==="arbeid"){
-    const o=r[0].p[0], b=r[0].p[1], gev=o.verdi*A.g/100+o.fradrag;
-    tabellHtml=lagTabell(["Det første året","Inntekt","Skatt","Igjen"],
-      [[prikk(FARGE[0])+navn(0)+" · lønn", kr(o.lonn), kr(o.skatt+o.fradrag), kr(o.lonn-o.skatt-o.fradrag)],
-       [prikk(FARGE[0])+navn(0)+" · bolig", kr(gev), "<b>0 kr</b>", kr(gev)],
-       [prikk(FARGE[1])+navn(1)+" · lønn", kr(b.lonn), kr(b.skatt), kr(b.lonn-b.skatt)]]);
-  }
-
-  if(tabellHtml) $("s_stats").innerHTML=tabellHtml;
-  else if(!eget && s.stats==="ingen"){ /* allerede tømt */ }
+  /* Tall under diagrammet: diagrammene merker søylene og linjene sine selv, så under
+     eksemplene står ingenting. Egne tall får to bokser per person. */
+  if(!eget && s.stats==="ingen") $("s_stats").innerHTML="";
   else
     $("s_stats").innerHTML='<div class="stats">'+folk.map((_,k)=>
       box("Formue · "+navn(k),krM(r[n].p[k].formue/d),"etter "+n+" år, dagens kroner",k===0)+
